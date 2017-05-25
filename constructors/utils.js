@@ -6,11 +6,11 @@ class Utils {
 	filterMentions(string) {
 
 		return string.replace(/<@&(\d+)>|<@!(\d+)>|<@(\d+)>|<#(\d+)>/g, (match, RID, NID, UID, CID) => {
-			if(UID && this.client.users.has(UID)) return `@${this.client.users.get(UID).username}`;
-			if(CID && this.client.channels.has(CID)) return `#${this.client.channels.get(CID).name}`;
+			if(UID && this.bot.client.users.has(UID)) return `@${this.client.users.get(UID).username}`;
+			if(CID && this.bot.client.channels.has(CID)) return `#${this.client.channels.get(CID).name}`;
 
 			if(RID || NID) {
-				for(const server of this.client.guilds.values()) {
+				for(const server of this.bot.client.guilds.values()) {
 					if(RID && server.roles.has(RID)) return `@${server.roles.get(RID).name}`;
 					if(NID && server.members.has(NID)) return `@${server.members.get(NID).displayName}`;
 				}
