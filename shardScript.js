@@ -1,0 +1,45 @@
+require('colors');
+const api = require('discord.js');
+
+const ResourceLoader = require('./constructors/resourceLoader.js');
+const CommandHandler = require('./constructors/commandHandler.js');
+const Utils = require('./constructors/utils.js');
+const discordCfg = require('./configs/discord.json');
+const botCfg = require('./configs/bot.json');
+const dbCfg = require('./configs/database.json');
+
+process.on('unhandledRejection', (err) => {
+	console.error(`${'[ERR]'.red} Unhandled rejection:\n${err}`); // eslint-disable-line no-console
+});
+
+class Bot {
+
+	constructor() {
+		this.api = api;
+		this.discordCfg = discordCfg;
+		this.botCfg = botCfg;
+		this.dbCfg = dbCfg;
+
+		this.resourceLoader = new ResourceLoader(this);
+		this.commandHandler = new CommandHandler(this);
+		this.utils = new Utils(this);
+
+		this.client = new api.Client({
+			token: discordCfg.token
+		});
+
+		this.resourceLoader.loadEvents();
+		this.resourceLoader.loadDependencies();
+		this.commands = this.resourceLoader.loadCommands();
+		this.db = this.resourceLoader.createDbInstance();
+
+		this.commandCooldowns = new api.Collection();
+
+		this.commandHandler.registerHandler();
+
+		this.client.login();
+	}
+
+}
+
+module.exports = new Bot();

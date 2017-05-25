@@ -1,0 +1,11 @@
+{
+  "host": "localhost",
+  "port": 5432,
+  "db": "fbot",
+  "user": "postgres",
+  "password": "",
+  "idleTimeout": 30000,
+  "pool": {
+    "maxClients": 10
+  }
+}

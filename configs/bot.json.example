@@ -1,0 +1,8 @@
+{
+  "prefix": "f!",
+  "admins": ["254696880120791040"],
+  "logChannel": "301444510330781696",
+  "messages": {
+    "serverJoinMessage": "ayup, im **{{BOTNAME}}**\nim your personal slave now\nif you want to know what commands i listen to, type **{{COMMAND_HELP}}**"
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "token": "no u",
+  "messageCacheLifetime": 900,
+	"messageSweepInterval": 300,
+	"fetchAllMembers": true,
+	"disableEveryone": true
+}
