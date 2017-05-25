@@ -1,27 +1,21 @@
 var figlet = require('figlet');
 module.exports = {
-	description: 'xd',
+	description: 'Converts text to ASCII',
 	category: 'Fun',
 	args: '(text)',
 	cooldown: 1000,
-	run: function(message, args) {
+	run: function(message, args, argsString) {
 
-		if(args.length === 0 || args.length > 1) return this.commandHandler.invalidArguments(message);
+		if(!argsString) return this.commandHandler.invalidArguments(message);
 
 
-		figlet(args[0], function(err, data) {
-		    if (err) {
-		        console.log('Something went wrong...');
-		        console.dir(err);
-		        return;
-		    }
-		    if (data.length > 2000) {
-				message.channel.send("Message is too long to send");
-		    } else {
-		    	message.channel.send(data, {
-		    		code: true
-		    	});
-		   }
+		figlet(argsString, function(err, data) {
+			if(err) return this.utils.handleCommandError(err);
+			if(data.length > 2000) return message.channel.send('The message you tried to convert is too long, try something shorter');
+
+			message.channel.send(data, {
+				code: true
+			});
 		});
 	}
 };
