@@ -65,6 +65,7 @@ class ResourceLoader {
 		this.bot.fs = require('fs');
 		this.bot.request = require('async-request');
 		this.bot.figlet = require('figlet');
+		this.bot.hd = require('humanize-duration');
 		this.bot.aiFilter = new aiFilter();
 	}
 

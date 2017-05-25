@@ -21,6 +21,7 @@
     "colors": "^1.1.2",
     "discord.js": "^11.1.0",
     "figlet": "^1.2.0",
+    "humanize-duration": "^3.10.0",
     "jimp": "^0.2.28",
     "node-fetch": "^1.7.0",
     "pg": "^6.2.3",

@@ -42,7 +42,7 @@ class Utils {
 
 			if(value.match(/^(<@!?)?\d+>?$/)) {
 				const id = value.replace(/[^\d]/g, '');
-				if(this.bot.client.users.has(id) && this.bot.client.users.get(id).avatar) imageURLs.push(this.bot.client.users.get(id).avatarURL);
+				if(this.bot.client.users.has(id) && this.bot.client.users.get(id).avatar) imageURLs.push(this.bot.client.users.get(id).avatarURL('png', 2048));
 			} else if(value.match(/^<:\w+:\d+>$/)) {
 				const id = value.replace(/[^\d]/g, '');
 				if(this.bot.client.emojis.has(id)) imageURLs.push(this.bot.client.emojis.get(id).url);
