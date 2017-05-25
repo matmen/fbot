@@ -64,6 +64,7 @@ class ResourceLoader {
 		this.bot.fetch = require('node-fetch');
 		this.bot.fs = require('fs');
 		this.bot.request = require('async-request');
+		this.bot.figlet = require('figlet');
 		this.bot.aiFilter = new aiFilter();
 	}
 
