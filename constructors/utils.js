@@ -38,7 +38,7 @@ class Utils {
 
 		for(const attachment of message.attachments.values()) imageURLs.push(attachment.url);
 		for(const value of args) {
-			if(value.match(/^(https?:\/\/)?([^\/]+\.?)*\.\w+(\/.*)*$/i)) return imageURLs.push(value);
+			if(value.match(/^(https?:\/\/)?([^\/]+\.?)*\.\w+(\/.*)*$/i)) imageURLs.push(value);
 
 			if(value.match(/^(<@!?)?\d+>?$/)) {
 				const id = value.replace(/[^\d]/g, '');
