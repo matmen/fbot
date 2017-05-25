@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/xmatmen/memecord#readme",
   "dependencies": {
+    "async-request": "^1.2.0",
     "colors": "^1.1.2",
     "discord.js": "^11.1.0",
     "jimp": "^0.2.28",
