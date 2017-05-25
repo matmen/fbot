@@ -32,7 +32,10 @@ class CommandHandler {
 							const expirationTime = cooldowns.get(command.name);
 							const timeRemaining = Math.ceil((expirationTime - Date.now()) / 1000);
 
-							if(Date.now() < expirationTime) return void message.channel.send(`:x: Cooldown! Please wait another ${timeRemaining} ${timeRemaining === 1 ? 'second' : 'seconds'} before using this command`);
+							if(Date.now() < expirationTime) {
+								if(!cooldowns.has('handler:cooldown') || Date.now() > cooldowns.get('handler:cooldown')) message.channel.send(`:x: Cooldown! Please wait another ${timeRemaining} ${timeRemaining === 1 ? 'second' : 'seconds'} before using this command`);
+								return cooldowns.set('handler:cooldown', Date.now() + 5000);
+							}
 						}
 
 						cooldowns.set(command.name, Date.now() + command.cooldown);
