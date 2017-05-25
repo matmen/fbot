@@ -7,13 +7,11 @@ module.exports = {
 
 		if(args.length === 0 || args.length > 3) return this.commandHandler.invalidArguments(message);
 
-		let xd = [this.utils.filterMentions(args[0].substring(0, 16)), this.utils.filterMentions(args[1 % args.length].substring(0, 16)), this.utils.filterMentions(args[2 % args.length].substring(0, 16))];
-
 		const s = (x) => String.prototype.repeat.call(' ', x);
 
-		const a = xd[0],
-			b = xd[1],
-			c = xd[2],
+		const a = this.utils.filterMentions(args[0].substring(0, 16)),
+			b = this.utils.filterMentions(args[1 % args.length].substring(0, 16)),
+			c = this.utils.filterMentions(args[2 % args.length].substring(0, 16)),
 			d = ' \n';
 
 		let reply = a + s(11) + a + s(5) + b + s(2) + c + d +
