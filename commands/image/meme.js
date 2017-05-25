@@ -1,25 +1,23 @@
-const request = require('async-request')
+const subs = ['https://www.reddit.com/r/memes/new.json?sort=new', 'https://www.reddit.com/r/me_irl/new.json?sort=new', 'https://www.reddit.com/r/wholesomememes/new.json?sort=new'];
+
 module.exports = {
-	description: 'Returns a random meme from /r/memes',
+	description: 'Sends a random meme',
 	category: 'Fun',
-	cooldown: 20 * 1000,
-	run: async function(message, args) {
+	cooldown: 5000,
+	run: async function(message) {
 
-		let response = await request('https://www.reddit.com/r/memes/new.json?sort=new')
-		try {
-			let body = JSON.parse(response.body),
-				children = body.data.children
-			let imageURL = children[Math.floor(Math.random() * children.length)].data.preview.images[0].source.url
+		const response = await this.request(subs[Math.floor(Math.random() * subs.length)]),
+			body = JSON.parse(response.body),
+			children = body.data.children,
+			childData = children[Math.floor(Math.random() * children.length)].data,
+			imageURL = childData.preview.images[0].source.url;
 
-			message.channel.send(
-				{
-					files: [
-						{attachment: imageURL, name: 'meme.png'}
-					]
-				}
-			);			
-		} catch(err) {
-			console.log(err)
-		}
+		message.channel.send(`Title: \`${childData.title}\`\nPosted by \`/u/${childData.author}\` in \`/${childData.subreddit_name_prefixed}\``, {
+			files: [{
+				attachment: imageURL,
+				name: 'meme.png'
+			}]
+		});
+
 	}
 };
