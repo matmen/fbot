@@ -1,6 +1,7 @@
 module.exports = {
-	description: 'Adds the american flag to the given argument',
+	description: 'sorry there was an error displaying this message',
 	args: '(@user | Attachment | URL)',
+	aliases: ['jpg'],
 	category: 'Fun',
 	cooldown: 5000,
 	run: async function(message, args) {
@@ -10,15 +11,13 @@ module.exports = {
 		if(images.length === 0) return this.commandHandler.invalidArguments(message);
 
 		let image = await this.utils.fetchImage(images[0]);
-		let overlay = await this.jimp.read('./assets/america.png');
-		overlay = await overlay.resize(image.bitmap.width, image.bitmap.height, this.jimp.RESIZE_BILINEAR);
-		image = await image.composite(overlay, 0, 0);
-		image = await this.utils.getBufferFromJimp(image);
+		image = await image.quality(1);
+		image = await this.utils.getBufferFromJimp(image, 'image/jpeg');
 
 		message.channel.send({
 			files: [{
 				attachment: image,
-				name: 'america.png'
+				name: 'jpeg.jpg'
 			}]
 		});
 

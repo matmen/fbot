@@ -7,7 +7,7 @@ module.exports = {
 
 		if(!argsString) return this.commandHandler.invalidArguments(message);
 
-		const text = this.utils.filterMentions(argsString).match(/.{0,15}/g).join('\n');
+		const text = this.utils.filterMentions(argsString).match(/.{1,15}/g).join('\n');
 
 		const asciiText = this.figlet.textSync(text);
 

@@ -3,7 +3,7 @@ module.exports = {
 	args: '(@user | Attachment | URL)',
 	aliases: ['vodka', 'cyka'],
 	category: 'Fun',
-	cooldown: 1000,
+	cooldown: 5000,
 	run: async function(message, args) {
 
 		const images = this.utils.getImagesFromMessage(message, args);

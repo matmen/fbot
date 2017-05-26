@@ -2,7 +2,7 @@ module.exports = {
 	description: 'Adds the ISIS flag to the given argument',
 	args: '(@user | Attachment | URL)',
 	category: 'Fun',
-	cooldown: 1000,
+	cooldown: 5000,
 	run: async function(message, args) {
 
 		const images = this.utils.getImagesFromMessage(message, args);

@@ -1,5 +1,5 @@
 module.exports = {
-	description: 'Adds the american flag to the given argument',
+	description: 'Worse than hitler',
 	args: '(@user | Attachment | URL)',
 	category: 'Fun',
 	cooldown: 5000,
@@ -9,16 +9,16 @@ module.exports = {
 
 		if(images.length === 0) return this.commandHandler.invalidArguments(message);
 
+		let raw = await this.jimp.read('./assets/worsethanhitler.png');
 		let image = await this.utils.fetchImage(images[0]);
-		let overlay = await this.jimp.read('./assets/america.png');
-		overlay = await overlay.resize(image.bitmap.width, image.bitmap.height, this.jimp.RESIZE_BILINEAR);
-		image = await image.composite(overlay, 0, 0);
+		image = await image.resize(141, 161);
+		image = await raw.composite(image, 46, 33);
 		image = await this.utils.getBufferFromJimp(image);
 
 		message.channel.send({
 			files: [{
 				attachment: image,
-				name: 'america.png'
+				name: 'worse than hitler.png'
 			}]
 		});
 

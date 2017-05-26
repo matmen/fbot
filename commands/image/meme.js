@@ -1,4 +1,4 @@
-const subs = ['https://www.reddit.com/r/memes/new.json?sort=new', 'https://www.reddit.com/r/me_irl/new.json?sort=new', 'https://www.reddit.com/r/wholesomememes/new.json?sort=new'];
+const subs = ['https://www.reddit.com/r/memes/new.json?sort=new', 'https://www.reddit.com/r/me_irl/new.json?sort=new', 'https://www.reddit.com/r/wholesomememes/new.json?sort=new', 'https://www.reddit.com/r/funny/new.json?sort=new'];
 
 module.exports = {
 	description: 'Sends a random meme',

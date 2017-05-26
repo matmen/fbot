@@ -1,5 +1,5 @@
 module.exports = {
-	description: 'Adds the american flag to the given argument',
+	description: 'Adds the brazzers logo to the given argument',
 	args: '(@user | Attachment | URL)',
 	category: 'Fun',
 	cooldown: 5000,
@@ -10,15 +10,15 @@ module.exports = {
 		if(images.length === 0) return this.commandHandler.invalidArguments(message);
 
 		let image = await this.utils.fetchImage(images[0]);
-		let overlay = await this.jimp.read('./assets/america.png');
-		overlay = await overlay.resize(image.bitmap.width, image.bitmap.height, this.jimp.RESIZE_BILINEAR);
-		image = await image.composite(overlay, 0, 0);
+		let overlay = await this.jimp.read('./assets/brazzers.png');
+		overlay = await overlay.resize(image.bitmap.width / 3, this.jimp.AUTO);
+		image = await image.composite(overlay, (image.bitmap.width - overlay.bitmap.width), (image.bitmap.height - overlay.bitmap.height));
 		image = await this.utils.getBufferFromJimp(image);
 
 		message.channel.send({
 			files: [{
 				attachment: image,
-				name: 'america.png'
+				name: 'brazzers.png'
 			}]
 		});
 

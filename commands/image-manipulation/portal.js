@@ -1,7 +1,6 @@
 module.exports = {
-	description: 'Taking out the trash',
+	description: 'Noose to another galaxy',
 	args: '(@user | Attachment | URL)',
-	aliases: ['walk', 'trash'],
 	category: 'Fun',
 	cooldown: 5000,
 	run: async function(message, args) {
@@ -10,18 +9,18 @@ module.exports = {
 
 		if(images.length === 0) return this.commandHandler.invalidArguments(message);
 
-		let raw = await this.jimp.read('./assets/adw.png');
-		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0x000000ff); //eslint-disable-line no-unused-vars
+		let raw = await this.jimp.read('./assets/portal.png');
+		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0xffffffff); //eslint-disable-line no-unused-vars
 		let image = await this.utils.fetchImage(images[0]);
-		image = await image.resize(128, 128);
-		frame = await frame.composite(image, 384, 114);
+		image = await image.resize(this.jimp.AUTO, 617);
+		frame = await frame.composite(image, (raw.bitmap.width / 2 - image.bitmap.width / 2), 419);
 		frame = await frame.composite(raw, 0, 0);
 		image = await this.utils.getBufferFromJimp(frame);
 
 		message.channel.send({
 			files: [{
 				attachment: image,
-				name: 'trash.png'
+				name: 'portal.png'
 			}]
 		});
 

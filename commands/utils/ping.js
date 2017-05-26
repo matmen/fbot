@@ -1,5 +1,5 @@
 module.exports = {
-	description: 'Converts text to ASCII',
+	description: 'Replies with the client\'s pings',
 	category: 'Fun',
 	args: '(text)',
 	cooldown: 1000,

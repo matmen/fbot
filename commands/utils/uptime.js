@@ -1,6 +1,6 @@
 module.exports = {
-	description: 'Converts text to ASCII',
-	category: 'Fun',
+	description: 'Replies with the bot\'s uptime',
+	category: 'Utils',
 	args: '(text)',
 	cooldown: 1000,
 	run: async function(message) {
