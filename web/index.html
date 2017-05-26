@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en" ng-app="fbot">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <base href="/">
+
+    <title>fbot</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/mdb.min.css" rel="stylesheet">
+    <link href="css/custom.css" rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+  </head>
+
+  <body>
+
+    <div class="wrapper">
+
+      <div class="header">
+
+        <a href="/" class="hidden-sm-down col-md-3 logo"></a>
+        <a href="/" class="hidden-md-up col-xs-3 logo-small"></a>
+
+      </div>
+
+      <div class="content" ng-view>
+
+        <div class="text-xs-center">
+          <p>This site needs JavaScript to work</p>
+          <a href="http://enable-javascript.com/" class="btn btn-info">Activate JavaScript</a>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="footer text-xs-center">
+      Copyright &copy; 2017 <a href="https://twitter.com/xmatmen">matmen</a>
+    </div>
+
+  </body>
+
+  <script src="js/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.min.js"></script>
+  <script src="/js/Chart.bundle.min.js"></script>
+  <script src="js/controller.js"></script>
+</html>

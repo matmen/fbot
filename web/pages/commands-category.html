@@ -1,0 +1,25 @@
+<div class="text-xs-center" ng-controller="CommandHelpController">
+
+  <h3>Commands</h3>
+  <small>Category: <code>{{category}}</code></small><br /><hr />
+
+  <div class="col-xs-12">
+    <div class="col-md-6">
+      <code>(argument)</code> => This argument is required
+    </div>
+    <div class="col-md-6">
+      <code>[argument]</code> => This argument is optional
+    </div>
+    <div class="col-md-12">
+      <code>argument..</code> => This argument may have whitespaces in it
+    </div><br /><br /><hr />
+
+    <div ng-repeat="command in commands | filter: isCategory">
+      <code>{{command.name}} {{command.args || ''}}</code><br />
+      <span>{{command.description}}</span><br />
+      <small ng-show="command.aliases">Aliases: <span ng-bind-html="'<code>' + command.aliases.join('&lt;/code&gt;, &lt;code&gt;') + '</code>'"></span></small>
+      <hr />
+    </div>
+  </div>
+
+</div>

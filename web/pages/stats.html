@@ -1,0 +1,49 @@
+<div class="text-xs-center" ng-controller="StatsController">
+
+  <h3>Stats</h3>
+  <small>Graphs are updated every hour &middot; Showing last month's stats</small><hr />
+
+  <div class="row">
+    <div class="col-xs-6">
+      <h3>Servers</h3>
+      <h5>{{currentStats.guilds || 'Fetching..'}}</h5>
+    </div>
+
+    <div class="col-xs-6">
+      <h3>Users</h3>
+      <h5>{{currentStats.users || 'Fetching..'}}</h5>
+    </div>
+  </div><hr />
+
+  <div class="canvasDiv">
+    <canvas id="serversCanvas"></canvas>
+  </div><hr />
+
+  <div class="canvasDiv">
+    <canvas id="usersCanvas"></canvas>
+  </div><hr />
+
+  <div class="row">
+    <div class="col-xs-6 canvasDiv">
+      <canvas id="messagesCanvas"></canvas>
+    </div>
+    <div class="col-xs-6 canvasDiv">
+      <canvas id="commandsCanvas"></canvas>
+    </div>
+  </div><hr />
+
+  <div class="canvasDiv">
+    <canvas id="commandsPercentageCanvas"></canvas>
+  </div><hr />
+
+  <div class="canvasDiv">
+    <canvas id="databaseSizeCanvas"></canvas>
+  </div><hr />
+
+</div>
+
+<style>
+.canvasDiv {
+  height: 350px;
+}
+</style>
