@@ -29,7 +29,7 @@ class Utils {
 
 	handleCommandError(err, msg, done) {
 		if(done) done();
-		console.error(`${`[Shard ${this.bot.client.shard.id}] [ERROR]`.red} Error:\n${err}`); // eslint-disable-line no-console
+		console.error(`${`[Shard ${this.bot.client.shard.id}] [ERROR]`.red} Error:\n${(err && err.stack) || err}`); // eslint-disable-line no-console
 		msg.channel.send(`Oh no! There was an unexpected error executing your command. Please try again later\n\`${err || 'Unknown Error'}\``);
 	}
 

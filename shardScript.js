@@ -24,9 +24,7 @@ class Bot {
 		this.commandHandler = new CommandHandler(this);
 		this.utils = new Utils(this);
 
-		this.client = new api.Client({
-			token: discordCfg.token
-		});
+		this.client = new api.Client(discordCfg);
 
 		this.resourceLoader.loadEvents();
 		this.resourceLoader.loadDependencies();
