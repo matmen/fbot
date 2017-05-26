@@ -7,13 +7,15 @@ module.exports = {
 
 		if(!argsString) return this.commandHandler.invalidArguments(message);
 
-		this.figlet(this.utils.filterMentions(argsString), function(err, data) {
-			if(err) return this.utils.handleCommandError(err, message);
-			if(data.length > 2000) return message.channel.send('The message you tried to convert is too long, try something shorter');
+		const text = this.utils.filterMentions(argsString).match(/.{0,15}/g).join('\n');
 
-			message.channel.send(data, {
-				code: true
-			});
+		const asciiText = this.figlet.textSync(text);
+
+		if(asciiText.length > 2000) return message.channel.send('The message you tried to convert is too long, try something shorter');
+
+		message.channel.send(asciiText, {
+			code: true
 		});
+
 	}
 };
