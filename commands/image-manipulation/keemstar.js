@@ -1,5 +1,5 @@
 module.exports = {
-	description: 'Im fast as fuck, :b:oi',
+	description: 'Im fast as fuck, 🅱oi',
 	args: '(@user | Attachment | URL)',
 	aliases: ['keem'],
 	category: 'Fun',
