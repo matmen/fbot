@@ -4,7 +4,7 @@ module.exports = {
 	args: '(query)',
 	cooldown: 1000,
 	adminOnly: true,
-	run: function(message, args, argsString) {
+	run: async function(message, args, argsString) {
 
 		if(!argsString) return this.commandHandler.invalidArguments(message);
 

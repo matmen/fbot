@@ -4,7 +4,7 @@ module.exports = {
 	aliases: ['dear'],
 	args: '(recipient) (message..)',
 	cooldown: 1000,
-	run: function(message, args) {
+	run: async function(message, args) {
 
 		if(args.length < 2) return this.commandHandler.invalidArguments(message);
 

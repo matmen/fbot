@@ -51,11 +51,9 @@ class CommandHandler {
 					const unsplitArgs = messageArguments.join(' ');
 					const splitArgs = this.splitArguments(unsplitArgs);
 
-					try {
-						command.run.call(this.bot, message, splitArgs, unsplitArgs);
-					} catch(err) {
+					command.run.call(this.bot, message, splitArgs, unsplitArgs).catch((err) => {
 						this.bot.utils.handleCommandError(err, message);
-					}
+					});
 
 				});
 

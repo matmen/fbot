@@ -5,7 +5,7 @@ module.exports = {
 	category: 'Fun',
 	args: '[line]',
 	cooldown: 1000,
-	run: function(message, args) {
+	run: async function(message, args) {
 		if(args.length === 1 && isNaN(args[0])) return this.commandHandler.invalidArguments(message);
 
 		const lineNr = args[0] ? parseInt(args[0]) : Math.floor(Math.random() * script.length);

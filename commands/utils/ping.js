@@ -3,7 +3,7 @@ module.exports = {
 	category: 'Fun',
 	args: '(text)',
 	cooldown: 1000,
-	run: function(message) {
+	run: async function(message) {
 
 		const startTime = Date.now();
 		message.channel.send(`:cloud: Websocket-Ping: \`${Math.round(this.client.ping)}ms\`\n:pencil: Websocket-Ping: \`Pinging..\``)

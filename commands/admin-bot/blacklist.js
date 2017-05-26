@@ -6,7 +6,7 @@ module.exports = {
 	args: '(type) (id)',
 	cooldown: 1000,
 	adminOnly: true,
-	run: function(message, args) {
+	run: async function(message, args) {
 		if(args.length !== 2) return this.commandHandler.invalidArguments(message);
 
 		const type = args[0].toLowerCase();

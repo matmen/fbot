@@ -23,7 +23,7 @@ module.exports = {
 	args: '(type) (id)',
 	cooldown: 1000,
 	adminOnly: true,
-	run: function(message, args) {
+	run: async function(message, args) {
 		if(args.length === 0) return this.commandHandler.invalidArguments(message);
 
 		const setting = args.shift();

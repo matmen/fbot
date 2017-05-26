@@ -3,7 +3,7 @@ module.exports = {
 	category: 'Botadmin',
 	cooldown: 1000,
 	adminOnly: true,
-	run: function(message) {
+	run: async function(message) {
 
 		message.channel.send('Speedtest running, this might take some time..').then((res) => {
 

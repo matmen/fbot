@@ -3,7 +3,7 @@ module.exports = {
 	category: 'Fun',
 	args: '(text) [text] [text]',
 	cooldown: 1000,
-	run: function(message, args) {
+	run: async function(message, args) {
 
 		if(args.length === 0 || args.length > 3) return this.commandHandler.invalidArguments(message);
 

@@ -3,7 +3,7 @@ module.exports = {
 	category: 'Utils',
 	args: '[@user]',
 	cooldown: 1000,
-	run: function(message, args) {
+	run: async function(message, args) {
 		let id = args[0];
 		if(!id) id = message.author.id;
 

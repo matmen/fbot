@@ -3,7 +3,7 @@ module.exports = {
 	category: 'Botadmin',
 	cooldown: 1000,
 	adminOnly: true,
-	run: function(message, args, argsString) {
+	run: async function(message, args, argsString) {
 
 		try {
 

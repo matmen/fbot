@@ -4,7 +4,7 @@ module.exports = {
 	aliases: ['delete'],
 	args: '[@user]',
 	cooldown: 1000,
-	run: function(message, args) {
+	run: async function(message, args) {
 
 		if(args.length === 0) {
 
