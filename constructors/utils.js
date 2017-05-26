@@ -89,15 +89,13 @@ class Utils {
 		return new Promise((resolve, reject) => {
 
 			this.bot.db.connect((err, cli, done) => {
-				if(err) reject(err);
+				if(err) return reject(err);
 
-				const callOnDone = (err, res) => {
+				cli.query(query, args || [], (err, res) => {
 					done();
-					if(err) reject(err);
+					if(err) return reject(err);
 					resolve(res);
-				};
-
-				cli.query(query, args || [], callOnDone);
+				});
 			});
 
 		});
