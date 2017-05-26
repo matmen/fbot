@@ -9,7 +9,7 @@ const botCfg = require('./configs/bot.json');
 const dbCfg = require('./configs/database.json');
 
 process.on('unhandledRejection', (err) => {
-	console.error(`${'[ERR]'.red} Unhandled rejection:\n${err}`); // eslint-disable-line no-console
+	console.error(`${'[ERR]'.red} Unhandled rejection:\n${(err && err.stack) || err}`); // eslint-disable-line no-console
 });
 
 class Bot {
@@ -37,7 +37,7 @@ class Bot {
 
 		this.commandHandler.registerHandler();
 
-		this.client.login();
+		this.client.login(discordCfg.token);
 	}
 
 }
