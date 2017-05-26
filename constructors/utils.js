@@ -83,6 +83,26 @@ class Utils {
 
 		});
 	}
+
+	queryDB(query, args) {
+
+		return new Promise((resolve, reject) => {
+
+			this.bot.db.connect((err, cli, done) => {
+				if(err) reject(err);
+
+				const callOnDone = (err, res) => {
+					done();
+					if(err) reject(err);
+					resolve(res);
+				};
+
+				cli.query(query, args || [], callOnDone);
+			});
+
+		});
+
+	}
 }
 
 module.exports = Utils;

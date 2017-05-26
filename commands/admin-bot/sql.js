@@ -8,17 +8,10 @@ module.exports = {
 
 		if(!argsString) return this.commandHandler.invalidArguments(message);
 
-		this.db.connect((err, cli, done) => {
-			if(err) return this.utils.handleCommandError(err, message, done);
+		const res = await this.utils.queryDB(argsString);
 
-			cli.query(argsString, (err, res) => {
-				if(err) return this.utils.handleCommandError(err, message, done);
-
-				message.channel.send(JSON.stringify(res.rows, null, 4), {
-					code: 'json'
-				});
-
-			});
+		message.channel.send(JSON.stringify(res.rows, null, 4), {
+			code: 'json'
 		});
 
 	}

@@ -31,19 +31,10 @@ module.exports = {
 
 		if(args.length === 0) {
 
-			this.db.connect((err, cli, done) => {
-				if(err) return this.utils.handleCommandError(err, message, done);
+			const res = await this.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', [setting, message.guild.id]);
 
-				cli.query('SELECT value FROM settings WHERE setting = $1 AND server = $2', [setting, message.guild.id], (err, res) => {
-					if(err) return this.utils.handleCommandError(err, message, done);
-					done();
-
-					if(res.rowCount === 0) return message.channel.send(`Setting \`${setting}\` is not set!`);
-
-					message.channel.send(`Setting \`${setting}\` is currently set to \`${res.rows[0].value}\``);
-				});
-
-			});
+			if(res.rowCount === 0) return message.channel.send(`Setting \`${setting}\` is not set!`);
+			message.channel.send(`Setting \`${setting}\` is currently set to \`${res.rows[0].value}\``);
 
 		} else {
 
@@ -55,31 +46,14 @@ module.exports = {
 
 				if(['clear', 'delete'].includes(value)) {
 
-					this.db.connect((err, cli, done) => {
-						if(err) return this.utils.handleCommandError(err, message, done);
-
-						cli.query('DELETE FROM settings WHERE server = $1 AND setting = $2', [message.guild.id, setting], (err) => {
-							if(err) return this.utils.handleCommandError(err, message, done);
-							done();
-
-							message.channel.send(`Setting \`${setting}\` has been cleared`);
-						});
-
-					});
+					await this.utils.queryDB('DELETE FROM settings WHERE server = $1 AND setting = $2', [message.guild.id, setting]);
+					message.channel.send(`Setting \`${setting}\` has been cleared`);
 
 				} else {
 
-					this.db.connect((err, cli, done) => {
-						if(err) return this.utils.handleCommandError(err, message, done);
-
-						cli.query('INSERT INTO settings VALUES ($1, $2, $3)', [message.guild.id, setting, value], (err) => {
-							if(err) return this.utils.handleCommandError(err, message, done);
-							done();
-
-							message.channel.send(`Setting \`${setting}\` has been set to \`${value}\``);
-						});
-
-					});
+					await this.utils.queryDB('DELETE FROM settings WHERE server = $1 AND setting = $2', [message.guild.id, setting]);
+					await this.utils.queryDB('INSERT INTO settings VALUES ($1, $2, $3)', [message.guild.id, setting, value]);
+					message.channel.send(`Setting \`${setting}\` has been set to \`${value}\``);
 
 				}
 

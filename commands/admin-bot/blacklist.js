@@ -14,35 +14,19 @@ module.exports = {
 
 		const id = args[1].replace(/[^\d]/g, '');
 
-		this.db.connect((err, cli, done) => {
-			if(err) return this.utils.handleCommandError(err, message, done);
+		const res = await this.utils.queryDB('SELECT FROM blacklists WHERE type = $1 AND id = $2', [type, id]);
 
-			cli.query('SELECT FROM blacklists WHERE type = $1 AND id = $2', [type, id], (err, res) => {
-				if(err) return this.utils.handleCommandError(err, message, done);
+		if(res.rowCount > 0) {
 
-				if(res.rowCount > 0) {
+			await this.utils.queryDB('DELETE FROM blacklists WHERE type = $1 AND id = $2', [type, id]);
+			message.channel.send(`Successfully unblacklisted ${type} \`${id}\``);
 
-					cli.query('DELETE FROM blacklists WHERE type = $1 AND id = $2', [type, id], (err) => {
-						if(err) return this.utils.handleCommandError(err, message, done);
-						done();
+		} else {
 
-						message.channel.send(`Successfully unblacklisted ${type} \`${id}\``);
-					});
+			await this.utils.queryDB('INSERT INTO blacklists VALUES ($1, $2)', [type, id]);
+			message.channel.send(`Successfully blacklisted ${type} \`${id}\``);
 
-				} else {
-
-					cli.query('INSERT INTO blacklists VALUES ($1, $2)', [type, id], (err) => {
-						if(err) return this.utils.handleCommandError(err, message, done);
-						done();
-
-						message.channel.send(`Successfully blacklisted ${type} \`${id}\``);
-					});
-
-				}
-
-			});
-
-		});
+		}
 
 	}
 };
