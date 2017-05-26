@@ -38,7 +38,9 @@ class Utils {
 
 		for(const attachment of message.attachments.values()) imageURLs.push(attachment.url);
 		for(const value of args) {
-			if(value.match(/^(https?:\/\/)?([^\/]+\.?)*\.\w+(\/.*)*$/i)) imageURLs.push(value);
+			if(!this.isImageArg(value)) continue;
+
+			if(this.isURL(value)) imageURLs.push(value);
 
 			if(value.match(/^(<@!?)?\d+>?$/)) {
 				const id = value.replace(/[^\d]/g, '');
@@ -52,6 +54,14 @@ class Utils {
 		return imageURLs;
 	}
 
+	isURL(value) {
+		return /^(https?:\/\/)?\w+(\.\w+)?\.\w+(\/[^\/]*)*$/.test(value);
+	}
+
+	isImageArg(value) {
+		return this.isURL(value) || /^(<@!?)?\d+>?$|^<:\w+:\d+>$/.test(value);
+	}
+
 	async fetchImage(url) {
 		const fetched = await this.bot.fetch(url, {
 			timeout: 10000,
@@ -63,10 +73,10 @@ class Utils {
 		return await this.bot.jimp.read(buffer);
 	}
 
-	getBufferFromJimp(img) {
+	getBufferFromJimp(img, mime) {
 		return new Promise((resolve, reject) => {
 
-			img.getBuffer(this.bot.jimp.MIME_PNG, (err, buffer) => {
+			img.getBuffer(mime || this.bot.jimp.MIME_PNG, (err, buffer) => {
 				if(err) reject(err);
 				resolve(buffer);
 			});
