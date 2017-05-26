@@ -20,15 +20,14 @@ const modifyableSettings = {
 module.exports = {
 	description: 'Sets a server specific setting',
 	category: 'Serveradmin',
-	args: '(type) (id)',
+	args: '(setting) | (setting) (value) | (setting) clear',
 	cooldown: 1000,
-	adminOnly: true,
 	run: async function(message, args) {
 		if(args.length === 0) return this.commandHandler.invalidArguments(message);
 
 		const setting = args.shift();
 
-		if(!modifyableSettings[setting]) return message.channel.send(`The setting \`${setting}\` does not exist`);
+		if(!modifyableSettings[setting]) return message.channel.send(`The setting \`${setting}\` does not exist\nAvailable settings:\n\n\`${Object.keys(modifyableSettings).join('` - `')}\``);
 
 		if(args.length === 0) {
 
@@ -46,40 +45,46 @@ module.exports = {
 
 			});
 
-		} else if(args.length >= 1) {
+		} else {
 
-			const value = modifyableSettings[setting](args.join(' '));
+			if(!message.member.hasPermission('ADMINISTRATOR') && !this.utils.isAdmin(message.author.id)) return message.channel.send('Only guild administrators can modify settings');
 
-			if(['clear', 'delete'].includes(value)) {
+			if(args.length >= 1) {
 
-				this.db.connect((err, cli, done) => {
-					if(err) return this.utils.handleCommandError(err, message, done);
+				const value = modifyableSettings[setting](args.join(' '));
 
-					cli.query('DELETE FROM settings WHERE server = $1 AND setting = $2', [message.guild.id, setting], (err) => {
+				if(['clear', 'delete'].includes(value)) {
+
+					this.db.connect((err, cli, done) => {
 						if(err) return this.utils.handleCommandError(err, message, done);
-						done();
 
-						message.channel.send(`Setting \`${setting}\` has been cleared`);
+						cli.query('DELETE FROM settings WHERE server = $1 AND setting = $2', [message.guild.id, setting], (err) => {
+							if(err) return this.utils.handleCommandError(err, message, done);
+							done();
+
+							message.channel.send(`Setting \`${setting}\` has been cleared`);
+						});
+
 					});
 
-				});
+				} else {
 
-			} else {
-
-				this.db.connect((err, cli, done) => {
-					if(err) return this.utils.handleCommandError(err, message, done);
-
-					cli.query('INSERT INTO settings VALUES ($1, $2, $3)', [message.guild.id, setting, value], (err) => {
+					this.db.connect((err, cli, done) => {
 						if(err) return this.utils.handleCommandError(err, message, done);
-						done();
 
-						message.channel.send(`Setting \`${setting}\` has been set to \`${value}\``);
+						cli.query('INSERT INTO settings VALUES ($1, $2, $3)', [message.guild.id, setting, value], (err) => {
+							if(err) return this.utils.handleCommandError(err, message, done);
+							done();
+
+							message.channel.send(`Setting \`${setting}\` has been set to \`${value}\``);
+						});
+
 					});
 
-				});
+				}
 
-			}
+			} else this.commandHandler.invalidArguments(message);
+
 		}
-
 	}
 };
