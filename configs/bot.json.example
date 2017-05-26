@@ -3,6 +3,7 @@
   "admins": ["254696880120791040"],
   "logChannel": "301444510330781696",
   "messages": {
-    "serverJoinMessage": "ayup, im **fbot**\nim your personal slave now\nif you want to know what commands i listen to, type **f!help**"
+    "serverJoinMessage": "ayup, im **fbot**\nim your personal slave now\nif you want to know what commands i listen to, type **f!help**",
+    "playing": "f!help || fbot.menchez.me"
   }
 }
