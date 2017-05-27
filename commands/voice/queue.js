@@ -7,9 +7,8 @@ module.exports = {
     let queue = this.songQueue.get(message.channel.id);
     if (queue) {
       let reply = "**SONG QUEUE**";
-      for(var x of queue) {
-        reply += "\n#**"+queue.indexOf(x) + "** - `" + x.video.title + "` by `" + x.video.author + "` requested by `" + x.video.title + "`"
-      }
+      for(var x of queue)
+        reply += `\n#**${queue.indexOf(x)}** - \`${x.video.title}\` by \`${x.video.author}\` requested by \`${x.user}\``;
       message.channel.send(reply);
     } else {
       message.channel.send("You have no songs in your queue ;( add some with "+this.botCfg.prefix+"play");
