@@ -18,7 +18,7 @@ module.exports = {
       
       connnection = await voiceChannel.join();
       
-      let playSong = (url) => {
+      let playSong = url => {
         const stream = this.ytdl(url, {
           filter: 'audioonly'
         });
@@ -28,8 +28,8 @@ module.exports = {
         
         dispatcher.on('end', () => {
           if (this.songQueue.has(message.guild.id) && this.songQueue.get(message.guild.id).length !== 0) {
-            const currentSong = this.songQueue.get(message.guild.id)[0];
-            
+            let currentSong = this.songQueue.get(message.guild.id)[0];
+
             playSong(currentSong.url);
             message.channel.send(":white_check_mark: SUCCESS\nplaying video `" + currentSong.video.title + "` By `" + currentSong.video.author + "`\n Requested by " + currentSong.user + "\nURL: " + "https://www.youtube.com/watch?v=" + video.id.videoId);
             this.songQueue.set(message.guild.id, (this.songQueue.get(message.guild.id).splice(1)));
@@ -42,18 +42,19 @@ module.exports = {
       }
       
       const videoUrl = "https://www.youtube.com/watch?v=" + (video.id.videoId);
-      if (this.stream.has(message.guild.id)) {
-        message.channel.send(`:white_check_mark: SUCCESS\nAdded video to queue \`${currentSong.video.title}\` By \`${currentSong.video.author}\`\n Requested by \`${currentSong.user}\`\nURL:  https://www.youtube.com/watch?v=${video.id.videoId}`);
-        
-        let queue = (this.songQueue.get(message.guild.id) || []);
-        queue.push({
+      let currentSong = {
           url: videoUrl,
           user: message.author.id,
           video: {
             author: video.snippet.channelTitle,
             title: video.snippet.title
           }
-        });
+        }
+      if (this.stream.has(message.guild.id)) {
+        message.channel.send(`:white_check_mark: SUCCESS\nAdded video to queue \`${currentSong.video.title}\` By \`${currentSong.video.author}\`\n Requested by \`${currentSong.user}\`\nURL:  https://www.youtube.com/watch?v=${video.id.videoId}`);
+        
+        let queue = (this.songQueue.get(message.guild.id) || []);
+        queue.push(currentSong);
         
         this.songQueue.set(message.guild.id, queue);
       } else {
