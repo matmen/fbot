@@ -74,6 +74,7 @@ class WebHelper {
 		});
 
 		app.use((req, res) => {
+			res.status(404);
 			res.sendFile(path.resolve('./web/index.html'));
 		});
 
