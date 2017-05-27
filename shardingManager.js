@@ -30,6 +30,6 @@ if(process.argv.includes('--prepare')) {
 
 	console.log(`${'[Shard M] [LAUNCH]'.red} Launching ${shardManager.totalShards.toString().cyan} shards, going to take ${`~${(isNaN(shardManager.totalShards) ? 0 : shardManager.totalShards - 1) * 7.5}s`.cyan}`); // eslint-disable-line no-console
 	shardManager.spawn();
-	if(!botCfg.disableWebHelper) webHelper.listen();
+	if(botCfg.disableWebHelper !== true) webHelper.listen();
 
 }
