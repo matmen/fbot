@@ -8,5 +8,6 @@
   },
   "websitePort": 443,
   "disableWebHelper": false,
-  "pastebinApiKey": ""
+  "pastebinApiKey": "",
+  "youtubeApiKey": ""
 }
