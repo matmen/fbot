@@ -1,7 +1,7 @@
 module.exports = {
-  description: 'Add a video to your stream queue',
+  description: 'Leave voice channel and remove queue',
   category: 'Fun',
-  args: '[unlisted] (title) (text)',
+  args: 'NONE',
   cooldown: 1000,
   run: async function(message, args) {
     if (message.member.hasPermission('ADMINISTRATOR')) {

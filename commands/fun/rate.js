@@ -29,7 +29,7 @@ module.exports = {
 
 		if(message.content.match(/(dm4uz3|195856437283520513|152172984373608449|150745989836308480|138680878539735040|m(y )?l(ittle )?p(ony)?|anime|weeb|senpai|n(igger|egro)|dark skin|j(ew|ude)|furr(y|i)|bron(y|i)|minion|discord\.io)/gi)) rating = 0;
 
-		if(message.content.match(/(arze|fbot|254696880120791040|277411860125581312|hitler|nazi|kkk|hydra|discord\.js)/gi)) rating = 10;
+		if(message.content.match(/(arze|254696880120791040|fbot|277411860125581312|lusid|210802688181534720|hitler|nazi|kkk|hydra|discord\.js)/gi)) rating = 10;
 
 		if(message.content.match(/german|🇩🇪|matmen|deutsch/gi)) rating = 'nein';
 

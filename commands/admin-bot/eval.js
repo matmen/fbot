@@ -12,7 +12,7 @@ module.exports = {
 
 			let result = eval(argsString);
 
-			result = JSON.stringify(result, null, 4);
+			result = JSON.stringify(result, null, 4) || 'undefined';
 
 			message.channel.send(result, {
 				code: 'js'

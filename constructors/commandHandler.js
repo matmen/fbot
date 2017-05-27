@@ -8,7 +8,7 @@ class CommandHandler {
 			if(!message.content.startsWith(this.bot.botCfg.prefix)) return;
 			if(message.author.bot || message.author.id === this.bot.client.id || message.channel.type === 'dm') return;
 
-			const messageArguments = message.content.replace(this.bot.botCfg.prefix, '').split(' ');
+			const messageArguments = message.content.replace(this.bot.botCfg.prefix, '').split(/ +/g);
 			const commandName = messageArguments.shift();
 
 			if(!this.bot.commands.has(commandName)) return;

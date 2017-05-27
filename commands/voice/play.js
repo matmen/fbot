@@ -1,7 +1,7 @@
 module.exports = {
-  description: 'Add a video to your stream queue',
+  description: 'Add a video to your stream queue/play a song',
   category: 'Fun',
-  args: '[unlisted] (title) (text)',
+  args: '(video search)',
   cooldown: 1000,
   run: async function(message, args) {
     const voiceChannel = message.member.voiceChannel;
