@@ -40,7 +40,7 @@ module.exports = {
       }
       const videoUrl = "https://www.youtube.com/watch?v=" + (video.id.videoId);
       if (this.stream.has(message.guild.id)) {
-        message.channel.send(":white_check_mark: SUCCESS\nAdded `" + video.snippet.title + "` By `" + video.snippet.channelTitle + "`To video queue\nURL: " + "https://www.youtube.com/watch?v=" + video.id.videoId);
+        message.channel.send(`:white_check_mark: SUCCESS\nAdded video to queue \`${currentSong.video.title}\` By \`${currentSong.video.author}\`\n Requested by \`${currentSong.user}\`\nURL:  https://www.youtube.com/watch?v=${video.id.videoId}`);
         
         let queue = (this.songQueue.get(message.guild.id) || []);
         queue.push({
@@ -53,7 +53,7 @@ module.exports = {
         });
         this.songQueue.set(message.guild.id, queue);
       } else {
-        message.channel.send(":white_check_mark: SUCCESS\nPlaying video `" + video.snippet.title + "` By `" + video.snippet.channelTitle + "` \nURL: " + "https://www.youtube.com/watch?v=" + video.id.videoId);
+        message.channel.send(`:white_check_mark: SUCCESS\nplaying video \`${currentSong.video.title}\` By \`${currentSong.video.author}\`\n Requested by \`${currentSong.user}\`\nURL:  https://www.youtube.com/watch?v=${video.id.videoId}`);
         playSong(videoUrl);
       }
     } catch (err) {
