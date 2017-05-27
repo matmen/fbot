@@ -26,8 +26,10 @@ module.exports = {
 		embed.setThumbnail(message.author.avatar ? ('https://cdn.discordapp.com/avatars/' + message.author.id + '/' + message.author.avatar + '.png?size=64') : 'https://discordapp.com/assets/322c936a8c8be1b803cd94861bdfa868.jpg?size=64');
 		embed.setColor(0x3366ff);
 
-		this.client.channels.get(this.botCfg.logChannel).send({
-			embed: embed
+		this.client.api.channels(this.botCfg.logChannel).messages.post({
+			data: {
+				embed: embed
+			}
 		}).then(() => message.channel.send('Feedback sent!'));
 
 	}

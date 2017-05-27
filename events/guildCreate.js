@@ -15,8 +15,10 @@ module.exports = function() {
 		embed.setFooter('Server ID: ' + guild.id);
 		embed.setColor(botFarm ? 0xffff33 : 0x33ff33);
 
-		this.client.channels.get(this.botCfg.logChannel).send({
-			embed: embed
+		this.client.api.channels(this.botCfg.logChannel).messages.post({
+			data: {
+				embed: embed
+			}
 		});
 
 		guild.defaultChannel.send(this.botCfg.messages.serverJoinMessage);
