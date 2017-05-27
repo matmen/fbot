@@ -15,7 +15,9 @@ module.exports = {
       let video = body.items[0];
 
       if (!voiceChannel) return message.reply(`Please be in a voice channel first!`);
+      
       connnection = await voiceChannel.join();
+      
       let playSong = (url) => {
         const stream = this.ytdl(url, {
           filter: 'audioonly'
@@ -27,6 +29,7 @@ module.exports = {
         dispatcher.on('end', () => {
           if (this.songQueue.has(message.guild.id) && this.songQueue.get(message.guild.id).length !== 0) {
             const currentSong = this.songQueue.get(message.guild.id)[0];
+            
             playSong(currentSong.url);
             message.channel.send(":white_check_mark: SUCCESS\nplaying video `" + currentSong.video.title + "` By `" + currentSong.video.author + "`\n Requested by " + currentSong.user + "\nURL: " + "https://www.youtube.com/watch?v=" + video.id.videoId);
             this.songQueue.set(message.guild.id, (this.songQueue.get(message.guild.id).splice(1)));
@@ -35,9 +38,9 @@ module.exports = {
             this.songQueue.delete(message.guild.id);
             voiceChannel.leave();
           }
-        });
-        
+        });  
       }
+      
       const videoUrl = "https://www.youtube.com/watch?v=" + (video.id.videoId);
       if (this.stream.has(message.guild.id)) {
         message.channel.send(`:white_check_mark: SUCCESS\nAdded video to queue \`${currentSong.video.title}\` By \`${currentSong.video.author}\`\n Requested by \`${currentSong.user}\`\nURL:  https://www.youtube.com/watch?v=${video.id.videoId}`);
@@ -51,6 +54,7 @@ module.exports = {
             title: video.snippet.title
           }
         });
+        
         this.songQueue.set(message.guild.id, queue);
       } else {
         message.channel.send(`:white_check_mark: SUCCESS\nplaying video \`${currentSong.video.title}\` By \`${currentSong.video.author}\`\n Requested by \`${currentSong.user}\`\nURL:  https://www.youtube.com/watch?v=${video.id.videoId}`);
@@ -62,6 +66,7 @@ module.exports = {
           content: (':x:' + err)
         }
       });
+      
       return message.channel.send(":x: There has been an error with requesting videos from youtube, please try agian later")
     }
   }
