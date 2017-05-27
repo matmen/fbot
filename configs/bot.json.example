@@ -7,5 +7,6 @@
     "playing": "f!help || fbot.menchez.me"
   },
   "websitePort": 443,
-  "disableWebHelper": false
+  "disableWebHelper": false,
+  "pastebinApiKey": ""
 }
