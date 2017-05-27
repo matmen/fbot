@@ -6,5 +6,6 @@
     "serverJoinMessage": "ayup, im **fbot**\nim your personal slave now\nif you want to know what commands i listen to, type **f!help**",
     "playing": "f!help || fbot.menchez.me"
   },
-  "websitePort": 443
+  "websitePort": 443,
+  "disableWebHelper": false
 }

@@ -1,6 +1,7 @@
 require('colors');
 const api = require('discord.js');
 const discordCfg = require('./configs/discord.json');
+const botCfg = require('./configs/bot.json');
 const prepareDb = require('./constructors/prepareDb.js');
 const createTables = require('./constructors/createTables.js');
 const WebHelper = require('./constructors/webHelper.js');
@@ -29,6 +30,6 @@ if(process.argv.includes('--prepare')) {
 
 	console.log(`${'[Shard M] [LAUNCH]'.red} Launching ${shardManager.totalShards.toString().cyan} shards, going to take ${`~${(isNaN(shardManager.totalShards) ? 0 : shardManager.totalShards - 1) * 7.5}s`.cyan}`); // eslint-disable-line no-console
 	shardManager.spawn();
-	webHelper.listen();
+	if(!botCfg.disableWebHelper) webHelper.listen();
 
 }
