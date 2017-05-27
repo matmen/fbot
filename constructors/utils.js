@@ -65,7 +65,7 @@ class Utils {
 	async fetchImage(url) {
 		const fetched = await this.bot.fetch(url, {
 			timeout: 10000,
-			size: 1000000
+			size: 3000000
 		});
 
 		const buffer = await fetched.buffer();
