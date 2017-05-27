@@ -24,7 +24,7 @@ class WebHelper {
 
 		app.get('/api/stats', async(req, res) => {
 			try {
-				const stats = await this.queryDB('SELECT * FROM stats ORDER BY time DESC');
+				const stats = await this.queryDB('SELECT * FROM stats WHERE time >= $1 ORDER BY time DESC', [Date.now() - 30 * 24 * 60 * 60 * 1000]);
 				res.end(JSON.stringify(stats.rows));
 			} catch(err) {
 				res.status(500);

@@ -48,38 +48,38 @@ app.controller('StatsController', ($scope, $http) => {
 		for(const stat of res.data) {
 
 			servers.push({
-				x: res.data[stat].time,
-				y: res.data[stat].servers
+				x: parseInt(stat.time),
+				y: parseInt(stat.servers)
 			});
 
 			users.push({
-				x: res.data[stat].time,
-				y: res.data[stat].users
+				x: parseInt(stat.time),
+				y: parseInt(stat.users)
 			});
 
 			messages.push({
-				x: res.data[stat].time,
-				y: res.data[stat].messages
+				x: parseInt(stat.time),
+				y: parseInt(stat.messages)
 			});
 
 			commands.push({
-				x: res.data[stat].time,
-				y: res.data[stat].commands
+				x: parseInt(stat.time),
+				y: parseInt(stat.commands)
 			});
 
 			channels.push({
-				x: res.data[stat].time,
-				y: res.data[stat].channels
+				x: parseInt(stat.time),
+				y: parseInt(stat.channels)
 			});
 
 			databaseSize.push({
-				x: res.data[stat].time,
-				y: res.data[stat].dbSize / 1024 ** 2
+				x: parseInt(stat.time),
+				y: stat.dbsize / 1024 ** 2
 			});
 
 			commandsPercentage.push({
-				x: res.data[stat].time,
-				y: res.data[stat].commands / res.data[stat].messages * 100
+				x: parseInt(stat.time),
+				y: parseInt(stat.commands) / parseInt(stat.messages) * 100
 			});
 
 		}
