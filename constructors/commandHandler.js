@@ -4,7 +4,7 @@ class CommandHandler {
 	}
 
 	registerHandler() {
-		this.bot.client.on('message', (message) => {
+		this.bot.client.on('message', async(message) => {
 			if(!message.content.startsWith(this.bot.botCfg.prefix)) return;
 			if(message.author.bot || message.author.id === this.bot.client.id || message.channel.type === 'dm') return;
 
@@ -13,54 +13,48 @@ class CommandHandler {
 
 			if(!this.bot.commands.has(commandName)) return;
 
-			this.bot.db.connect((err, cli, done) => {
-				if(err) return this.bot.utils.handleCommandError(err, message, done);
+			const isBlacklisted = await this.bot.utils.queryDB('SELECT * FROM blacklists WHERE (type = \'server\' AND id = $1) OR (type = \'channel\' AND id = $2) OR (type = \'user\' AND id = $3)', [message.guild.id, message.channel.id, message.author.id]);
+			if(isBlacklisted.rowCount > 0) return;
 
-				cli.query('SELECT * FROM blacklists WHERE (type = \'server\' AND id = $1) OR (type = \'channel\' AND id = $2) OR (type = \'user\' AND id = $3)', [message.guild.id, message.channel.id, message.author.id], (err, res) => {
-					if(err) return this.bot.utils.handleCommandError(err, message, done);
-					if(res.rowCount > 0) return done();
+			let command = this.bot.commands.get(commandName);
+			if(command.alias) command = this.bot.commands.get(command.name);
+			if(command.adminOnly && !this.bot.botCfg.admins.includes(message.author.id)) return void message.channel.send(':x: Sorry, but you don\'t have permission to use this command');
 
-					let command = this.bot.commands.get(commandName);
-					if(command.alias) command = this.bot.commands.get(command.name);
-					if(command.adminOnly && !this.bot.botCfg.admins.includes(message.author.id)) return void message.channel.send(':x: Sorry, but you don\'t have permission to use this command');
+			if(this.bot.commandCooldowns.has(message.author.id)) {
 
-					if(this.bot.commandCooldowns.has(message.author.id)) {
+				const cooldowns = this.bot.commandCooldowns.get(message.author.id);
 
-						const cooldowns = this.bot.commandCooldowns.get(message.author.id);
+				if(cooldowns.has(command.name)) {
+					const expirationTime = cooldowns.get(command.name);
+					const timeRemaining = Math.ceil((expirationTime - Date.now()) / 1000) * 1000;
 
-						if(cooldowns.has(command.name)) {
-							const expirationTime = cooldowns.get(command.name);
-							const timeRemaining = Math.ceil((expirationTime - Date.now()) / 1000) * 1000;
-
-							if(Date.now() < expirationTime) {
-								if(!cooldowns.has('handler:cooldown') || Date.now() > cooldowns.get('handler:cooldown')) message.channel.send(`:x: Cooldown! Please wait another ${this.bot.hd(timeRemaining)} before using this command`);
-								return cooldowns.set('handler:cooldown', Date.now() + 5000);
-							}
-						}
-
-						cooldowns.set(command.name, Date.now() + command.cooldown);
-
-					} else {
-						const cooldowns = new this.bot.api.Collection();
-
-						cooldowns.set(command.name, Date.now() + command.cooldown);
-
-						this.bot.commandCooldowns.set(message.author.id, cooldowns);
+					if(Date.now() < expirationTime) {
+						if(!cooldowns.has('handler:cooldown') || Date.now() > cooldowns.get('handler:cooldown')) message.channel.send(`:x: Cooldown! Please wait another ${this.bot.hd(timeRemaining)} before using this command`);
+						return cooldowns.set('handler:cooldown', Date.now() + 5000);
 					}
+				}
 
-					const unsplitArgs = messageArguments.join(' ');
-					const splitArgs = this.splitArguments(unsplitArgs);
+				cooldowns.set(command.name, Date.now() + command.cooldown);
 
-					message.channel.startTyping();
-					message.channel.stopTyping(true);
+			} else {
+				const cooldowns = new this.bot.api.Collection();
 
-					command.run.call(this.bot, message, splitArgs, unsplitArgs).catch((err) => {
-						this.bot.utils.handleCommandError(err, message);
-					});
+				cooldowns.set(command.name, Date.now() + command.cooldown);
 
-				});
+				this.bot.commandCooldowns.set(message.author.id, cooldowns);
+			}
 
+			const unsplitArgs = messageArguments.join(' ');
+			const splitArgs = this.splitArguments(unsplitArgs);
+
+			message.channel.startTyping();
+			message.channel.stopTyping(true);
+
+			command.run.call(this.bot, message, splitArgs, unsplitArgs).catch((err) => {
+				this.bot.utils.handleCommandError(err, message);
 			});
+
+			this.bot.utils.queryDB('INSERT INTO commands VALUES ($1, $2, $3, $4, $5)', [message.id, command.name, message.author.id, message.channel.id, message.guild.id]);
 
 		});
 	}

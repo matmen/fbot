@@ -3,33 +3,30 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 const path = require('path');
-const postgres = require('pg');
 
-const dbCfg = require('../configs/database.json');
 const botCfg = require('../configs/bot.json');
 
 class WebHelper {
 
-	constructor(shardManager) {
+	constructor(shardManager, db) {
 		this.shardManager = shardManager;
-		this.db = this.createDbInstance();
-		this.botCfg = botCfg;
+		this.db = db;
 		this.commands = this.indexCommands();
 	}
 
 	listen() {
-		app.set('views', './web/pages/');
-
 		app.use(express.static('./web/'));
 
 		app.get('/api/stats', async(req, res) => {
+
 			try {
-				const stats = await this.queryDB('SELECT * FROM stats WHERE time >= $1 ORDER BY time DESC', [Date.now() - 30 * 24 * 60 * 60 * 1000]);
+				const stats = await this.db.query('SELECT * FROM stats WHERE time >= $1 ORDER BY time DESC', [Date.now() - 30 * 24 * 60 * 60 * 1000]);
 				res.end(JSON.stringify(stats.rows));
 			} catch(err) {
 				res.status(500);
 				res.end(err.message);
 			}
+
 		});
 
 		app.get('/api/bot', async(req, res) => {
@@ -85,31 +82,6 @@ class WebHelper {
 		}, app);
 
 		server.listen(botCfg.websitePort);
-	}
-
-	createDbInstance() {
-		return new postgres.Pool({
-			user: dbCfg.user,
-			password: dbCfg.password,
-			database: dbCfg.db,
-			host: dbCfg.host,
-			port: dbCfg.port,
-			max: dbCfg.pool.maxClients,
-			idleTimeoutMillis: dbCfg.idleTimeout
-		});
-	}
-
-	queryDB(query, args) {
-		return new Promise((resolve, reject) => {
-			this.db.connect((err, cli, done) => {
-				if(err) return reject(err);
-				cli.query(query, args || [], (err, res) => {
-					done();
-					if(err) return reject(err);
-					resolve(res);
-				});
-			});
-		});
 	}
 
 	indexCommands() {
