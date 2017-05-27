@@ -2,8 +2,11 @@ module.exports = {
 	description: 'Evaluates code on the shard',
 	category: 'Botadmin',
 	cooldown: 1000,
+	args: '(code..)',
 	adminOnly: true,
 	run: async function(message, args, argsString) {
+
+		if(!argsString) return this.commandHandler.invalidArguments(message);
 
 		try {
 

@@ -13,7 +13,7 @@ class ResourceLoader {
 
 		const loadCommandsIn = (dir) => {
 
-			fs.readdirSync(dir).forEach((subName) => {
+			for(const subName of fs.readdirSync(dir)) {
 
 				if(fs.statSync(path.resolve(dir, subName)).isDirectory()) {
 
@@ -39,7 +39,7 @@ class ResourceLoader {
 
 				}
 
-			});
+			}
 
 		};
 
@@ -49,11 +49,9 @@ class ResourceLoader {
 	}
 
 	loadEvents() {
-		const eventFiles = fs.readdirSync('./events/');
-
-		eventFiles.forEach((fileName) => {
+		for(const fileName of fs.readdirSync('./events/')) {
 			require(path.resolve('./events/', fileName)).call(this.bot);
-		});
+		}
 	}
 
 	loadDependencies() {

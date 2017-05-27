@@ -1,7 +1,7 @@
 module.exports = {
 	description: 'Executes SQL queries serverside',
 	category: 'Botadmin',
-	args: '(query)',
+	args: '(query..)',
 	cooldown: 1000,
 	adminOnly: true,
 	run: async function(message, args, argsString) {
