@@ -18,6 +18,8 @@ module.exports = {
 		let body = JSON.parse(ytRequest.body);
 		let video = body.items[0];
 
+		if(!video) return message.channel.send(':x: The requested video could not be found!');
+
 		const connnection = await voiceChannel.join();
 
 		let playSong = url => {
