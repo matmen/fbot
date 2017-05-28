@@ -19,8 +19,8 @@ module.exports = {
 		const shownServers = servers.array().slice(-3);
 
 		const topCommand = {
-			command: topCommandStats.rows[0].command,
-			uses: topCommandStats.rows[0].count
+			command: topCommandStats.rows[0] && topCommandStats.rows[0].command,
+			uses: topCommandStats.rows[0] && topCommandStats.rows[0].count
 		};
 
 		let body = `Seen on ${servers.size} servers (Shard ${this.client.shard.id}): `;
