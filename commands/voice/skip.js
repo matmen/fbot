@@ -26,11 +26,9 @@ module.exports = {
 
 		if(forVotes <= againstVotes) {
 			skipVote.edit(':x: Not enough votes to skip song');
-			return skipVote.clearReactions();
 		}
 
 		skipVote.edit(':fast_forward: Skipping current song');
-		skipVote.clearReactions();
 		this.voiceStreams.get(message.guild.id).end();
 	}
 };
