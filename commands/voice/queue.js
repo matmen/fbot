@@ -3,9 +3,9 @@ module.exports = {
 	category: 'Voice',
 	cooldown: 1000,
 	run: async function(message) {
-		if(!this.songQueues.has(message.channel.id)) return message.channel.send(`The song queue is empty, add songs using ${this.botCfg.prefix}play`);
+		if(!this.songQueues.has(message.guild.id)) return message.channel.send(`The song queue is empty, add songs using ${this.botCfg.prefix}play`);
 
-		const queue = this.songQueues.get(message.channel.id);
+		const queue = this.songQueues.get(message.guild.id);
 
 		if(!queue || queue.length === 0) return message.channel.send('There are no songs queued');
 
