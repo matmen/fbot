@@ -1,7 +1,6 @@
 module.exports = {
-	description: 'Leave voice channel and remove queue',
-	category: 'Fun',
-	args: 'NONE',
+	description: 'Leaves the current voice channel and clears the song queue',
+	category: 'Voice',
 	cooldown: 1000,
 	run: async function(message) {
 		const channel = message.guild.members.get(this.client.user.id).voiceChannel;

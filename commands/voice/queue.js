@@ -1,7 +1,6 @@
 module.exports = {
-	description: 'Returns your video queue',
-	category: 'Fun',
-	args: 'NONE',
+	description: 'Replies with the current queue',
+	category: 'Voice',
 	cooldown: 1000,
 	run: async function(message) {
 		if(!this.songQueues.has(message.channel.id)) return message.channel.send(`The song queue is empty, add songs using ${this.botCfg.prefix}play`);

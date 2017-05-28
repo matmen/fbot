@@ -1,8 +1,8 @@
 module.exports = {
-	description: 'Add a video to your stream queue/play a song',
-	category: 'Fun',
+	description: 'Plays a song or adds it to the queue',
+	category: 'Voice',
 	args: '(query..)',
-	cooldown: 5000,
+	cooldown: 10000,
 	run: async function(message, args, argsString) {
 		if(!argsString) return this.commandHandler.invalidArguments(message);
 

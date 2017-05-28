@@ -1,8 +1,7 @@
 module.exports = {
-	description: 'Returns your video queue',
-	category: 'Fun',
-	args: 'NONE',
-	cooldown: 10 * 1000,
+	description: 'Starts a vote to skip the current song',
+	category: 'Voice',
+	cooldown: 10000,
 	run: async function(message) {
 		if(!this.voiceStreams.has(message.guild.id) || !message.guild.members.get(this.client.user.id).voiceChannel) return message.channel.send(':x: The bot isn\'t playing anything!');
 
