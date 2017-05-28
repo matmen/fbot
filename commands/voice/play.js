@@ -31,17 +31,16 @@ module.exports = {
 			this.voiceStreams.set(message.guild.id, dispatcher);
 
 			dispatcher.on('end', () => {
-				if(!this.songQueues.has(message.guild.id)) return;
-
-				if(this.songQueues.get(message.guild.id).length !== 0) {
+				if(this.songQueues.has(message.guild.id) && this.songQueues.get(message.guild.id).length !== 0) {
 					let currentSong = this.songQueues.get(message.guild.id)[0];
 
 					playSong(currentSong.url);
 					message.channel.send(`Now playing: \`${currentSong.video.title}\` by \`${currentSong.video.author}\`\nQueued by \`${this.client.users.has(currentSong.user) ? this.client.users.get(currentSong.user).tag : 'Unknown#0000'}\`\n\nURL: ${currentSong.url}`);
 					this.songQueues.set(message.guild.id, (this.songQueues.get(message.guild.id).splice(1)));
 				} else {
-					message.channel.send('No more songs in queue, leaving channel');
+					message.channel.send(':stop_button: No more songs in queue, leaving channel');
 					this.songQueues.delete(message.guild.id);
+					this.voiceStreams.delete(message.guild.id);
 					voiceChannel.leave();
 				}
 			});
