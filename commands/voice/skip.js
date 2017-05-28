@@ -6,7 +6,7 @@ module.exports = {
 		if(!this.voiceStreams.has(message.guild.id) || !message.guild.members.get(this.client.user.id).voiceChannel) return message.channel.send(':x: The bot isn\'t playing anything!');
 
 		if(message.member.hasPermission('ADMINISTRATOR')) {
-			skipVote.edit(':fast_forward: Sudo-Skipping current song');
+			message.channel.send(':fast_forward: Sudo-Skipping current song');
 			return this.voiceStreams.get(message.guild.id).end();
 		}
 
