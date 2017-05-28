@@ -7,7 +7,7 @@ module.exports = {
 
 		let userID = message.author.id;
 
-		if(args.length === 1 && args[0].match(/^(<@!?)\d+>$/)) userID = args[0].replace(/[^\d]/g, '');
+		if(args.length === 1 && args[0].match(/^(<@!?)?\d+>?$/)) userID = args[0].replace(/[^\d]/g, '');
 
 		const stats = await this.utils.queryDB('SELECT (SELECT count(*) FROM messages WHERE userid = $1) messages, (SELECT count(*) FROM commands WHERE userid = $1) commands', [userID]);
 		const topCommandStats = await this.utils.queryDB('SELECT command,count(*) FROM commands WHERE userid = $1 GROUP BY 1 ORDER BY count(*) DESC LIMIT 1', [userID]);
