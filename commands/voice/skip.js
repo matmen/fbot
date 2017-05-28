@@ -24,9 +24,7 @@ module.exports = {
 		const forVotes = reactions.has('✅') ? reactions.get('✅').users.size : 0;
 		const againstVotes = reactions.get('❎') ? reactions.get('❎').users.size : 0;
 
-		if(forVotes <= againstVotes) {
-			skipVote.edit(':x: Not enough votes to skip song');
-		}
+		if(forVotes <= againstVotes) return skipVote.edit(':x: Not enough votes to skip song');
 
 		skipVote.edit(':fast_forward: Skipping current song');
 		this.voiceStreams.get(message.guild.id).end();
