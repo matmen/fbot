@@ -35,7 +35,7 @@ module.exports = {
 					let currentSong = this.songQueues.get(message.guild.id)[0];
 
 					playSong(currentSong.url);
-					message.channel.send(`Now playing: \`${currentSong.video.title}\` by \`${currentSong.video.author}\`\nQueued by \`${this.client.users.has(currentSong.user) ? this.client.users.get(currentSong.user).tag : 'Unknown#0000'}\`\n\nURL: ${currentSong.url}`);
+					message.channel.send(`Now playing: \`${currentSong.video.title}\` by \`${currentSong.video.author}\`\nQueued by \`${this.client.users.has(currentSong.user) ? this.client.users.get(currentSong.user).tag : 'Unknown#0000'}\`\n\nURL: <${currentSong.url}>`);
 					this.songQueues.set(message.guild.id, (this.songQueues.get(message.guild.id).splice(1)));
 				} else {
 					message.channel.send(':stop_button: No more songs in queue, leaving channel');
@@ -60,16 +60,16 @@ module.exports = {
 		if(this.voiceStreams.has(message.guild.id)) {
 			let queue = this.songQueues.get(message.guild.id) || [];
 
-			if(queue.filter((song) => song.url === currentSong.url).length > 0) return message.channel.send(`:x: This song is already queued. See the queued songs with ${this.botCfg.prefix}queue`);
+			if(queue.filter((song) => song.url === currentSong.url).length > 0) return message.channel.send(`:x: This song is already queued. See the queued songs with \`${this.botCfg.prefix}queue\``);
 
 			queue.push(currentSong);
 
 			this.songQueues.set(message.guild.id, queue);
 
-			message.channel.send(`Added to queue: \`${currentSong.video.title}\` by \`${currentSong.video.author}\`\nQueued by \`${this.client.users.has(currentSong.user) ? this.client.users.get(currentSong.user).tag : 'Unknown#0000'}\`\n\nURL: ${currentSong.url}`);
+			message.channel.send(`Added to queue: \`${currentSong.video.title}\` by \`${currentSong.video.author}\`\nQueued by \`${this.client.users.has(currentSong.user) ? this.client.users.get(currentSong.user).tag : 'Unknown#0000'}\`\n\nURL: <${currentSong.url}>`);
 		} else {
 			playSong(videoUrl);
-			message.channel.send(`Now playing: \`${currentSong.video.title}\` by \`${currentSong.video.author}\`\nQueued by \`${this.client.users.has(currentSong.user) ? this.client.users.get(currentSong.user).tag : 'Unknown#0000'}\`\n\nURL: ${currentSong.url}`);
+			message.channel.send(`Now playing: \`${currentSong.video.title}\` by \`${currentSong.video.author}\`\nQueued by \`${this.client.users.has(currentSong.user) ? this.client.users.get(currentSong.user).tag : 'Unknown#0000'}\`\n\nURL: <${currentSong.url}>`);
 		}
 
 	}
