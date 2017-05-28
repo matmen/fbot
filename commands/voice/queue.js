@@ -15,7 +15,7 @@ module.exports = {
 		let id = 0;
 		for(const song of queue) {
 			id++;
-			reply += `**${id}**: \`${song.video.title}\` by \`${song.video.author}\` - Queued by \`${this.client.users.has(song.user) ? this.client.users.get(song.user).tag : 'Unknown#0000'}\``;
+			reply += `**${id}**: \`${song.video.title}\` by \`${song.video.author}\` - Queued by \`${this.client.users.has(song.user) ? this.client.users.get(song.user).tag : 'Unknown#0000'}\`\n`;
 		}
 
 		message.channel.send(reply);
