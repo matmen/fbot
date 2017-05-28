@@ -1,6 +1,6 @@
 module.exports = {
 	description: 'Create a new pastebin',
-	category: 'Fun',
+	category: 'Utils',
 	aliases: ['pastebin'],
 	args: '[unlisted] (title) (text..)',
 	cooldown: 1000,
