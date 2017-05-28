@@ -1,7 +1,8 @@
 module.exports = {
 	description: 'Overlays all images over each other',
-	args: '(@user | Attachment | URL)..',
+	args: '(@user | Attachment | URL)+',
 	category: 'Fun',
+	aliases: ['merge'],
 	cooldown: 5000,
 	run: async function(message, args) {
 
@@ -30,7 +31,7 @@ module.exports = {
 		message.channel.send({
 			files: [{
 				attachment: result,
-				name: 'reminder.png'
+				name: 'composite.png'
 			}]
 		});
 
