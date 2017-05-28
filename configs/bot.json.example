@@ -10,5 +10,7 @@
   "disableWebHelper": false,
   "pastebinApiKey": "",
   "youtubeApiKey": "",
+  "bitlyLogin": "",
+  "bitlyApiKey": "",
   "shards": 2
 }
