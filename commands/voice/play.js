@@ -31,7 +31,7 @@ module.exports = {
             let currentSong = this.songQueue.get(message.guild.id)[0];
 
             playSong(currentSong.url);
-            message.channel.send(":white_check_mark: SUCCESS\nplaying video `" + currentSong.video.title + "` By `" + currentSong.video.author + "`\n Requested by " + currentSong.user + "\nURL: " + currentSong.url);
+            message.channel.send(":white_check_mark: SUCCESS\nPlaying video `" + currentSong.video.title + "` By `" + currentSong.video.author + "`\n Requested by " + currentSong.user + "\nURL: " + currentSong.url);
             this.songQueue.set(message.guild.id, (this.songQueue.get(message.guild.id).splice(1)));
           } else {
             message.channel.send("No more songs in queue, leaving channel");
@@ -58,7 +58,7 @@ module.exports = {
         
         this.songQueue.set(message.guild.id, queue);
       } else {
-        message.channel.send(`:white_check_mark: SUCCESS\nplaying video \`${currentSong.video.title}\` By \`${currentSong.video.author}\`\n Requested by \`${currentSong.user}\`\nURL:  https://www.youtube.com/watch?v=${video.id.videoId}`);
+        message.channel.send(`:white_check_mark: SUCCESS\nPlaying video \`${currentSong.video.title}\` By \`${currentSong.video.author}\`\n Requested by \`${currentSong.user}\`\nURL:  https://www.youtube.com/watch?v=${video.id.videoId}`);
         playSong(videoUrl);
       }
     } catch (err) {
