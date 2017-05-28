@@ -26,7 +26,7 @@ if(process.argv.includes('--prepare')) {
 
 	const shardManager = new api.ShardingManager('./shardScript.js', {
 		token: discordCfg.token,
-		totalShards: 1
+		totalShards: botCfg.shards
 	});
 
 	const pgPool = new postgres.Pool({

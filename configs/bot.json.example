@@ -9,5 +9,6 @@
   "websitePort": 443,
   "disableWebHelper": false,
   "pastebinApiKey": "",
-  "youtubeApiKey": ""
+  "youtubeApiKey": "",
+  "shards": 2
 }
