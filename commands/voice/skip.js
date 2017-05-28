@@ -25,7 +25,7 @@ module.exports = {
 		const againstVotes = reactions.get('❎') ? reactions.get('❎').users.size : 0;
 
 		if(forVotes <= againstVotes) {
-			message.edit(':x: Not enough votes to skip song');
+			skipVote.edit(':x: Not enough votes to skip song');
 			return skipVote.clearReactions();
 		}
 
