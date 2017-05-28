@@ -32,8 +32,8 @@ class Bot {
 		this.db = this.resourceLoader.createDbInstance();
 
 		this.commandCooldowns = new api.Collection();
-		this.songQueue = new api.Collection();
-		this.stream = new api.Collection();
+		this.songQueues = new api.Collection();
+		this.voiceStreams = new api.Collection();
 
 		this.commandHandler.registerHandler();
 

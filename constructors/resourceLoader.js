@@ -57,7 +57,7 @@ class ResourceLoader {
 	loadDependencies() {
 		const aiFilter = require('./aiFilter.js');
 
-		this.bot.ytdl = require('ytdl-core')
+		this.bot.ytdl = require('ytdl-core');
 		this.bot.jimp = require('jimp');
 		this.bot.speedtest = require('speedtest-net');
 		this.bot.fetch = require('node-fetch');
