@@ -20,6 +20,17 @@ module.exports = {
 
 		if(!video) return message.channel.send(':x: The requested video could not be found!');
 
+		const videoInfoRequest = await this.request(`https://www.googleapis.com/youtube/v3/videos?id=${encodeURI(video.id.videoId)}&part=contentDetails&key=${encodeURI(this.botCfg.youtubeApiKey)}`, {
+			method: 'GET'
+		});
+
+		let videoInfo = JSON.parse(videoInfoRequest.body);
+
+		const pthms = videoInfo.items[0].contentDetails.duration;
+		const duration = pthmsToMs(pthms);
+
+		if(duration > 15 * 60 * 1000) return message.channel.send(':clock3: Songs can\'t be longer than 15 minutes!');
+
 		const connnection = await voiceChannel.join();
 
 		let playSong = url => {
@@ -73,4 +84,19 @@ module.exports = {
 		}
 
 	}
+};
+
+const pthmsToMs = (pthms) => {
+	const dRegex = /(\d+)D/;
+	const hRegex = /(\d+)H/;
+	const mRegex = /(\d+)M/;
+	const sRegex = /(\d+)S/;
+	let time = 0;
+
+	time += pthms.match(dRegex) ? parseInt(pthms.match(dRegex)[1] * 60 * 60 * 24) : 0;
+	time += pthms.match(hRegex) ? parseInt(pthms.match(hRegex)[1] * 60 * 60) : 0;
+	time += pthms.match(mRegex) ? parseInt(pthms.match(mRegex)[1] * 60) : 0;
+	time += pthms.match(sRegex) ? parseInt(pthms.match(sRegex)[1]) : 0;
+
+	return time * 1000;
 };
