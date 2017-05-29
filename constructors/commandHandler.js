@@ -8,7 +8,7 @@ class CommandHandler {
 			if(!message.content.startsWith(this.bot.botCfg.prefix)) return;
 			if(message.author.bot || message.author.id === this.bot.client.id) return;
 			if(message.channel.type === 'dm') return message.channel.send('Sorry, but commands cannot be executed via DM!');
-			if(!message.guild.members.get(this.bot.user.id).hasPermission('SEND_MESSAGES')) return message.author.send('Sorry, but I don\'t have permission to post in that channel!');
+			if(!message.guild.members.get(this.bot.client.user.id).hasPermission('SEND_MESSAGES')) return message.author.send('Sorry, but I don\'t have permission to post in that channel!');
 
 			const messageArguments = message.content.replace(this.bot.botCfg.prefix, '').split(/ +/g);
 			const commandName = messageArguments.shift();
