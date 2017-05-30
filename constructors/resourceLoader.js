@@ -68,8 +68,8 @@ class ResourceLoader {
 		this.bot.hd = humanizeDuration.humanizer({
 			languages: {
 				youtube: {
-					m: () => 'M',
-					s: () => 'S'
+					m: () => 'm',
+					s: () => 's'
 				}
 			}
 		});
