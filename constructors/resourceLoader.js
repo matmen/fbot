@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const postgres = require('pg');
+const humanizeDuration = require('humanize-duration');
 
 class ResourceLoader {
 
@@ -64,7 +65,14 @@ class ResourceLoader {
 		this.bot.fs = require('fs');
 		this.bot.request = require('async-request');
 		this.bot.figlet = require('figlet');
-		this.bot.hd = require('humanize-duration');
+		this.bot.hd = humanizeDuration.humanizer({
+			languages: {
+				youtube: {
+					m: () => 'M',
+					s: () => 'S'
+				}
+			}
+		});
 		this.bot.aiFilter = new aiFilter();
 	}
 
