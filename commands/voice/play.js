@@ -90,7 +90,7 @@ module.exports = {
 
 			this.songQueues.set(message.guild.id, queue);
 
-			message.channel.send(`Added to queue: \`${currentSong.video.title}\` by \`${currentSong.video.author}\` \`[${this.hd(currentSong.video.duration, youtubeHdConfig)}]\`\nQueued by \`${this.client.users.has(currentSong.user) ? this.client.users.get(currentSong.user).tag : 'Unknown#0000'}\`\n\nURL: <${currentSong.url}>`);
+			message.channel.send(`Added to queue: \`${currentSong.video.title}\` by \`${currentSong.video.author}\` \`[${this.hd(currentSong.video.duration, youtubeHdConfig)}]\`\n\nURL: <${currentSong.url}>`);
 		} else {
 			this.playingSongs.set(message.guild.id, Object.assign(currentSong, {
 				startedAt: Date.now()
