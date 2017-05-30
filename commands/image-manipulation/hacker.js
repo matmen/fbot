@@ -2,6 +2,7 @@ module.exports = {
 	description: 'This is what depression really looks like',
 	args: '(@user | Attachment | URL)',
 	category: 'Fun',
+	aliases: ['hack'],
 	cooldown: 5000,
 	run: async function(message, args, argsString) {
 
