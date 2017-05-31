@@ -3,7 +3,7 @@ module.exports = {
 	category: 'Utils',
 	args: '(text..)',
 	aliases: ['complain'],
-	cooldown: 1000,
+	cooldown: 20000,
 	run: async function(message, args, argsString) {
 
 		if(!argsString) return this.commandHandler.invalidArguments(message);
