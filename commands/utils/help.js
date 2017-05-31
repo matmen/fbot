@@ -16,7 +16,7 @@ module.exports = {
 				code: 'diff'
 			});
 
-		} else message.channel.send('You can find a lost of commands here:\n<https://fbot.menchez.me/>');
+		} else message.channel.send('You can find a list of commands here:\n<https://fbot.menchez.me/>');
 
 	}
 };
