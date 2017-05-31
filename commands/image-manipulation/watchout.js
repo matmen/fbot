@@ -29,7 +29,7 @@ module.exports = {
 		message.channel.send({
 			files: [{
 				attachment: raw,
-				name: 'watchmojo.png'
+				name: 'watchout.png'
 			}]
 		});
 
