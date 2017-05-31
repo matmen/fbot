@@ -9,7 +9,8 @@ const botCfg = require('./configs/bot.json');
 const dbCfg = require('./configs/database.json');
 
 process.on('unhandledRejection', (err) => {
-	console.error(`${'[ERR]'.red} Unhandled rejection:\n${(err && err.stack) || err}`); // eslint-disable-line no-console
+	if(!err || [4, 5].includes(Math.floor(err.code / 100))) return;
+	console.err(`${'[ERR]'.red} Unhandled rejection:\n${(err && err.stack) || err}`); // eslint-disable-line no-console
 });
 
 class Bot {
