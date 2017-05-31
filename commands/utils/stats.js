@@ -21,10 +21,16 @@ module.exports = {
 		const shardUsers = await this.client.shard.fetchClientValues('users.size');
 		const userCount = shardUsers.reduce((all, val) => all + val, 0);
 
+		const commitHash = require('child_process').execSync('git rev-parse --short HEAD').toString().trim();
+		const modified = !!require('child_process').execSync('git status -s').toString();
+
 		let body = `Listening on ${guildCount} servers with ~${userCount} users\n\n`;
 		body += `Most used command: **${topCommand.command ? (this.botCfg.prefix + topCommand.command) : 'No commands used'}** (${topCommand.uses || 0} uses)\n\n`;
 		body += `Commands used: **${commands}** in total\n`;
-		body += `Messages sent: **${messages}** in total\n`;
+		body += `Messages sent: **${messages}** in total\n\n`;
+		body += `Node ${process.version}\n`;
+		body += `discord.js v${this.api.version}\n`;
+		body += `fbot #${commitHash}${modified ? '-mod' : ''}`;
 
 		const embed = new this.api.RichEmbed();
 
