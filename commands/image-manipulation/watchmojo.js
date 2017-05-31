@@ -6,8 +6,9 @@ module.exports = {
 	run: async function(message, args) {
 
 		const images = this.utils.getImagesFromMessage(message, args);
+		let text = this.utils.isImageArg(args[0]) ? args.slice(1).join(' ') : args.join(' ');
 
-		if(images.length === 0 || !this.utils.isImageArg(args[0])) return this.commandHandler.invalidArguments(message);
+		if(images.length === 0 || !text) return this.commandHandler.invalidArguments(message);
 
 		let raw = await this.jimp.read('./assets/watchmojo/raw.png');
 		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0x000000ff); //eslint-disable-line no-unused-vars
@@ -17,7 +18,6 @@ module.exports = {
 		frame = await frame.composite(raw, 0, 0);
 
 		const font = await this.jimp.loadFont('./assets/watchmojo/roboto.fnt');
-		let text = this.utils.isImageArg(args[0]) ? args.slice(1).join(' ') : args.join(' ');
 		text = this.utils.filterMentions(text);
 
 		frame.print(font, 12, 500, text);
