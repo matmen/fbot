@@ -22,28 +22,30 @@ class CommandHandler {
 			if(command.alias) command = this.bot.commands.get(command.name);
 			if(command.adminOnly && !this.bot.botCfg.admins.includes(message.author.id)) return void message.channel.send(':x: Sorry, but you don\'t have permission to use this command');
 
-			if(this.bot.commandCooldowns.has(message.author.id)) {
+			if(!this.bot.utils.isAdmin(message.author.id)) {
+				if(this.bot.commandCooldowns.has(message.author.id)) {
 
-				const cooldowns = this.bot.commandCooldowns.get(message.author.id);
+					const cooldowns = this.bot.commandCooldowns.get(message.author.id);
 
-				if(cooldowns.has(command.name)) {
-					const expirationTime = cooldowns.get(command.name);
-					const timeRemaining = Math.ceil((expirationTime - Date.now()) / 1000) * 1000;
+					if(cooldowns.has(command.name)) {
+						const expirationTime = cooldowns.get(command.name);
+						const timeRemaining = Math.ceil((expirationTime - Date.now()) / 1000) * 1000;
 
-					if(Date.now() < expirationTime) {
-						if(!cooldowns.has('handler:cooldown') || Date.now() > cooldowns.get('handler:cooldown')) message.channel.send(`:x: Cooldown! Please wait another ${this.bot.hd(timeRemaining)} before using this command`);
-						return cooldowns.set('handler:cooldown', Date.now() + 5000);
+						if(Date.now() < expirationTime) {
+							if(!cooldowns.has('handler:cooldown') || Date.now() > cooldowns.get('handler:cooldown')) message.channel.send(`:x: Cooldown! Please wait another ${this.bot.hd(timeRemaining)} before using this command`);
+							return cooldowns.set('handler:cooldown', Date.now() + 5000);
+						}
 					}
+
+					cooldowns.set(command.name, Date.now() + command.cooldown);
+
+				} else {
+					const cooldowns = new this.bot.api.Collection();
+
+					cooldowns.set(command.name, Date.now() + command.cooldown);
+
+					this.bot.commandCooldowns.set(message.author.id, cooldowns);
 				}
-
-				cooldowns.set(command.name, Date.now() + command.cooldown);
-
-			} else {
-				const cooldowns = new this.bot.api.Collection();
-
-				cooldowns.set(command.name, Date.now() + command.cooldown);
-
-				this.bot.commandCooldowns.set(message.author.id, cooldowns);
 			}
 
 			const unsplitArgs = messageArguments.join(' ');
