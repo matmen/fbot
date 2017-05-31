@@ -9,7 +9,7 @@ const botCfg = require('./configs/bot.json');
 const dbCfg = require('./configs/database.json');
 
 process.on('unhandledRejection', (err) => {
-	if(!err || [403, 404, 429, 500].includes(err.code) || ['Still spawning shards.'].includes(err.message)) return;
+	if(!err || [401, 403, 404, 429, 500].includes(err.code) || ['Still spawning shards.'].includes(err.message)) return;
 	console.error(`${'[ERR]'.red} Unhandled rejection:\n${(err && err.stack) || err}`); // eslint-disable-line no-console
 });
 
