@@ -13,7 +13,7 @@ module.exports = {
 		this.songQueues.delete(message.guild.id);
 
 		if(this.voiceStreams.has(message.guild.id)) {
-			this.voiceStreams.get(message.guild.id).end();
+			this.voiceStreams.get(message.guild.id).end('leave');
 			this.voiceStreams.delete(message.guild.id);
 		}
 
