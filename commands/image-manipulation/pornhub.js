@@ -27,7 +27,7 @@ module.exports = {
 		message.channel.send({
 			files: [{
 				attachment: image,
-				name: 'reminder.png'
+				name: 'pornhub.png'
 			}]
 		});
 
