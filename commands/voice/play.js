@@ -48,7 +48,9 @@ module.exports = {
 			const dispatcher = connnection.playStream(stream);
 			this.voiceStreams.set(message.guild.id, dispatcher);
 
-			dispatcher.on('end', () => {
+			dispatcher.on('end', (reason) => {
+				if(typeof reason === 'undefined') return playSong(url);
+
 				if(this.songQueues.has(message.guild.id) && this.songQueues.get(message.guild.id).length !== 0) {
 					let currentSong = this.songQueues.get(message.guild.id)[0];
 
