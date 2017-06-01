@@ -56,7 +56,7 @@ class ResourceLoader {
 	}
 
 	loadDependencies() {
-		const aiFilter = require('./aiFilter.js');
+		const AiFilter = require('./aiFilter.js');
 
 		this.bot.ytdl = require('ytdl-core');
 		this.bot.jimp = require('jimp');
@@ -74,7 +74,7 @@ class ResourceLoader {
 			}
 		});
 		this.bot.childProcess = require('child_process');
-		this.bot.aiFilter = new aiFilter();
+		this.bot.aiFilter = new AiFilter();
 	}
 
 	createDbInstance() {
