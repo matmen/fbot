@@ -45,7 +45,10 @@ module.exports = {
 				filter: 'audioonly'
 			});
 
-			const dispatcher = connnection.playStream(stream);
+			const dispatcher = connnection.playStream(stream, {
+				passes: 2
+			});
+
 			this.voiceStreams.set(message.guild.id, dispatcher);
 
 			dispatcher.on('end', (reason) => {
