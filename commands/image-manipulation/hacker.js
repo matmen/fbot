@@ -1,6 +1,6 @@
 module.exports = {
-	description: 'This is what depression really looks like',
-	args: '(@user | Attachment | URL)',
+	description: 'Hacking in progress..',
+	args: '(text..)',
 	category: 'Fun',
 	aliases: ['hack'],
 	cooldown: 5000,
