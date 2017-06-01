@@ -73,6 +73,7 @@ class ResourceLoader {
 				}
 			}
 		});
+		this.bot.childProcess = require('child_process');
 		this.bot.aiFilter = new aiFilter();
 	}
 
