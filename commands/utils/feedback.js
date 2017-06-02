@@ -2,7 +2,7 @@ module.exports = {
 	description: 'Sends feedback to the bot delevoper',
 	category: 'Utils',
 	args: '(text..)',
-	aliases: ['complain'],
+	aliases: ['complain','fix'],
 	cooldown: 20000,
 	run: async function(message, args, argsString) {
 
