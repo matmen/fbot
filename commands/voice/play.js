@@ -74,10 +74,8 @@ module.exports = {
 			});
 		};
 
-		const videoUrl = `https://www.youtube.com/watch?v=${video.id.videoId}`;
-
 		let currentSong = {
-			url: videoUrl,
+			url: `https://www.youtube.com/watch?v=${video.id.videoId}`,
 			user: message.author.id,
 			video: {
 				author: video.snippet.channelTitle,
@@ -101,10 +99,11 @@ module.exports = {
 				startedAt: Date.now()
 			}));
 
-			playSong(videoUrl);
+			playSong(currentSong.url);
 			message.channel.send(`Now playing: \`${currentSong.video.title}\` by \`${currentSong.video.author}\` \`[${this.hd(currentSong.video.duration, youtubeHdConfig)}]\`\nQueued by \`${this.client.users.has(currentSong.user) ? this.client.users.get(currentSong.user).tag : 'Unknown#0000'}\`\n\nURL: <${currentSong.url}>`);
 		}
 
+		this.utils.queryDB('INSERT INTO songs VALUES ($1, $2)', [video.id.videoId, message.author.id]);
 	}
 };
 
