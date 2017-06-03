@@ -1,12 +1,12 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en" ng-app="fbot">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <base href="/">
-
     <title>fbot</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#BF360C">
+    <base href="/" />
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -16,36 +16,76 @@
   </head>
 
   <body>
+    <nav class="navbar fixed-top navbar-dark double-nav navbtns">
+      <a href="/" class="logo hidden-md-down"></a>
+      <a href="/" class="logo-sm hidden-sm-up"></a>
 
-    <div class="wrapper">
+      <ul class="nav navbar-nav nav-flex-icons hidden-md-down">
+        <li>
+          <a href="/commands" class="btn dark-1">Commands</a>
+        </li>
+        <li>
+          <a href="/settings" class="btn dark-2">Settings</a>
+        </li>
+        <li>
+          <a href="//twitter.com/fbot_updates" class="btn dark-3">Updates</a>
+        </li>
+        <li>
+          <a href="/stats" class="btn dark-4">Stats</a>
+        </li>
+        <li>
+          <a href="//discord.gg/aRt6zMU" class="btn dark-5">Dev Server</a>
+        </li>
+        <li>
+          <a href="//bit.ly/add-fbot" class="btn btn-add">Add fbot</a>
+        </li>
+      </ul>
 
-      <div class="header">
+      <ul class="row nav navbar-nav nav-flex-icons hidden-sm-up">
+        <li>
+          <a href="/commands" class="btn dark-2">Commands</a>
+        </li>
+        <li>
+          <a href="/settings" class="btn dark-4">Settings</a>
+        </li>
+      </ul>
+    </nav>
 
-        <a href="/" class="hidden-sm-down col-md-3 logo"></a>
-        <a href="/" class="hidden-md-up col-xs-3 logo-small"></a>
+    <div id="content" ng-view>
 
+      <div class="text-xs-center">
+        <p>This site requires JavaScript to work</p>
+        <a href="http://enable-javascript.com/" class="btn btn-info">Enable JavaScript</a>
       </div>
 
-      <div class="content" ng-view>
+    </div>
 
-        <div class="text-xs-center">
-          <p>This site needs JavaScript to work</p>
-          <a href="http://enable-javascript.com/" class="btn btn-info">Activate JavaScript</a>
+    <footer class="page-footer">
+      <div class="container-fluid text-xs-center">
+        <div class="row">
+          <div class="col-xs-4">
+            <a href="//github.com/xmatmen/fbot" class="btn dark-3"><i class="fa fa-github"></i></a>
+          </div>
+          <div class="col-xs-4">
+            <a href="//twitter.com/xmatmen" class="btn dark-3"><i class="fa fa-twitter"></i></a>
+          </div>
+          <div class="col-xs-4">
+            <a href="//paypal.me/matmen/5usd" class="btn dark-3"><i class="fa fa-paypal"></i></a>
+          </div>
         </div>
-
       </div>
 
-    </div>
-
-    <div class="footer text-xs-center">
-      Copyright &copy; 2017 <a href="https://twitter.com/xmatmen">matmen</a>
-    </div>
-
+      <div class="footer-copyright">
+        <div class="container-fluid">
+          © 2017 <a href="//twitter.com/xmatmen">Mathis Mensing</a>
+        </div>
+      </div>
+    </footer>
   </body>
 
   <script src="js/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.min.js"></script>
-  <script src="/js/Chart.bundle.min.js"></script>
+  <script src="js/Chart.bundle.min.js"></script>
   <script src="js/controller.js"></script>
 </html>

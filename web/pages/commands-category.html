@@ -1,5 +1,4 @@
 <div class="text-xs-center" ng-controller="CommandHelpController">
-
   <h3>Commands</h3>
   <small>Category: <code>{{category}}</code></small><br /><hr />
 
@@ -10,16 +9,18 @@
     <div class="col-md-6">
       <code>[argument]</code> => This argument is optional
     </div>
-    <div class="col-md-12">
-      <code>argument..</code> => This argument can contain whitespaces without wrapping it in quotation marks
-    </div><br /><br /><hr />
+    <div class="col-md-6">
+      <code>argument+</code> => This argument is repeatable
+    </div>
+    <div class="col-md-6">
+      <code>argument..</code> => This argument doesn't need to be wrapped in quotes when using spaces in it
+    </div><br /><br />
 
     <div ng-repeat="command in commands | filter: isCategory">
+      <hr />
       <code>{{command.name}} {{command.args || ''}}</code><br />
       <span>{{command.description}}</span><br />
       <small ng-show="command.aliases">Aliases: <span ng-bind-html="'<code>' + command.aliases.join('&lt;/code&gt;, &lt;code&gt;') + '</code>'"></span></small>
-      <hr />
     </div>
   </div>
-
 </div>

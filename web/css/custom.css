@@ -1,54 +1,69 @@
-.wrapper {
-  height: 100vh;
-  width: 100vw;
-  padding-bottom: 35px;
-  overflow-x: hidden;
+#content {
+  min-height: 75vh;
+  overflow: auto !important;
 }
 
-.header {
-  z-index: 1000;
-  position: fixed;
-  width: 100%;
-  height: 70px;
-  line-height: 70px;
-  background-color: #293a48;
+footer {
+  background-color: #293a48 !important;
+  margin-top: 5vh;
+}
+
+.footer-copyright {
+  margin-top: 20px;
+}
+
+nav {
+  background-color: #293a48 !important;
+  height: 96px;
+  margin: auto;
+  line-height: 75px;
+}
+
+.navbtns {
+  margin-bottom: 5vh;
+}
+
+.btn.dark-1 {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.btn.dark-2 {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn.dark-3 {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.btn.dark-4 {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.btn.dark-5 {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.btn.btn-add {
+  background-color: rgb(64, 200, 128);
 }
 
 .logo {
-  position: fixed;
-  width: 175px;
-  height: 70px;
-  background-color: #293a48;
   background-image: url('/img/logoheader.png');
   background-repeat: no-repeat;
-  background-position: center;
+  width: 175px;
+  height: 75px;
+  float: left;
 }
 
-.logo-small {
-  position: fixed;
-  height: 70px;
-  background-color: #293a48;
+.logo-sm {
   background-image: url('/img/logo75.png');
   background-repeat: no-repeat;
-  background-position: center;
+  width: 80px;
+  height: 80px;
+  margin-top: 5px;
+  float: left;
 }
 
-.content {
-  padding-top: 95px;
-  margin: 0 auto;
-  width: 75%;
-}
-
-.footer {
-  position: fixed;
-  bottom: 4px;
-  opacity: 0.6;
-  width: 100%;
-  margin: 0 auto;
-  font-size: 12px;
-}
-
-.servericon {
-  width: 32px;
-  height: 32px;
+.canvasDiv {
+  height: 350px;
 }

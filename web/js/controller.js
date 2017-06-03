@@ -42,8 +42,6 @@ app.controller('StatsController', ($scope, $http) => {
 		const messages = [];
 		const commands = [];
 		const channels = [];
-		const databaseSize = [];
-		const commandsPercentage = [];
 
 		for(const stat of res.data) {
 
@@ -72,86 +70,35 @@ app.controller('StatsController', ($scope, $http) => {
 				y: parseInt(stat.channels)
 			});
 
-			databaseSize.push({
-				x: parseInt(stat.time),
-				y: stat.dbsize / 1024 ** 2
-			});
-
-			commandsPercentage.push({
-				x: parseInt(stat.time),
-				y: parseInt(stat.commands) / parseInt(stat.messages) * 100
-			});
-
 		}
 
-		new Chart('serversCanvas', {
+		new Chart('serversUsersCanvas', {
 			type: 'line',
 			data: {
 				datasets: [{
 					label: 'Servers',
 					data: servers,
 					backgroundColor: 'rgba(255, 0, 0, 0.3)'
-				}]
-			},
-			options: graphOpts
-		});
-
-
-		new Chart('usersCanvas', {
-			type: 'line',
-			data: {
-				datasets: [{
+				}, {
 					label: 'Users',
 					data: users,
-					backgroundColor: 'rgba(0, 255, 0, 0.3)'
-				}]
-			},
-			options: graphOpts
-		});
-
-		new Chart('messagesCanvas', {
-			type: 'line',
-			data: {
-				datasets: [{
-					label: 'Messages Received',
-					data: messages,
-					backgroundColor: 'rgba(255, 128, 0, 0.3)'
-				}]
-			},
-			options: graphOpts
-		});
-
-		new Chart('commandsCanvas', {
-			type: 'line',
-			data: {
-				datasets: [{
-					label: 'Commands Received',
-					data: commands,
-					backgroundColor: 'rgba(255, 255, 0, 0.3)'
-				}]
-			},
-			options: graphOpts
-		});
-
-		new Chart('commandsPercentageCanvas', {
-			type: 'line',
-			data: {
-				datasets: [{
-					label: 'Commands per 100 messages',
-					data: commandsPercentage,
 					backgroundColor: 'rgba(196, 64, 64, 0.3)'
 				}]
 			},
 			options: graphOpts
 		});
 
-		new Chart('databaseSizeCanvas', {
+		new Chart('messagesCommandsCanvas', {
 			type: 'line',
 			data: {
 				datasets: [{
-					label: 'Database size in MB',
-					data: databaseSize,
-					backgroundColor: 'rgba(64, 128, 128, 0.3)'
+					label: 'Messages Received',
+					data: messages,
+					backgroundColor: 'rgba(255, 128, 0, 0.3)'
+				}, {
+					label: 'Command Used',
+					data: commands,
+					backgroundColor: 'rgba(196, 64, 0, 0.3)'
 				}]
 			},
 			options: graphOpts
