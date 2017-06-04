@@ -123,11 +123,6 @@ const graphOpts = {
 	scales: {
 		xAxes: [{
 			type: 'time'
-		}],
-		yAxes: [{
-			ticks: {
-				beginAtZero: true
-			}
 		}]
 	},
 	maintainAspectRatio: false,
