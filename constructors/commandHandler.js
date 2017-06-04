@@ -9,10 +9,12 @@ class CommandHandler {
 			if(message.channel.type === 'dm') return message.channel.send('Sorry, but commands cannot be executed via DM!');
 
 			const mentionRegex = new RegExp(`^<@!?${this.bot.client.user.id}> `);
+			const prefixResult = await this.bot.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', ['prefix', message.guild.id]);
+			const prefix = prefixResult.rowCount > 0 ? prefixResult.rows[0].value : this.bot.botCfg.prefix;
 
-			if(!message.content.startsWith(this.bot.botCfg.prefix) && !message.content.match(mentionRegex)) return;
+			if(!message.content.startsWith(prefix) && !message.content.match(mentionRegex)) return;
 
-			const messageArguments = (message.content.match(mentionRegex) ? message.content.replace(mentionRegex, '') : message.content.replace(this.bot.botCfg.prefix, '')).split(/ +/g);
+			const messageArguments = (message.content.match(mentionRegex) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).split(/ +/g);
 			const commandName = messageArguments.shift();
 
 			if(!this.bot.commands.has(commandName)) return;
@@ -90,14 +92,16 @@ class CommandHandler {
 		return args;
 	}
 
-	invalidArguments(message) {
+	async invalidArguments(message) {
 
-		const messageArguments = message.content.replace(this.bot.botCfg.prefix, '').split(' ');
+		const prefixResult = await this.bot.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', ['prefix', message.guild.id]);
+		const prefix = prefixResult.rowCount > 0 ? prefixResult.rows[0].value : this.bot.botCfg.prefix;
+		const messageArguments = message.content.replace(prefix, '').split(' ');
 		const commandName = messageArguments.shift();
 		let command = this.bot.commands.get(commandName);
 		if(command.alias) command = this.bot.commands.get(command.name);
 
-		message.channel.send(`Invalid arguments! Try:\n\`\`\`\n${this.bot.botCfg.prefix}${commandName} ${command.args || ''}\`\`\``);
+		message.channel.send(`Invalid arguments! Try:\n\`\`\`\n${prefix}${commandName} ${command.args || ''}\`\`\``);
 
 	}
 
