@@ -11,12 +11,13 @@ class CommandHandler {
 			const mentionRegex = new RegExp(`^<@!?${this.bot.client.user.id}> `);
 
 			if(!message.content.startsWith(this.bot.botCfg.prefix) && !message.content.match(mentionRegex)) return;
-			if(!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('Sorry, but I don\'t have permission to post in that channel!');
 
 			const messageArguments = (message.content.match(mentionRegex) ? message.content.replace(mentionRegex, '') : message.content.replace(this.bot.botCfg.prefix, '')).split(/ +/g);
 			const commandName = messageArguments.shift();
 
 			if(!this.bot.commands.has(commandName)) return;
+			if(!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('Sorry, but I don\'t have permission to post in that channel!');
+
 
 			const isBlacklisted = await this.bot.utils.queryDB('SELECT * FROM blacklists WHERE (type = \'server\' AND id = $1) OR (type = \'channel\' AND id = $2) OR (type = \'user\' AND id = $3)', [message.guild.id, message.channel.id, message.author.id]);
 			if(isBlacklisted.rowCount > 0) return;
