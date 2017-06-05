@@ -7,7 +7,7 @@ module.exports = {
 
 		if(argsString) {
 
-			if(!message.member.hasPermission('ADMINISTRATOR') && !this.utils.isAdmin(message.author.id)) return message.channel.send(':x: Only guild administrators can change the prefix');
+			if(!message.member.hasPermission('MANAGE_GUILD') && !this.utils.isAdmin(message.author.id)) return message.channel.send(':x: Only guild administrators can change the prefix');
 
 			await this.utils.queryDB('DELETE FROM settings WHERE server = $1 AND setting = $2', [message.guild.id, 'prefix']);
 			if(['reset', 'clear'].includes(argsString.toLowerCase())) {

@@ -4,7 +4,7 @@ module.exports = {
 	cooldown: 1000,
 	run: async function(message) {
 
-		if(!message.member.hasPermission('ADMINISTRATOR')) return message.channel.send(`:x: Only guild administrators can force the bot to leave. Either wait until all songs have finished playing, or use \`${this.botCfg.prefix}skip\` to skip them`);
+		if(!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send(`:x: Only guild administrators can force the bot to leave. Either wait until all songs have finished playing, or use \`${this.botCfg.prefix}skip\` to skip them`);
 
 		const channel = message.guild.members.get(this.client.user.id).voiceChannel;
 		if(!channel) return message.channel.send(':x: I am in no voice channel!');

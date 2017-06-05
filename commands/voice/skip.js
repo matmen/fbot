@@ -5,7 +5,7 @@ module.exports = {
 	run: async function(message, args) {
 		if(!this.voiceStreams.has(message.guild.id) || !message.guild.members.get(this.client.user.id).voiceChannel) return message.channel.send(':x: The bot isn\'t playing anything!');
 
-		if(message.member.hasPermission('ADMINISTRATOR') && args[0] !== 'vote') {
+		if(message.member.hasPermission('MANAGE_GUILD') && args[0] !== 'vote') {
 			message.channel.send(':fast_forward: Sudo-Skipping current song');
 			return this.voiceStreams.get(message.guild.id).end('skip');
 		} else if(!message.member.voiceChannel || message.member.voiceChannel.id !== message.guild.members.get(this.client.user.id).voiceChannel.id) return message.channel.send(':x: You cant start a vote when you\'re not in the voice channel!');

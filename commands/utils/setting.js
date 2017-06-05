@@ -36,7 +36,7 @@ module.exports = {
 
 		} else {
 
-			if(!message.member.hasPermission('ADMINISTRATOR') && !this.utils.isAdmin(message.author.id)) return message.channel.send(':x: Only guild administrators can modify settings');
+			if(!message.member.hasPermission('MANAGE_GUILD') && !this.utils.isAdmin(message.author.id)) return message.channel.send(':x: Only guild administrators can change settings');
 
 			if(args.length >= 1) {
 
