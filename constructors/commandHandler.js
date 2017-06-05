@@ -20,7 +20,6 @@ class CommandHandler {
 			if(!this.bot.commands.has(commandName)) return;
 			if(!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('Sorry, but I don\'t have permission to post in that channel!');
 
-
 			const isBlacklisted = await this.bot.utils.queryDB('SELECT * FROM blacklists WHERE (type = \'server\' AND id = $1) OR (type = \'channel\' AND id = $2) OR (type = \'user\' AND id = $3)', [message.guild.id, message.channel.id, message.author.id]);
 			if(isBlacklisted.rowCount > 0) return;
 
