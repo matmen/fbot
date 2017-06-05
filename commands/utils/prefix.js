@@ -1,7 +1,7 @@
 module.exports = {
 	description: 'Changes the bot\'s prefix',
-	category: 'Serveradmin',
-	args: '[reset | prefix]',
+	category: 'Utils',
+	args: '[*reset | *prefix]',
 	cooldown: 1000,
 	run: async function(message, args, argsString) {
 

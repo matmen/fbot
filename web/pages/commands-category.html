@@ -3,17 +3,24 @@
   <small>Category: <code>{{category}}</code></small><br /><hr />
 
   <div class="col-xs-12">
-    <div class="col-md-6">
-      <code>(argument)</code> => This argument is required
+    <div class="row">
+      <div class="col-md-4">
+        <code>(argument)</code> => This argument is required
+      </div>
+      <div class="col-md-4">
+        <code>[argument]</code> => This argument is optional
+      </div>
+      <div class="col-md-4">
+        <code>*argument</code> => Only guild admins can use this argument
+      </div>
     </div>
-    <div class="col-md-6">
-      <code>[argument]</code> => This argument is optional
-    </div>
-    <div class="col-md-6">
-      <code>argument+</code> => This argument is repeatable
-    </div>
-    <div class="col-md-6">
-      <code>argument..</code> => This argument doesn't need to be wrapped in quotes when using spaces in it
+    <div class="row">
+      <div class="col-md-6">
+        <code>argument+</code> => This argument is repeatable
+      </div>
+      <div class="col-md-6">
+        <code>argument..</code> => This argument can contain spaces
+      </div>
     </div><br /><br />
 
     <div ng-repeat="command in commands | filter: isCategory">

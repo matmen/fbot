@@ -1,7 +1,5 @@
-const trueStrings = ['1', 'true', 'yes', 'y', 'on', '+'];
-
 const stringToBoolean = (value) => {
-	return trueStrings.includes(value.toLowerCase());
+	return ['1', 'true', 'yes', 'y', 'on', '+'].includes(value.toLowerCase());
 };
 
 const mentionToString = (value) => {
@@ -18,9 +16,9 @@ const modifyableSettings = {
 
 
 module.exports = {
-	description: 'Sets a server specific setting',
-	category: 'Serveradmin',
-	args: '(setting) | (setting) (value) | (setting) clear',
+	description: 'Shows/sets a server specific setting',
+	category: 'Utils',
+	args: '(setting) | (setting) (*value) | (setting) *clear',
 	cooldown: 1000,
 	run: async function(message, args) {
 		if(args.length === 0) return this.commandHandler.invalidArguments(message);
