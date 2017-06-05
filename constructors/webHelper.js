@@ -83,6 +83,10 @@ class WebHelper {
 		}, app);
 
 		server.listen(botCfg.websitePort);
+
+		setInterval(() => {
+			this.commands = this.indexCommands();
+		}, 60000);
 	}
 
 	indexCommands() {
@@ -95,6 +99,7 @@ class WebHelper {
 				} else {
 					let file = path.resolve(dir, subName);
 					let name = subName.substring(0, subName.lastIndexOf('.')).toLowerCase();
+					if(require.cache[require.resolve(file)]) delete require.cache[require.resolve(file)];
 
 					const command = require(file);
 					commands.push({
