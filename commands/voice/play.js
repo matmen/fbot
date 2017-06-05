@@ -16,7 +16,7 @@ module.exports = {
 		const voiceChannel = message.member.voiceChannel;
 		if(!voiceChannel) return message.channel.send(':x: Please be in a voice channel first!');
 
-		if(message.guild.members.get(this.client.user.id).voiceChannel && message.guild.members.get(this.client.user.id).voiceChannel.id !== voiceChannel.id) return message.channel.send(':x: I am already playing in another channel!');
+		if(message.guild.member(this.client.user).voiceChannel && message.guild.member(this.client.user).voiceChannel.id !== voiceChannel.id) return message.channel.send(':x: I am already playing in another channel!');
 
 		const ytRequest = await this.request(`https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&q=${encodeURI(argsString)}&key=${encodeURI(this.botCfg.youtubeApiKey)}`, {
 			method: 'GET'
