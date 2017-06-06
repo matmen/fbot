@@ -1,5 +1,5 @@
 module.exports = {
-	description: 'Rplies with the server\'s stats',
+	description: 'Replies with the server\'s stats',
 	category: 'Utils',
 	args: '[server ID]',
 	cooldown: 5000,

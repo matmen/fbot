@@ -1,5 +1,5 @@
 module.exports = {
-	description: 'Rplies with the bot\'s stats',
+	description: 'Replies with the bot\'s stats',
 	category: 'Utils',
 	cooldown: 5000,
 	run: async function(message) {

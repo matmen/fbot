@@ -1,5 +1,5 @@
 module.exports = {
-	description: 'Rplies with the channel\'s stats',
+	description: 'Replies with the channel\'s stats',
 	category: 'Utils',
 	args: '[#channel]',
 	cooldown: 5000,

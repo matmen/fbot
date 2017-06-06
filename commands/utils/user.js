@@ -1,5 +1,5 @@
 module.exports = {
-	description: 'Rplies with the user\'s stats',
+	description: 'Replies with the user\'s stats',
 	category: 'Utils',
 	args: '[@user]',
 	cooldown: 5000,
