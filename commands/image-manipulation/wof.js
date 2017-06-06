@@ -7,11 +7,11 @@ module.exports = {
 	run: async function(message, args) {
 		if(args.length < 2 || args.length > 5) return this.commandHandler.invalidArguments(message);
 
-		let url = `http://atom.smasher.org/wof/word-puzzle.jpg.php?c=${encodeURI(args.shift())}`;
+		let url = `http://atom.smasher.org/wof/word-puzzle.jpg.php?c=${encodeURI(this.utils.filterMentions(args.shift()))}`;
 
 		let lineNr = 1;
 		for(const line of args) {
-			url += `&l${lineNr}=${encodeURI(line)}`;
+			url += `&l${lineNr}=${encodeURI(this.utils.filterMentions(line))}`;
 			lineNr++;
 		}
 
