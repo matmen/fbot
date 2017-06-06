@@ -8,7 +8,7 @@ module.exports = {
 
 		const user = this.utils.filterMentions(argsString);
 
-		const hangman = '```\n_________\n' +
+		const hangman = '```\n___________\n' +
 			'|         |\n' +
 			`|         0 <-- ${user}\n` +
 			'|        /|\\\n' +
