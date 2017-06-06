@@ -5,6 +5,7 @@ module.exports = {
 	args: '[user]',
 	cooldown: 1000,
 	run: async function(message, args, argsString) {
+		if(!argsString) return this.commandHandler.invalidArguments(message);
 
 		const user = this.utils.filterMentions(argsString);
 
