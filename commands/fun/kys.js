@@ -2,7 +2,7 @@ module.exports = {
 	description: 'delet yourself',
 	category: 'Fun',
 	aliases: ['suicide'],
-	args: '[user]',
+	args: '(user)',
 	cooldown: 1000,
 	run: async function(message, args, argsString) {
 		if(!argsString) return this.commandHandler.invalidArguments(message);
