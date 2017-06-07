@@ -8,8 +8,8 @@ module.exports = {
 		const shardUsers = await this.client.shard.fetchClientValues('users.size');
 
 		let list = '┌──────────┬───────────┬────────┬─────────┐\n';
-		list += '│ Shard ID │ WS Ping   │ Guilds │ Users   │\n';
-		list += '├──────────┼───────────┼────────┼─────────┤\n';
+		   list += '│ Shard ID │ WS Ping   │ Guilds │ Users   │\n';
+		   list += '├──────────┼───────────┼────────┼─────────┤\n';
 
 		for(let shardID = 0; shardID < this.client.shard.count; shardID++) {
 			list += `│ ${shardID}${' '.repeat(8 - shardID.toString().length)} │ ${Math.round(shardPings[shardID])}ms${' '.repeat(7 - Math.round(shardPings[shardID]).toString().length)} │ ${shardGuilds[shardID]}${' '.repeat(6 - shardGuilds[shardID].toString().length)} │ ~${shardUsers[shardID]}${' '.repeat(6 - shardUsers[shardID].toString().length)} │\n`;
