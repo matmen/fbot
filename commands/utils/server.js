@@ -26,7 +26,8 @@ module.exports = {
 			messages: topUserStats.rows[0] && topUserStats.rows[0].count
 		};
 
-		let body = `Server owned by **${this.client.guilds.has(serverID) ? this.client.guilds.get(serverID).owner.user.tag : 'Unknown#0000'}**\n\n`;
+		let body = `Server owned by **${this.client.guilds.has(serverID) ? this.client.guilds.get(serverID).owner.user.tag : 'Unknown#0000'}**\n`;
+		body += `Members: **${this.client.guilds.has(serverID) ? this.client.guilds.get(serverID).memberCount : 'Unknown'}**\n\n`;
 		body += `Most messages from: ${this.client.users.has(topUser.id) ? this.client.users.get(topUser.id).tag : 'Unknown#0000'} (${topUser.messages || 0} messages)\n`;
 		body += `Most used command: **${topCommand.command ? (this.botCfg.prefix + topCommand.command) : 'No commands used'}** (${topCommand.uses || 0} uses)\n\n`;
 		body += `Commands used: **${commands}** in total\n`;
