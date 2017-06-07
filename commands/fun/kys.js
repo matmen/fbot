@@ -1,5 +1,5 @@
 module.exports = {
-	description: 'delet yourself',
+	description: 'kys',
 	category: 'Fun',
 	aliases: ['suicide'],
 	args: '(user)',
