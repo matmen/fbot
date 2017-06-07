@@ -1,7 +1,7 @@
 # fbot
 
-Another Meme Discord Bot using Discord.JS
+Another discord meme bot, using [discord.js](https://github.com/hydrabolt/discord.js)
 
-## How do i add this Bot to my Server?
+## How do i add this bot to my Server?
 
-You can go to [this](http://bit.ly/add-fbot) Link and add fbot directly to your Server.
+You can go to [this link](http://bit.ly/add-fbot) to add fbot to your server
