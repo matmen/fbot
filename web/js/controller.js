@@ -38,10 +38,7 @@ app.controller('StatsController', ($scope, $http) => {
 	}).then((res) => {
 
 		const servers = [];
-		const users = [];
-		const messages = [];
-		const commands = [];
-		const channels = [];
+		const commandPercentages = [];
 
 		for(const stat of res.data) {
 
@@ -50,24 +47,9 @@ app.controller('StatsController', ($scope, $http) => {
 				y: parseInt(stat.servers)
 			});
 
-			users.push({
+			commandPercentages.push({
 				x: parseInt(stat.time),
-				y: parseInt(stat.users)
-			});
-
-			messages.push({
-				x: parseInt(stat.time),
-				y: parseInt(stat.messages)
-			});
-
-			commands.push({
-				x: parseInt(stat.time),
-				y: parseInt(stat.commands)
-			});
-
-			channels.push({
-				x: parseInt(stat.time),
-				y: parseInt(stat.channels)
+				y: parseInt(stat.commands) / parseInt(stat.messages)
 			});
 
 		}
@@ -79,26 +61,18 @@ app.controller('StatsController', ($scope, $http) => {
 					label: 'Servers',
 					data: servers,
 					backgroundColor: 'rgba(255, 0, 0, 0.3)'
-				}, {
-					label: 'Users',
-					data: users,
-					backgroundColor: 'rgba(196, 64, 64, 0.3)'
 				}]
 			},
 			options: graphOpts
 		});
 
-		new Chart('messagesCommandsCanvas', {
+		new Chart('commandsPercentageCanvas', {
 			type: 'line',
 			data: {
 				datasets: [{
-					label: 'Messages Received',
-					data: messages,
-					backgroundColor: 'rgba(255, 128, 0, 0.3)'
-				}, {
-					label: 'Command Used',
-					data: commands,
-					backgroundColor: 'rgba(196, 64, 0, 0.3)'
+					label: 'Commands/Messages Ratio',
+					data: commandPercentages,
+					backgroundColor: 'rgba(255, 128, 196, 0.3)'
 				}]
 			},
 			options: graphOpts
