@@ -44,7 +44,7 @@ class Utils {
 
 			if(value.match(/^(<@!?)?\d+>?$/)) {
 				const id = value.replace(/[^\d]/g, '');
-				if(this.bot.client.users.has(id) && this.bot.client.users.get(id).avatar) imageURLs.push(this.bot.client.users.get(id).avatarURL('png', 2048));
+				if(this.bot.client.users.has(id) && this.bot.client.users.get(id).avatar) imageURLs.push(this.bot.client.users.get(id).displayAvatarURL({format: 'png', size: 2048}));
 			} else if(value.match(/^<:\w+:\d+>$/)) {
 				const id = value.match(/^<:\w+:(\d+)>$/);
 				if(id && id[1] && this.bot.client.emojis.has(id[1])) imageURLs.push(this.bot.client.emojis.get(id[1]).url);
