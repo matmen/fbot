@@ -12,7 +12,9 @@ module.exports = {
 		let resultArray = [];
 		const results = await this.client.shard.broadcastEval(`this.users.filter(u => u.discriminator === '${discriminator}').map(u => u.tag)`);
 
-		for (const shardResult of results) resultArray = resultArray.concat(shardResult);
+		for (const shardResults of results) {
+			for(const tag of shardResults) if(!resultArray.includes(tag)) resultArray.push(tag);
+		}
 
 		message.channel.send(JSON.stringify(resultArray, null, 4), {
 			code: 'js'
