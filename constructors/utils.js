@@ -72,7 +72,7 @@ class Utils {
 
 		const buffer = await fetched.buffer();
 
-		return await this.bot.jimp.read(buffer);
+		return (await this.bot.jimp.read(buffer)) || new this.bot.jimp(512, 512, 0xFFFFFFFF);
 	}
 
 	getBufferFromJimp(img, mime) {
