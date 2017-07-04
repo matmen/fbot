@@ -10,20 +10,14 @@ module.exports = {
 
 		if(images.length < 2) return this.commandHandler.invalidArguments(message);
 
-		let index = 0;
-		for(const imageURL of images) {
-			images[index] = await this.utils.fetchImage(imageURL);
-			index++;
-		}
-
 		let result;
-		for(let image of images) {
-			if(!result) {
-				result = image;
-			} else {
-				image = await image.opacity(0.5);
-				result.composite(await image.resize(result.bitmap.width, result.bitmap.height), 0, 0);
-			}
+		for(let index = 0; index < images.length; index++) {
+			let image = await this.utils.fetchImage(images[index]);
+
+			if(!result) result = new this.jimp(image.bitmap.width, image.bitmap.height, 0xFFFFFFFF);
+
+			image = await image.opacity(1/(index + 2));
+			result.composite(await image.resize(result.bitmap.width, result.bitmap.height), 0, 0);
 		}
 
 		result = await this.utils.getBufferFromJimp(result);
