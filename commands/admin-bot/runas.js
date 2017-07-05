@@ -7,7 +7,7 @@ module.exports = {
 	run: async function (message, args) {
 		if (args.length < 2) return this.commandHandler.invalidArguments(message);
 
-		const user = this.client.users.get(args.shift().replace(/[^\d]/g));
+		const user = this.client.users.get(args.shift().replace(/[^\d]/g, ''));
 		if(!user) return message.channel.send('Unknown user');
 		if(!message.guild.member(user)) return message.channel.send('User not in guild');
 
