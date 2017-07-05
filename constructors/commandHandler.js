@@ -19,6 +19,7 @@ class CommandHandler {
 
 			if(!this.bot.commands.has(commandName)) return;
 			if(!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('Sorry, but I don\'t have permission to post in that channel!');
+			if(!message.channel.permissionsFor(message.guild.me).has('ATTACH_FILES')) return message.channel.send('Sorry, but I probably need the Attach Files permission to handle this command properly!');
 
 			if(!this.bot.utils.isAdmin(message.author.id)) {
 				const isBlacklisted = await this.bot.utils.queryDB('SELECT * FROM blacklists WHERE (type = \'server\' AND id = $1) OR (type = \'channel\' AND id = $2) OR (type = \'user\' AND id = $3)', [message.guild.id, message.channel.id, message.author.id]);
