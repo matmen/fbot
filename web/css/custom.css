@@ -17,6 +17,7 @@ nav {
   height: 96px;
   margin: auto;
   line-height: 75px;
+  overflow-x: hidden;
 }
 
 .navbtns {
