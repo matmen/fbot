@@ -12,7 +12,7 @@ class AiFilter {
 			return false;
 
 		let clean = str.trim().toUpperCase()
-			.replace(/\n/g, ' ')
+			.replace(/\s+/g, ' ')
 			.replace(/CAN(')?T/g, 'CANNOT')
 			.replace(/'M/g, ' AM')
 			.replace(/'LL/g, ' WILL')
@@ -21,7 +21,6 @@ class AiFilter {
 			.replace(/'VE/g, ' HAVE')
 			.replace(/\BN(')?T/g, ' NOT')
 			.replace(/[^A-Z ]/g, '')
-			.replace(/ARENT/g, 'ARE NOT')
 			.replace(/WONT/g, 'WILL NOT')
 			.replace(/THATS/g, 'THAT IS')
 			.replace(/\b {2,}\b/g, ' ');
