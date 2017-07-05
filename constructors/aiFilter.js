@@ -33,7 +33,7 @@ class AiFilter {
 			if(word.length == 0)
 				return false;
 
-			if(vocabulary.indexOf(word) == -1)
+			if(!vocabulary.includes(word))
 				vocabulary.push(word);
 		}
 
@@ -42,7 +42,7 @@ class AiFilter {
 			return false;
 
 		for(const word of vocabulary)
-			if(word == undefined || this.wordList.indexOf(word) == -1)
+			if(!this.wordList.includes(word))
 				return false;
 
 		return true;
