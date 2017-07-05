@@ -1,17 +1,17 @@
-const stringToBoolean = (value) => {
+const parseBoolean = (value) => {
 	return ['1', 'true', 'yes', 'y', 'on', '+'].includes(value.toLowerCase());
 };
 
-const mentionToString = (value) => {
+const parseMention = (value) => {
 	return value.replace(/[^\d]/g, '');
 };
 
 const modifyableSettings = {
 	'joinMessage': String,
 	'leaveMessage': String,
-	'messageChannel': mentionToString,
-	'optOutOfAI': stringToBoolean,
-	'disableAutoreact': stringToBoolean
+	'messageChannel': parseMention,
+	'optOutOfAI': parseBoolean,
+	'disableAutoreact': parseBoolean
 };
 
 
