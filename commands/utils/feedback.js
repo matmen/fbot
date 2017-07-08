@@ -33,6 +33,6 @@ module.exports = {
 			}
 		});
 
-		message.channel.send('Feedback sent!')
+		message.channel.send('Feedback sent!');
 	}
 };
