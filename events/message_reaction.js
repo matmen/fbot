@@ -21,17 +21,17 @@ module.exports = function() {
 
 		if(text.match(/🤔/gi)) await message.react('🤔');
 
-		if(text.match(/(^| )lit( |$)/gi)) await message.react('🔥');
+		if(text.match(/(^| )lit( |$)/i)) await message.react('🔥');
 
-		if(text.match(/is this the police/gi)) await message.react('🚔');
+		if(text.match(/is this the police/i)) await message.react('🚔');
 
-		if(text.match(/press f/gi)) await message.react('🇫');
+		if(text.match(/press f/i)) await message.react('🇫');
 
-		if(text.match(/snek/gi)) await message.react('🐍');
+		if(text.match(/snek/i)) await message.react('🐍');
 
-		if(text.match(/murica/gi)) await message.react('🇺🇸');
+		if(text.match(/murica/i)) await message.react('🇺🇸');
 
-		if(text.match(/heil/)) await message.react('🇩🇪');
+		if(text.match(/heil/i)) await message.react('🇩🇪');
 
 		if(text.match(/^add fbot to your( discord)? server at fbot\.menchez\.me$/i)) message.channel.send(message.content);
 
