@@ -55,7 +55,7 @@ class Utils {
 	}
 
 	isURL(value) {
-		return /^(https?:\/\/)?\w+(\.\w+)?\.\w+(\/[^\/]*)*$/.test(value);
+		return /^(https?:\/\/)?.+(\..+)?\.\w+(\/[^\/]*)*$/.test(value);
 	}
 
 	isImageArg(value) {
