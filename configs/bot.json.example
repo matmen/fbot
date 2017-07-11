@@ -12,5 +12,7 @@
   "youtubeApiKey": "",
   "bitlyLogin": "",
   "bitlyApiKey": "",
+  "discordbotsID": "",
+  "discordbotsApiKey": "",
   "shards": 2
 }
