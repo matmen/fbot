@@ -1,5 +1,5 @@
 module.exports = {
-	description: '',
+	description: 'Sharpens the image',
 	args: '(@user | Attachment | URL) [amount]',
 	category: 'Fun',
 	cooldown: 5000,
