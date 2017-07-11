@@ -11,7 +11,7 @@ module.exports = {
 		id = id.replace(/[^\d]/g, '');
 		if(!this.client.users.has(id)) return message.channel.send('The requested user could not be found');
 		const user = this.client.users.get(id);
-		message.channel.send(`\`${user.tag}\`${user.avatar ? `'s avatar is ${user.avatarURL(user.avatar.startsWith('a_') ? 'gif' : 'png', 2048)}` : ' does not have an avatar set'}`);
+		message.channel.send(`\`${user.tag}\`${user.avatar ? `'s avatar is ${user.avatarURL({format: user.avatar.startsWith('a_') ? 'gif' : 'png', size: 2048})}` : ' does not have an avatar set'}`);
 
 	}
 };
