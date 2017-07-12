@@ -14,35 +14,34 @@ const modifyableSettings = {
 	'disableAutoreact': parseBoolean
 };
 
-
 module.exports = {
 	description: 'Shows/sets a server specific setting',
 	category: 'Utils',
 	args: '(setting) | (setting) (*value) | (setting) *clear',
 	cooldown: 1000,
-	run: async function(message, args) {
-		if(args.length === 0) return this.commandHandler.invalidArguments(message);
+	run: async function (message, args) {
+		if (args.length === 0) return this.commandHandler.invalidArguments(message);
 
 		const setting = args.shift();
 
-		if(!modifyableSettings[setting]) return message.channel.send(`The setting \`${setting}\` does not exist\nAvailable settings:\n\n\`${Object.keys(modifyableSettings).join('` - `')}\``);
+		if (!modifyableSettings[setting]) return message.channel.send(`The setting \`${setting}\` does not exist\nAvailable settings:\n\n\`${Object.keys(modifyableSettings).join('` - `')}\``);
 
-		if(args.length === 0) {
+		if (args.length === 0) {
 
 			const res = await this.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', [setting, message.guild.id]);
 
-			if(res.rowCount === 0) return message.channel.send(`Setting \`${setting}\` is not set!`);
+			if (res.rowCount === 0) return message.channel.send(`Setting \`${setting}\` is not set!`);
 			message.channel.send(`Setting \`${setting}\` is currently set to \`${res.rows[0].value}\``);
 
 		} else {
 
-			if(!message.member.hasPermission('MANAGE_GUILD') && !this.utils.isAdmin(message.author.id)) return message.channel.send(':x: Only guild administrators can change settings');
+			if (!message.member.hasPermission('MANAGE_GUILD') && !this.utils.isAdmin(message.author.id)) return message.channel.send(':x: Only guild administrators can change settings');
 
-			if(args.length >= 1) {
+			if (args.length >= 1) {
 
 				const value = modifyableSettings[setting](args.join(' '));
 
-				if(['clear', 'delete'].includes(value)) {
+				if (['clear', 'delete'].includes(value)) {
 
 					await this.utils.queryDB('DELETE FROM settings WHERE server = $1 AND setting = $2', [message.guild.id, setting]);
 					message.channel.send(`Setting \`${setting}\` has been cleared`);
