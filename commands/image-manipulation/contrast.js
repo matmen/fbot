@@ -9,7 +9,7 @@ module.exports = {
 
 		let image = await this.utils.fetchImage(images[0]);
 
-		let amount = this.utils.isImageArg(args[0]) ? args[1] : args[0];
+		let amount = this.utils.isImageArg(message, args[0]) ? args[1] : args[0];
 		amount = Math.max(-100, Math.min(100, parseInt(amount) || 100));
 
 		image = image.contrast(amount / 100);

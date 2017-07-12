@@ -9,7 +9,7 @@ module.exports = {
 
 		let image = await this.utils.fetchImage(images[0]);
 
-		let size = this.utils.isImageArg(args[0]) ? args[1] : args[0];
+		let size = this.utils.isImageArg(message, args[0]) ? args[1] : args[0];
 		size = Math.max(2, Math.min(Math.max(image.bitmap.width, image.bitmap.height), parseInt(size) || 10));
 
 		image = await image.pixelate(size);

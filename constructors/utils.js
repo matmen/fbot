@@ -38,19 +38,23 @@ class Utils {
 
 		for (const attachment of message.attachments.values()) imageURLs.push(attachment.url);
 		for (const value of args) {
-			if (!this.isImageArg(value)) continue;
-
 			if (this.isURL(value)) imageURLs.push(value);
 
-			if (value.match(/^(<@!?)?\d+>?$/)) {
-				const id = value.replace(/[^\d]/g, '');
-				if (this.bot.client.users.has(id) && this.bot.client.users.get(id).avatar) imageURLs.push(this.bot.client.users.get(id).displayAvatarURL({
+			if (value.match(/^<:.+:\d+>$/)) {
+				const id = value.match(/^<:.+:(\d+)>$/);
+				if (id && id[1] && this.bot.client.emojis.has(id[1])) imageURLs.push(this.bot.client.emojis.get(id[1]).url);
+			} else {
+				const match = message.guild.members.find(member => {
+					if (member.user.tag.toLowerCase().includes(value.toLowerCase())) return true;
+					if (member.nickname && member.nickname.toLowerCase().includes(value.toLowerCase())) return true;
+					if (member.user.id === value.replace(/[^\d]/g, '')) return true;
+					return false;
+				});
+
+				if (match) imageURLs.push(match.user.displayAvatarURL({
 					format: 'png',
 					size: 2048
 				}));
-			} else if (value.match(/^<:\w+:\d+>$/)) {
-				const id = value.match(/^<:\w+:(\d+)>$/);
-				if (id && id[1] && this.bot.client.emojis.has(id[1])) imageURLs.push(this.bot.client.emojis.get(id[1]).url);
 			}
 		}
 
@@ -61,8 +65,25 @@ class Utils {
 		return /^(https?:\/\/)?.+(\..+)?\.\w+(\/[^\/]*)*$/.test(value);
 	}
 
-	isImageArg(value) {
-		return this.isURL(value) || /^(<@!?)?\d+>?$|^<:\w+:\d+>$/.test(value);
+	isImageArg(message, value) {
+		if (!value) return false;
+		if (this.isURL(value)) return true;
+
+		if (value.match(/^<:.+:\d+>$/)) {
+			const id = value.match(/^<:.+:(\d+)>$/);
+			if (id && id[1] && this.bot.client.emojis.has(id[1])) return true;
+		} else {
+			const match = message.guild.members.find(member => {
+				if (member.user.tag.toLowerCase().includes(value.toLowerCase())) return true;
+				if (member.nickname && member.nickname.toLowerCase().includes(value.toLowerCase())) return true;
+				if (member.user.id === value.replace(/[^\d]/g, '')) return true;
+				return false;
+			});
+
+			if (match) return true;
+		}
+
+		return false;
 	}
 
 	async fetchImage(url) {
@@ -79,7 +100,9 @@ class Utils {
 	}
 
 	getBufferFromJimp(img, mime) {
-		return new Promise((resolve, reject) => {
+		return new Promise(async(resolve, reject) => {
+
+			if (img.bitmap.width > 1024 || img.bitmap.height > 1024) img = await img.scaleToFit(1024, 1024);
 
 			img.getBuffer(mime || this.bot.jimp.MIME_PNG, (err, buffer) => {
 				if (err) reject(err);
