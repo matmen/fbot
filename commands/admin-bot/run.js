@@ -4,13 +4,13 @@ module.exports = {
 	cooldown: 1000,
 	args: '(code..)',
 	adminOnly: true,
-	run: async function(message, args, argsString) {
-		if(!argsString) return this.commandHandler.invalidArguments(message);
+	run: async function (message, args, argsString) {
+		if (!argsString) return this.commandHandler.invalidArguments(message);
 
-		const result = this.childProcess.execSync(argsString);
-		message.channel.send(result, {
-			code: 'js'
+		this.childProcess.exec(argsString, (err, result) => {
+			message.channel.send(err ? `Error: ${err}` : result, {
+				code: true
+			});
 		});
-
 	}
 };

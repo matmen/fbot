@@ -2,8 +2,7 @@ module.exports = {
 	description: 'Replies with the bot\'s stats',
 	category: 'Utils',
 	cooldown: 5000,
-	run: async function(message) {
-
+	run: async function (message) {
 		const stats = await this.utils.queryDB('SELECT (SELECT count(*) FROM messages) messages, (SELECT count(*) FROM commands) commands');
 		const topCommandStats = await this.utils.queryDB('SELECT command,count(*) FROM commands GROUP BY 1 ORDER BY count(*) DESC LIMIT 1');
 		const topSongStats = await this.utils.queryDB('SELECT id,count(*) FROM songs GROUP BY 1 ORDER BY count(*) DESC LIMIT 1');
@@ -49,6 +48,5 @@ module.exports = {
 		message.channel.send({
 			embed: embed
 		});
-
 	}
 };

@@ -1,14 +1,12 @@
 class AiFilter {
-
 	constructor() {
 		this.wordList = require('./aiFilterWordbase.js');
 	}
 
 	check(str) {
+		if (!str) return false;
 
-		if(!str) return false;
-
-		if(str.match(/:\w{1,}:|^.?[^a-z0-9 ']\w{1,}|(#|@)\w{1,}/ig))
+		if (str.match(/:\w{1,}:|^.?[^a-z0-9 ']\w{1,}|(#|@)\w{1,}/ig))
 			return false;
 
 		let clean = str.trim().toUpperCase()
@@ -28,25 +26,24 @@ class AiFilter {
 		let spl = clean.split(' ');
 
 		let vocabulary = [];
-		for(const word of spl) {
-			if(word.length == 0)
+		for (const word of spl) {
+			if (word.length == 0)
 				return false;
 
-			if(!vocabulary.includes(word))
+			if (!vocabulary.includes(word))
 				vocabulary.push(word);
 		}
 
 		let expectedVocabSize = spl.length / 3;
-		if(vocabulary.length < expectedVocabSize)
+		if (vocabulary.length < expectedVocabSize)
 			return false;
 
-		for(const word of vocabulary)
-			if(!this.wordList.includes(word))
+		for (const word of vocabulary)
+			if (!this.wordList.includes(word))
 				return false;
 
 		return true;
 	}
-
 }
 
 module.exports = AiFilter;

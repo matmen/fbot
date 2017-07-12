@@ -4,11 +4,10 @@ module.exports = {
 	aliases: ['jpg'],
 	category: 'Fun',
 	cooldown: 5000,
-	run: async function(message, args) {
-
+	run: async function (message, args) {
 		const images = this.utils.getImagesFromMessage(message, args);
 
-		if(images.length === 0) return this.commandHandler.invalidArguments(message);
+		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
 		let image = await this.utils.fetchImage(images[0]);
 		image = await image.quality(1);
@@ -20,6 +19,5 @@ module.exports = {
 				name: 'jpeg.jpg'
 			}]
 		});
-
 	}
 };

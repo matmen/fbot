@@ -10,13 +10,13 @@ module.exports = {
 	category: 'Voice',
 	args: '(query..)',
 	cooldown: 10000,
-	run: async function(message, args, argsString) {
-		if(!argsString) return this.commandHandler.invalidArguments(message);
+	run: async function (message, args, argsString) {
+		if (!argsString) return this.commandHandler.invalidArguments(message);
 
 		const voiceChannel = message.member.voiceChannel;
-		if(!voiceChannel) return message.channel.send(':x: Please be in a voice channel first!');
+		if (!voiceChannel) return message.channel.send(':x: Please be in a voice channel first!');
 
-		if(message.guild.me.voiceChannel && message.guild.me.voiceChannel.id !== voiceChannel.id) return message.channel.send(':x: I am already playing in another channel!');
+		if (message.guild.me.voiceChannel && message.guild.me.voiceChannel.id !== voiceChannel.id) return message.channel.send(':x: I am already playing in another channel!');
 
 		const ytRequest = await this.request(`https://www.googleapis.com/youtube/v3/search?type=video&part=snippet&q=${encodeURI(argsString)}&key=${encodeURI(this.botCfg.youtubeApiKey)}`, {
 			method: 'GET'
@@ -25,7 +25,7 @@ module.exports = {
 		let body = JSON.parse(ytRequest.body);
 		let video = body.items[0];
 
-		if(!video) return message.channel.send(':x: The requested video could not be found!');
+		if (!video) return message.channel.send(':x: The requested video could not be found!');
 
 		const videoInfoRequest = await this.request(`https://www.googleapis.com/youtube/v3/videos?id=${encodeURI(video.id.videoId)}&part=contentDetails&key=${encodeURI(this.botCfg.youtubeApiKey)}`, {
 			method: 'GET'
@@ -36,7 +36,7 @@ module.exports = {
 		const pthms = videoInfo.items[0].contentDetails.duration;
 		const duration = pthmsToMs(pthms);
 
-		if(duration > 30 * 60 * 1000) return message.channel.send(':clock130: Songs can\'t be longer than 30 minutes!');
+		if (duration > 30 * 60 * 1000) return message.channel.send(':clock130: Songs can\'t be longer than 30 minutes!');
 
 		const connnection = await voiceChannel.join();
 
@@ -52,9 +52,9 @@ module.exports = {
 			this.voiceStreams.set(message.guild.id, dispatcher);
 
 			dispatcher.on('end', (reason) => {
-				if(typeof reason === 'undefined') return playSong(url);
+				if (reason === undefined) return playSong(url);
 
-				if(this.songQueues.has(message.guild.id) && this.songQueues.get(message.guild.id).length !== 0) {
+				if (this.songQueues.has(message.guild.id) && this.songQueues.get(message.guild.id).length !== 0) {
 					let currentSong = this.songQueues.get(message.guild.id)[0];
 
 					this.playingSongs.set(message.guild.id, Object.assign(currentSong, {
@@ -84,10 +84,10 @@ module.exports = {
 			}
 		};
 
-		if(this.voiceStreams.has(message.guild.id)) {
+		if (this.voiceStreams.has(message.guild.id)) {
 			let queue = this.songQueues.get(message.guild.id) || [];
 
-			if(queue.filter((song) => song.url === currentSong.url).length > 0) return message.channel.send(`:x: This song is already queued. See the queued songs with \`${this.botCfg.prefix}queue\``);
+			if (queue.filter((song) => song.url === currentSong.url).length > 0) return message.channel.send(`:x: This song is already queued. See the queued songs with \`${this.botCfg.prefix}queue\``);
 
 			queue.push(currentSong);
 

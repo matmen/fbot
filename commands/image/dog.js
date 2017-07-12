@@ -2,8 +2,7 @@ module.exports = {
 	description: 'Sends a random dog',
 	category: 'Fun',
 	cooldown: 5000,
-	run: async function(message) {
-
+	run: async function (message) {
 		const response = await this.request('https://random.dog/woof.json'),
 			body = JSON.parse(response.body),
 			imageURL = body.url;
@@ -14,6 +13,5 @@ module.exports = {
 				name: 'b0rk.png'
 			}]
 		});
-
 	}
 };

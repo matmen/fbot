@@ -3,11 +3,10 @@ module.exports = {
 	category: 'Utils',
 	args: '(text)',
 	cooldown: 1000,
-	run: async function(message) {
-
+	run: async function (message) {
 		const startTime = Date.now();
-		message.channel.send(`:cloud: Websocket-Ping: \`${Math.round(this.client.ping)}ms\`\n:pencil: Message-Ping: \`Pinging..\``)
-			.then(m => m.edit(`:cloud: Websocket-Ping: \`${Math.round(this.client.ping)}ms\`\n:pencil: Message-Ping: \`${Date.now() - startTime}ms\``));
 
+		const res = await message.channel.send(`:cloud: Websocket-Ping: \`${Math.round(this.client.ping)}ms\`\n:pencil: Message-Ping: \`Pinging..\``);
+		res.edit(`:cloud: Websocket-Ping: \`${Math.round(this.client.ping)}ms\`\n:pencil: Message-Ping: \`${Date.now() - startTime}ms\``);
 	}
 };

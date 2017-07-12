@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function () {
 
 	this.client.on('guildCreate', (guild) => {
 		const embed = new this.api.RichEmbed();
@@ -7,7 +7,7 @@ module.exports = function() {
 		const botFarm = botCount / guild.memberCount > 0.5 && guild.memberCount > 10;
 
 		embed.setTitle('Added to ' + guild.name);
-		if(botFarm) embed.setDescription('⚠ This server might be a bot farm (~' + Math.round(botCount / guild.memberCount * 100) + '% bots)');
+		if (botFarm) embed.setDescription('⚠ This server might be a bot farm (~' + Math.round(botCount / guild.memberCount * 100) + '% bots)');
 		embed.addField('Users', guild.memberCount, true);
 		embed.addField('Bots', botCount, true);
 		embed.addField('Bots/Users Ratio', (Math.round(botCount / guild.memberCount * 1000) / 1000), true);

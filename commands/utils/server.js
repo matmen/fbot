@@ -3,11 +3,10 @@ module.exports = {
 	category: 'Utils',
 	args: '[server ID]',
 	cooldown: 5000,
-	run: async function(message, args) {
-
+	run: async function (message, args) {
 		let serverID = message.guild.id;
 
-		if(args.length === 1 && args[0].match(/^\d+$/)) serverID = args[0].replace(/[^\d]/g, '');
+		if (args.length === 1 && args[0].match(/^\d+$/)) serverID = args[0].replace(/[^\d]/g, '');
 
 		const stats = await this.utils.queryDB('SELECT (SELECT count(*) FROM messages WHERE serverid = $1) messages, (SELECT count(*) FROM commands WHERE serverid = $1) commands', [serverID]);
 		const topCommandStats = await this.utils.queryDB('SELECT command,count(*) FROM commands WHERE serverid = $1 GROUP BY 1 ORDER BY count(*) DESC LIMIT 1', [serverID]);
@@ -44,6 +43,5 @@ module.exports = {
 		message.channel.send({
 			embed: embed
 		});
-
 	}
 };

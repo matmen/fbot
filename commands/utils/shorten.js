@@ -4,9 +4,9 @@ module.exports = {
 	args: '(url)',
 	aliases: ['bitly'],
 	cooldown: 1000,
-	run: async function(message, args, argsString) {
-		if(!argsString) return this.commandHandler.invalidArguments(message);
-		if(!this.utils.isURL(argsString)) return message.channel.send(':x: Invalid URL');
+	run: async function (message, args, argsString) {
+		if (!argsString) return this.commandHandler.invalidArguments(message);
+		if (!this.utils.isURL(argsString)) return message.channel.send(':x: Invalid URL');
 
 		const msg = await message.channel.send('Shortening..');
 		const response = await this.request(`https://api-ssl.bitly.com/v3/shorten?login=${this.botCfg.bitlyLogin}&apiKey=${this.botCfg.bitlyApiKey}&longUrl=${encodeURI(argsString)}&format=txt`);

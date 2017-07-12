@@ -1,8 +1,7 @@
 module.exports = {
 	description: 'Shows all shard\'s stats',
 	category: 'Utils',
-	run: async function(message) {
-
+	run: async function (message) {
 		const shardPings = await this.client.shard.fetchClientValues('ping');
 		const shardGuilds = await this.client.shard.fetchClientValues('guilds.size');
 		const shardUsers = await this.client.shard.fetchClientValues('users.size');
@@ -11,7 +10,7 @@ module.exports = {
 		list += '│ Shard ID │ WS Ping   │ Guilds │ Users   │\n';
 		list += '├──────────┼───────────┼────────┼─────────┤\n';
 
-		for(let shardID = 0; shardID < this.client.shard.count; shardID++) {
+		for (let shardID = 0; shardID < this.client.shard.count; shardID++) {
 			list += `│ ${shardID}${' '.repeat(8 - shardID.toString().length)} │ ${Math.round(shardPings[shardID])}ms${' '.repeat(7 - Math.round(shardPings[shardID]).toString().length)} │ ${shardGuilds[shardID]}${' '.repeat(6 - shardGuilds[shardID].toString().length)} │ ~${shardUsers[shardID]}${' '.repeat(6 - shardUsers[shardID].toString().length)} │\n`;
 		}
 
@@ -26,6 +25,5 @@ module.exports = {
 		message.channel.send(list, {
 			code: 'xl'
 		});
-
 	}
 };

@@ -4,8 +4,8 @@ module.exports = {
 	aliases: ['suicide'],
 	args: '(user)',
 	cooldown: 1000,
-	run: async function(message, args, argsString) {
-		if(!argsString) return this.commandHandler.invalidArguments(message);
+	run: async function (message, args, argsString) {
+		if (!argsString) return this.commandHandler.invalidArguments(message);
 
 		const user = this.utils.filterMentions(argsString);
 
@@ -18,6 +18,5 @@ module.exports = {
 			'|```';
 
 		message.channel.send(`${hangman}\n\nKill yourself, \`${user}\`\n<https://ropestore.org/?u=${encodeURI(user)}>`);
-
 	}
 };

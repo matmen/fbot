@@ -3,12 +3,11 @@ module.exports = {
 	args: '(@user | Attachment | URL) (text..)',
 	category: 'Fun',
 	cooldown: 5000,
-	run: async function(message, args) {
-
+	run: async function (message, args) {
 		const images = this.utils.getImagesFromMessage(message, args);
 		let text = this.utils.isImageArg(args[0]) ? args.slice(1).join(' ') : args.join(' ');
 
-		if(images.length === 0 || !text) return this.commandHandler.invalidArguments(message);
+		if (images.length === 0 || !text) return this.commandHandler.invalidArguments(message);
 
 		let raw = await this.jimp.read('./assets/reminder/raw.png');
 		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0xffffffff); //eslint-disable-line no-unused-vars
@@ -21,8 +20,8 @@ module.exports = {
 		text = this.utils.filterMentions(text);
 
 		let line = 0;
-		for(const part of text.match(/.{1,15}/g)) {
-			if(line > 7) continue;
+		for (const part of text.match(/.{1,15}/g)) {
+			if (line > 7) continue;
 			frame.print(font, 370, (200 + 32 * line), part.trim());
 			line++;
 		}
@@ -35,6 +34,5 @@ module.exports = {
 				name: 'reminder.png'
 			}]
 		});
-
 	}
 };

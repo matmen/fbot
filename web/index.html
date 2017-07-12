@@ -1,91 +1,93 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="fbot">
-  <head>
-    <title>fbot</title>
 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#293a48">
-    <base href="/" />
+<head>
+	<title>fbot</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/mdb.min.css" rel="stylesheet">
-    <link href="css/custom.css" rel="stylesheet">
-    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
-  </head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="theme-color" content="#293a48">
+	<base href="/" />
 
-  <body>
-    <nav class="navbar fixed-top navbar-dark double-nav navbtns">
-      <a href="/" class="logo hidden-md-down"></a>
-      <a href="/" class="logo-sm hidden-md-up"></a>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/mdb.min.css" rel="stylesheet">
+	<link href="css/custom.css" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico">
+</head>
 
-      <ul class="nav navbar-nav nav-flex-icons hidden-md-down">
-        <li>
-          <a href="/commands" class="btn dark-1">Commands</a>
-        </li>
-        <li>
-          <a href="/settings" class="btn dark-2">Settings</a>
-        </li>
-        <li>
-          <a href="//twitter.com/fbot_updates" class="btn dark-3">Updates</a>
-        </li>
-        <li>
-          <a href="/stats" class="btn dark-4">Stats</a>
-        </li>
-        <li>
-          <a href="//discord.gg/aRt6zMU" class="btn dark-5">Dev Server</a>
-        </li>
-        <li>
-          <a href="//bit.ly/add-fbot" class="btn btn-add">Add fbot</a>
-        </li>
-      </ul>
+<body>
+	<nav class="navbar fixed-top navbar-dark double-nav navbtns">
+		<a href="/" class="logo hidden-md-down"></a>
+		<a href="/" class="logo-sm hidden-md-up"></a>
 
-      <ul class="row nav navbar-nav nav-flex-icons hidden-sm-up">
-        <li>
-          <a href="/commands" class="btn dark-2">Commands</a>
-        </li>
-        <li>
-          <a href="/settings" class="btn dark-4">Settings</a>
-        </li>
-      </ul>
-    </nav>
+		<ul class="nav navbar-nav nav-flex-icons hidden-md-down">
+			<li>
+				<a href="/commands" class="btn dark-1">Commands</a>
+			</li>
+			<li>
+				<a href="/settings" class="btn dark-2">Settings</a>
+			</li>
+			<li>
+				<a href="//twitter.com/fbot_updates" class="btn dark-3">Updates</a>
+			</li>
+			<li>
+				<a href="/stats" class="btn dark-4">Stats</a>
+			</li>
+			<li>
+				<a href="//discord.gg/aRt6zMU" class="btn dark-5">Dev Server</a>
+			</li>
+			<li>
+				<a href="//bit.ly/add-fbot" class="btn btn-add">Add fbot</a>
+			</li>
+		</ul>
 
-    <div id="content" ng-view>
+		<ul class="row nav navbar-nav nav-flex-icons hidden-sm-up">
+			<li>
+				<a href="/commands" class="btn dark-2">Commands</a>
+			</li>
+			<li>
+				<a href="/settings" class="btn dark-4">Settings</a>
+			</li>
+		</ul>
+	</nav>
 
-      <div class="text-xs-center">
-        <p>This site requires JavaScript to work</p>
-        <a href="http://enable-javascript.com/" class="btn btn-info">Enable JavaScript</a>
-      </div>
+	<div id="content" ng-view>
 
-    </div>
+		<div class="text-xs-center">
+			<p>This site requires JavaScript to work</p>
+			<a href="http://enable-javascript.com/" class="btn btn-info">Enable JavaScript</a>
+		</div>
 
-    <footer class="page-footer">
-      <div class="container-fluid text-xs-center">
-        <div class="row">
-          <div class="col-xs-4">
-            <a href="//github.com/xmatmen/fbot" class="btn dark-3"><i class="fa fa-github"></i></a>
-          </div>
-          <div class="col-xs-4">
-            <a href="//twitter.com/xmatmen" class="btn dark-3"><i class="fa fa-twitter"></i></a>
-          </div>
-          <div class="col-xs-4">
-            <a href="//paypal.me/matmen/5usd" class="btn dark-3"><i class="fa fa-paypal"></i></a>
-          </div>
-        </div>
-      </div>
+	</div>
 
-      <div class="footer-copyright">
-        <div class="container-fluid">
-          © 2017 <a href="//github.com/xmatmen">Mathis Mensing</a>
-        </div>
-      </div>
-    </footer>
-  </body>
+	<footer class="page-footer">
+		<div class="container-fluid text-xs-center">
+			<div class="row">
+				<div class="col-xs-4">
+					<a href="//github.com/xmatmen/fbot" class="btn dark-3"><i class="fa fa-github"></i></a>
+				</div>
+				<div class="col-xs-4">
+					<a href="//twitter.com/xmatmen" class="btn dark-3"><i class="fa fa-twitter"></i></a>
+				</div>
+				<div class="col-xs-4">
+					<a href="//paypal.me/matmen/5usd" class="btn dark-3"><i class="fa fa-paypal"></i></a>
+				</div>
+			</div>
+		</div>
 
-  <script src="js/angular.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.min.js"></script>
-  <script src="js/Chart.bundle.min.js"></script>
-  <script src="js/controller.js"></script>
+		<div class="footer-copyright">
+			<div class="container-fluid">
+				© 2017 <a href="//github.com/xmatmen">Mathis Mensing</a>
+			</div>
+		</div>
+	</footer>
+
+	<script src="js/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-sanitize.min.js"></script>
+	<script src="js/Chart.bundle.min.js"></script>
+	<script src="js/controller.js"></script>
+</body>
+
 </html>

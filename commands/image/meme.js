@@ -5,8 +5,7 @@ module.exports = {
 	description: 'Sends a random meme',
 	category: 'Fun',
 	cooldown: 5000,
-	run: async function(message) {
-
+	run: async function (message) {
 		const response = await this.request(`https://www.reddit.com/r/${subs[Math.floor(Math.random() * subs.length)]}/${sortings[Math.floor(Math.random() * sortings.length)]}.json`),
 			body = JSON.parse(response.body),
 			children = body.data.children,
@@ -19,6 +18,5 @@ module.exports = {
 				name: 'meme.png'
 			}]
 		});
-
 	}
 };

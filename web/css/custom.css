@@ -1,70 +1,70 @@
 #content {
-  min-height: 75vh;
-  overflow: auto !important;
+	min-height: 75vh;
+	overflow: auto !important;
 }
 
 footer {
-  background-color: #293a48 !important;
-  margin-top: 5vh;
+	background-color: #293a48 !important;
+	margin-top: 5vh;
 }
 
 .footer-copyright {
-  margin-top: 20px;
+	margin-top: 20px;
 }
 
 nav {
-  background-color: #293a48 !important;
-  height: 96px;
-  margin: auto;
-  line-height: 75px;
-  overflow-x: hidden;
+	background-color: #293a48 !important;
+	height: 96px;
+	margin: auto;
+	line-height: 75px;
+	overflow-x: hidden;
 }
 
 .navbtns {
-  margin-bottom: 5vh;
+	margin-bottom: 5vh;
 }
 
 .btn.dark-1 {
-  background-color: rgba(0, 0, 0, 0.1);
+	background-color: rgba(0, 0, 0, 0.1);
 }
 
 .btn.dark-2 {
-  background-color: rgba(0, 0, 0, 0.2);
+	background-color: rgba(0, 0, 0, 0.2);
 }
 
 .btn.dark-3 {
-  background-color: rgba(0, 0, 0, 0.3);
+	background-color: rgba(0, 0, 0, 0.3);
 }
 
 .btn.dark-4 {
-  background-color: rgba(0, 0, 0, 0.4);
+	background-color: rgba(0, 0, 0, 0.4);
 }
 
 .btn.dark-5 {
-  background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .btn.btn-add {
-  background-color: rgb(64, 200, 128);
+	background-color: rgb(64, 200, 128);
 }
 
 .logo {
-  background-image: url('/img/logoheader.png');
-  background-repeat: no-repeat;
-  width: 175px;
-  height: 75px;
-  float: left;
+	background-image: url('/img/logoheader.png');
+	background-repeat: no-repeat;
+	width: 175px;
+	height: 75px;
+	float: left;
 }
 
 .logo-sm {
-  background-image: url('/img/logo75.png');
-  background-repeat: no-repeat;
-  width: 80px;
-  height: 80px;
-  margin-top: 5px;
-  float: left;
+	background-image: url('/img/logo75.png');
+	background-repeat: no-repeat;
+	width: 80px;
+	height: 80px;
+	margin-top: 5px;
+	float: left;
 }
 
 .canvasDiv {
-  height: 350px;
+	height: 350px;
 }

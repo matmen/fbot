@@ -4,9 +4,8 @@ module.exports = {
 	cooldown: 1000,
 	args: '(code..)',
 	adminOnly: true,
-	run: async function(message, args, argsString) {
-
-		if(!argsString) return this.commandHandler.invalidArguments(message);
+	run: async function (message, args, argsString) {
+		if (!argsString) return this.commandHandler.invalidArguments(message);
 
 		let result = await this.client.shard.broadcastEval(argsString);
 		result = JSON.stringify(result, null, 4) || '[]';
@@ -14,6 +13,5 @@ module.exports = {
 		message.channel.send(result, {
 			code: 'js'
 		});
-
 	}
 };

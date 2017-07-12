@@ -11,8 +11,7 @@ const discordCfg = require('./configs/discord.json');
 const botCfg = require('./configs/bot.json');
 const dbCfg = require('./configs/database.json');
 
-if(process.argv.includes('--prepare')) {
-
+if (process.argv.includes('--prepare')) {
 	console.log(`${'[Shard M] [DB]'.red} Preparing database..`); // eslint-disable-line no-console
 
 	prepareDb().then(() => {
@@ -21,9 +20,7 @@ if(process.argv.includes('--prepare')) {
 	}).catch((err) => {
 		throw err;
 	});
-
 } else {
-
 	const shardManager = new api.ShardingManager('./shardScript.js', {
 		token: discordCfg.token,
 		totalShards: botCfg.shards
@@ -53,17 +50,16 @@ if(process.argv.includes('--prepare')) {
 	shardManager.spawn();
 	scheduler.loadTasks();
 
-	if(botCfg.disableWebHelper !== true) webHelper.listen();
-
+	if (botCfg.disableWebHelper !== true) webHelper.listen();
 }
 
 function queryDB(query, args) {
 	return new Promise((resolve, reject) => {
 		this.connect((err, cli, done) => {
-			if(err) return reject(err);
+			if (err) return reject(err);
 			cli.query(query, args || [], (err, res) => {
 				done();
-				if(err) return reject(err);
+				if (err) return reject(err);
 				resolve(res);
 			});
 		});

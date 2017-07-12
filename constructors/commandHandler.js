@@ -5,42 +5,42 @@ class CommandHandler {
 
 	registerHandler() {
 		this.bot.client.on('message', async(message) => {
-			if(message.author.bot || message.author.id === this.bot.client.id) return;
-			if(message.channel.type === 'dm') return message.channel.send('Sorry, but commands cannot be executed via DM!');
+			if (message.author.bot || message.author.id === this.bot.client.id) return;
+			if (message.channel.type === 'dm') return message.channel.send('Sorry, but commands cannot be executed via DM!');
 
 			const mentionRegex = new RegExp(`^<@!?${this.bot.client.user.id}> `);
 			const prefixResult = await this.bot.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', ['prefix', message.guild.id]);
 			const prefix = prefixResult.rowCount > 0 ? prefixResult.rows[0].value : this.bot.botCfg.prefix;
 
-			if(!message.content.startsWith(prefix) && !message.content.match(mentionRegex)) return;
+			if (!message.content.startsWith(prefix) && !message.content.match(mentionRegex)) return;
 
 			const messageArguments = (message.content.match(mentionRegex) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).split(/ +/g);
 			const commandName = messageArguments.shift();
 
-			if(!this.bot.commands.has(commandName)) return;
-			if(!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('Sorry, but I don\'t have permission to post in that channel!');
-			if(!message.channel.permissionsFor(message.guild.me).has('ATTACH_FILES')) return message.channel.send('Sorry, but I probably need the Attach Files permission to handle this command properly!');
+			if (!this.bot.commands.has(commandName)) return;
+			if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('Sorry, but I don\'t have permission to post in that channel!');
+			if (!message.channel.permissionsFor(message.guild.me).has('ATTACH_FILES')) return message.channel.send('Sorry, but I probably need the Attach Files permission to handle this command properly!');
 
-			if(!this.bot.utils.isAdmin(message.author.id)) {
+			if (!this.bot.utils.isAdmin(message.author.id)) {
 				const isBlacklisted = await this.bot.utils.queryDB('SELECT * FROM blacklists WHERE (type = \'server\' AND id = $1) OR (type = \'channel\' AND id = $2) OR (type = \'user\' AND id = $3)', [message.guild.id, message.channel.id, message.author.id]);
-				if(isBlacklisted.rowCount > 0) return;
+				if (isBlacklisted.rowCount > 0) return;
 			}
 
 			let command = this.bot.commands.get(commandName);
-			if(command.alias) command = this.bot.commands.get(command.name);
-			if(command.adminOnly && !this.bot.utils.isAdmin(message.author.id)) return void message.channel.send(':x: Sorry, but you don\'t have permission to use this command');
+			if (command.alias) command = this.bot.commands.get(command.name);
+			if (command.adminOnly && !this.bot.utils.isAdmin(message.author.id)) return void message.channel.send(':x: Sorry, but you don\'t have permission to use this command');
 
-			if(!this.bot.utils.isAdmin(message.author.id)) {
-				if(this.bot.commandCooldowns.has(message.author.id)) {
+			if (!this.bot.utils.isAdmin(message.author.id)) {
+				if (this.bot.commandCooldowns.has(message.author.id)) {
 
 					const cooldowns = this.bot.commandCooldowns.get(message.author.id);
 
-					if(cooldowns.has(command.name)) {
+					if (cooldowns.has(command.name)) {
 						const expirationTime = cooldowns.get(command.name);
 						const timeRemaining = Math.ceil((expirationTime - Date.now()) / 1000) * 1000;
 
-						if(Date.now() < expirationTime) {
-							if(!cooldowns.has('handler:cooldown') || Date.now() > cooldowns.get('handler:cooldown')) message.channel.send(`:x: Cooldown! Please wait another ${this.bot.hd(timeRemaining)} before using this command`);
+						if (Date.now() < expirationTime) {
+							if (!cooldowns.has('handler:cooldown') || Date.now() > cooldowns.get('handler:cooldown')) message.channel.send(`:x: Cooldown! Please wait another ${this.bot.hd(timeRemaining)} before using this command`);
 							return cooldowns.set('handler:cooldown', Date.now() + 5000);
 						}
 					}
@@ -78,18 +78,18 @@ class CommandHandler {
 		let inMultiwordArg = false;
 		let currentArg = '';
 
-		for(const char of splitArguments) {
+		for (const char of splitArguments) {
 
-			if(char === '"') {
+			if (char === '"') {
 				inMultiwordArg = !inMultiwordArg;
-			} else if(char === ' ' && !inMultiwordArg && currentArg) {
+			} else if (char === ' ' && !inMultiwordArg && currentArg) {
 				args.push(currentArg);
 				currentArg = '';
-			} else if(char !== ' ' || inMultiwordArg) currentArg += char;
+			} else if (char !== ' ' || inMultiwordArg) currentArg += char;
 
 		}
 
-		if(currentArg) args.push(currentArg);
+		if (currentArg) args.push(currentArg);
 
 		return args;
 	}
@@ -102,7 +102,7 @@ class CommandHandler {
 		const messageArguments = (message.content.match(mentionRegex) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).split(/ +/g);
 		const commandName = messageArguments.shift();
 		let command = this.bot.commands.get(commandName);
-		if(command.alias) command = this.bot.commands.get(command.name);
+		if (command.alias) command = this.bot.commands.get(command.name);
 
 		message.channel.send(`Invalid arguments! Try:\n\`\`\`\n${prefix}${commandName} ${command.args || ''}\`\`\``);
 	}

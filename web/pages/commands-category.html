@@ -1,33 +1,33 @@
 <div class="text-xs-center" ng-controller="CommandHelpController">
-  <h3>Commands</h3>
-  <small>Category: <code>{{category}}</code></small><br /><hr />
+	<h3>Commands</h3>
+	<small>Category: <code>{{category}}</code></small><br /><hr />
 
-  <div class="col-xs-12">
-    <div class="row">
-      <div class="col-md-4">
-        <code>(argument)</code> => This argument is required
-      </div>
-      <div class="col-md-4">
-        <code>[argument]</code> => This argument is optional
-      </div>
-      <div class="col-md-4">
-        <code>*argument</code> => Only guild admins can use this argument
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-6">
-        <code>argument+</code> => This argument is repeatable
-      </div>
-      <div class="col-md-6">
-        <code>argument..</code> => This argument can contain spaces
-      </div>
-    </div><br /><br />
+	<div class="col-xs-12">
+		<div class="row">
+			<div class="col-md-4">
+				<code>(argument)</code> => This argument is required
+			</div>
+			<div class="col-md-4">
+				<code>[argument]</code> => This argument is optional
+			</div>
+			<div class="col-md-4">
+				<code>*argument</code> => Only guild admins can use this argument
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<code>argument+</code> => This argument is repeatable
+			</div>
+			<div class="col-md-6">
+				<code>argument..</code> => This argument can contain spaces
+			</div>
+		</div><br /><br />
 
-    <div ng-repeat="command in commands | filter: isCategory">
-      <hr />
-      <code>{{command.name}} {{command.args || ''}}</code><br />
-      <span>{{command.description}}</span><br />
-      <small ng-show="command.aliases">Aliases: <span ng-bind-html="'<code>' + command.aliases.join('&lt;/code&gt;, &lt;code&gt;') + '</code>'"></span></small>
-    </div>
-  </div>
+		<div ng-repeat="command in commands | filter: isCategory">
+			<hr />
+			<code>{{command.name}} {{command.args || ''}}</code><br />
+			<span>{{command.description}}</span><br />
+			<small ng-show="command.aliases">Aliases: <span ng-bind-html="'<code>' + command.aliases.join('&lt;/code&gt;, &lt;code&gt;') + '</code>'"></span></small>
+		</div>
+	</div>
 </div>

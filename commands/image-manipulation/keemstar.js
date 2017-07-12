@@ -4,11 +4,10 @@ module.exports = {
 	aliases: ['keem'],
 	category: 'Fun',
 	cooldown: 5000,
-	run: async function(message, args) {
-
+	run: async function (message, args) {
 		const images = this.utils.getImagesFromMessage(message, args);
 
-		if(images.length === 0) return this.commandHandler.invalidArguments(message);
+		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
 		let raw = await this.jimp.read('./assets/keem.png');
 		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0xffffffff); //eslint-disable-line no-unused-vars
@@ -24,6 +23,5 @@ module.exports = {
 				name: 'memestar.png'
 			}]
 		});
-
 	}
 };

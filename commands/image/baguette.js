@@ -3,8 +3,7 @@ module.exports = {
 	category: 'Fun',
 	aliases: ['french'],
 	cooldown: 1000,
-	run: async function(message) {
-
+	run: async function (message) {
 		const baguettes = this.fs.readdirSync('./assets/baguette/');
 		const baguetteName = baguettes[Math.floor(Math.random() * baguettes.length)];
 
@@ -14,6 +13,5 @@ module.exports = {
 				name: 'baguette.' + baguetteName.replace(/.+\./, '')
 			}]
 		});
-
 	}
 };

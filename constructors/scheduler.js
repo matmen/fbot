@@ -8,7 +8,7 @@ class Scheduler {
 	}
 
 	loadTasks() {
-		for(const fileName of fs.readdirSync('./tasks/')) {
+		for (const fileName of fs.readdirSync('./tasks/')) {
 			const task = require(path.resolve('./tasks/', fileName));
 			setInterval(task.run.bind(this), task.interval);
 		}

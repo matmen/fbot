@@ -36,11 +36,10 @@ app.controller('StatsController', ($scope, $http) => {
 		method: 'GET',
 		url: '/api/stats'
 	}).then((res) => {
-
 		const servers = [];
 		const commandPercentages = [];
 
-		for(const stat of res.data) {
+		for (const stat of res.data) {
 
 			servers.push({
 				x: parseInt(stat.time),
@@ -77,7 +76,6 @@ app.controller('StatsController', ($scope, $http) => {
 			},
 			options: graphOpts
 		});
-
 	});
 
 });

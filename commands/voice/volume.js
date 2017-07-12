@@ -3,12 +3,12 @@ module.exports = {
 	category: 'Voice',
 	args: '[volume]',
 	cooldown: 1000,
-	run: async function(message, args) {
-		if(!this.voiceStreams.has(message.guild.id) || !message.guild.me.voiceChannel) return message.channel.send(':x: The bot isn\'t playing anything!');
-		if(!message.member.voiceChannel || message.member.voiceChannel.id !== message.guild.me.voiceChannel.id) return message.channel.send(':x: You cant control the volume when you\'re not in the voice channel!');
+	run: async function (message, args) {
+		if (!this.voiceStreams.has(message.guild.id) || !message.guild.me.voiceChannel) return message.channel.send(':x: The bot isn\'t playing anything!');
+		if (!message.member.voiceChannel || message.member.voiceChannel.id !== message.guild.me.voiceChannel.id) return message.channel.send(':x: You cant control the volume when you\'re not in the voice channel!');
 
 		let volume;
-		if(args.length === 1) {
+		if (args.length === 1) {
 			volume = Math.max(0, Math.min(100, parseInt(args[0])));
 			this.voiceStreams.get(message.guild.id).setVolume(volume / 100);
 		} else {

@@ -3,12 +3,11 @@ module.exports = {
 	args: '(@user | Attachment | URL) (text..)',
 	category: 'Fun',
 	cooldown: 5000,
-	run: async function(message, args) {
-
+	run: async function (message, args) {
 		const images = this.utils.getImagesFromMessage(message, args);
 		let text = this.utils.isImageArg(args[0]) ? args.slice(1).join(' ') : args.join(' ');
 
-		if(images.length === 0 || !text) return this.commandHandler.invalidArguments(message);
+		if (images.length === 0 || !text) return this.commandHandler.invalidArguments(message);
 
 		let raw = await this.jimp.read('./assets/watchmojo/raw.png');
 		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0x000000ff); //eslint-disable-line no-unused-vars
@@ -30,6 +29,5 @@ module.exports = {
 				name: 'watchmojo.png'
 			}]
 		});
-
 	}
 };

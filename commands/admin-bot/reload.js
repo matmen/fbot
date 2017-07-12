@@ -3,13 +3,11 @@ module.exports = {
 	category: 'Botadmin',
 	cooldown: 1000,
 	adminOnly: true,
-	run: async function(message) {
-
+	run: async function (message) {
 		const startTime = Date.now();
 
 		this.commands = this.resourceLoader.loadCommands();
 
 		message.channel.send(`:white_check_mark: Reloaded ${this.commands.filter(c => !c.alias).size} commands with ${this.commands.filter(c => c.alias).size} aliases in \`${Date.now() - startTime}ms\``);
-
 	}
 };

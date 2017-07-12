@@ -3,16 +3,14 @@ module.exports = {
 	category: 'Fun',
 	args: '(text) [text] [text]',
 	cooldown: 1000,
-	run: async function(message, args) {
-
-		if(args.length === 0 || args.length > 3) return this.commandHandler.invalidArguments(message);
-
-		const s = (x) => String.prototype.repeat.call(' ', x);
+	run: async function (message, args) {
+		if (args.length === 0 || args.length > 3) return this.commandHandler.invalidArguments(message);
 
 		const a = this.utils.filterMentions(args[0].substring(0, 16)),
 			b = this.utils.filterMentions(args[1 % args.length].substring(0, 16)),
 			c = this.utils.filterMentions(args[2 % args.length].substring(0, 16)),
-			d = ' \n';
+			d = ' \n',
+			s = (x) => ' '.repeat(x);
 
 		let reply = a + s(11) + a + s(5) + b + s(2) + c + d +
 			s(2) + a + s(7) + a + s(7) + b + s(5) + c + d +
@@ -25,6 +23,5 @@ module.exports = {
 		message.channel.send(reply, {
 			code: true
 		});
-
 	}
 };

@@ -9,12 +9,11 @@ const botCfg = require('./configs/bot.json');
 const dbCfg = require('./configs/database.json');
 
 process.on('unhandledRejection', (err) => {
-	if(err.message && ['Missing Access', 'Missing Permissions'].some(x => err.message.includes(x))) return;
+	if (err.message && ['Missing Access', 'Missing Permissions'].some(x => err.message.includes(x))) return;
 	console.error(`${'[ERR]'.red} Unhandled rejection:\n${(err && err.stack) || err}`); // eslint-disable-line no-console
 });
 
 class Bot {
-
 	constructor() {
 		this.api = api;
 		this.discordCfg = discordCfg;
@@ -41,7 +40,6 @@ class Bot {
 
 		this.client.login(discordCfg.token);
 	}
-
 }
 
 module.exports = new Bot();

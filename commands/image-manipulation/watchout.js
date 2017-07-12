@@ -3,9 +3,8 @@ module.exports = {
 	args: '(@user | name)',
 	category: 'Fun',
 	cooldown: 5000,
-	run: async function(message, args, argsString) {
-
-		if(!argsString) return this.commandHandler.invalidArguments(message);
+	run: async function (message, args, argsString) {
+		if (!argsString) return this.commandHandler.invalidArguments(message);
 
 		let raw = await this.jimp.read('./assets/watchout/raw.png');
 		const font = await this.jimp.loadFont('./assets/watchout/discordchat.fnt');
@@ -18,7 +17,7 @@ module.exports = {
 			'and its kinda obvious why leaking your IP Addresses is not good. Nobody accept this user and let him in here';
 
 		let line = 0;
-		for(const part of text.match(/.{1,145}/g)) {
+		for (const part of text.match(/.{1,145}/g)) {
 			raw.print(font, 69, (42 + 18 * line), part.trim());
 			line++;
 		}
@@ -32,6 +31,5 @@ module.exports = {
 				name: 'watchout.png'
 			}]
 		});
-
 	}
 };

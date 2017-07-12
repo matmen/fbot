@@ -14,9 +14,9 @@ class ResourceLoader {
 
 		const loadCommandsIn = (dir) => {
 
-			for(const subName of fs.readdirSync(dir)) {
+			for (const subName of fs.readdirSync(dir)) {
 
-				if(fs.statSync(path.resolve(dir, subName)).isDirectory()) {
+				if (fs.statSync(path.resolve(dir, subName)).isDirectory()) {
 
 					loadCommandsIn(path.resolve(dir, subName));
 
@@ -25,13 +25,13 @@ class ResourceLoader {
 					let file = path.resolve(dir, subName);
 					let name = subName.substring(0, subName.lastIndexOf('.')).toLowerCase();
 
-					if(require.cache[require.resolve(file)]) delete require.cache[require.resolve(file)];
+					if (require.cache[require.resolve(file)]) delete require.cache[require.resolve(file)];
 
 					const command = require(file);
 					command.name = name;
 					commands.set(name, command);
 
-					if(command.aliases) command.aliases.forEach((alias) => {
+					if (command.aliases) command.aliases.forEach((alias) => {
 						commands.set(alias, {
 							alias: true,
 							name: name
@@ -50,7 +50,7 @@ class ResourceLoader {
 	}
 
 	loadEvents() {
-		for(const fileName of fs.readdirSync('./events/')) {
+		for (const fileName of fs.readdirSync('./events/')) {
 			require(path.resolve('./events/', fileName)).call(this.bot);
 		}
 	}

@@ -4,8 +4,8 @@ module.exports = {
 	aliases: ['pastebin'],
 	args: '[unlisted] (title) (text..)',
 	cooldown: 1000,
-	run: async function(message, args) {
-		if(args.length < 2) return this.commandHandler.invalidArguments(message);
+	run: async function (message, args) {
+		if (args.length < 2) return this.commandHandler.invalidArguments(message);
 
 		let unlisted = args[0] === 'true';
 		let title = args[unlisted ? 1 : 0];

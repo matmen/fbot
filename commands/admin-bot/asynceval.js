@@ -5,9 +5,8 @@ module.exports = {
 	args: '(code..)',
 	aliases: ['aeval'],
 	adminOnly: true,
-	run: async function(message, args, argsString) {
-
-		if(!argsString) return this.commandHandler.invalidArguments(message);
+	run: async function (message, args, argsString) {
+		if (!argsString) return this.commandHandler.invalidArguments(message);
 
 		let result = await eval(`(async()=>{${argsString}})()`);
 		result = JSON.stringify(result, null, 4) || 'undefined';
@@ -15,6 +14,5 @@ module.exports = {
 		message.channel.send(result, {
 			code: 'js'
 		});
-
 	}
 };

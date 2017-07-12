@@ -7,7 +7,6 @@ const path = require('path');
 const botCfg = require('../configs/bot.json');
 
 class WebHelper {
-
 	constructor(shardManager, db) {
 		this.shardManager = shardManager;
 		this.db = db;
@@ -22,7 +21,7 @@ class WebHelper {
 			try {
 				const stats = await this.db.query('SELECT * FROM stats WHERE time >= $1 ORDER BY time DESC', [Date.now() - 30 * 24 * 60 * 60 * 1000]);
 				res.end(JSON.stringify(stats.rows));
-			} catch(err) {
+			} catch (err) {
 				res.status(500);
 				res.end(err.message);
 			}
@@ -44,7 +43,7 @@ class WebHelper {
 					users: users,
 					channels: channels
 				}));
-			} catch(err) {
+			} catch (err) {
 				res.status(500);
 
 				res.end(JSON.stringify({
@@ -58,7 +57,7 @@ class WebHelper {
 
 			try {
 				res.end(JSON.stringify(this.commands));
-			} catch(err) {
+			} catch (err) {
 				res.status(500);
 
 				res.end(JSON.stringify({
@@ -93,13 +92,13 @@ class WebHelper {
 		const commands = [];
 
 		const loadCommandsIn = (dir) => {
-			for(const subName of fs.readdirSync(dir)) {
-				if(fs.statSync(path.resolve(dir, subName)).isDirectory()) {
+			for (const subName of fs.readdirSync(dir)) {
+				if (fs.statSync(path.resolve(dir, subName)).isDirectory()) {
 					loadCommandsIn(path.resolve(dir, subName));
 				} else {
 					let file = path.resolve(dir, subName);
 					let name = subName.substring(0, subName.lastIndexOf('.')).toLowerCase();
-					if(require.cache[require.resolve(file)]) delete require.cache[require.resolve(file)];
+					if (require.cache[require.resolve(file)]) delete require.cache[require.resolve(file)];
 
 					const command = require(file);
 					commands.push({

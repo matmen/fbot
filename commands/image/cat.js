@@ -2,8 +2,7 @@ module.exports = {
 	description: 'Sends a random cat',
 	category: 'Fun',
 	cooldown: 5000,
-	run: async function(message) {
-
+	run: async function (message) {
 		const response = await this.request('http://random.cat/meow'),
 			body = JSON.parse(response.body),
 			imageURL = body.file;
@@ -14,6 +13,5 @@ module.exports = {
 				name: 'meow.png'
 			}]
 		});
-
 	}
 };

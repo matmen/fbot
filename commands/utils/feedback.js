@@ -5,7 +5,6 @@ module.exports = {
 	aliases: ['complain', 'fix'],
 	cooldown: 20000,
 	run: async function (message, args, argsString) {
-
 		if (!argsString) return this.commandHandler.invalidArguments(message);
 
 		let embed = new this.api.RichEmbed();
