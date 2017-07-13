@@ -103,7 +103,7 @@ class CommandHandler {
 		const prefixResult = await this.bot.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', ['prefix', message.guild.id]);
 		const prefix = prefixResult.rowCount > 0 ? prefixResult.rows[0].value : this.bot.botCfg.prefix;
 		const messageArguments = (message.content.match(mentionRegex) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).split(/ +/g);
-		const commandName = messageArguments.shift();
+		const commandName = messageArguments.shift().toLowerCase();
 		let command = this.bot.commands.get(commandName);
 		if (command.alias) command = this.bot.commands.get(command.name);
 
