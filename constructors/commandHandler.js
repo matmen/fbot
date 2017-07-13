@@ -15,7 +15,10 @@ class CommandHandler {
 			if (!message.content.startsWith(prefix) && !message.content.match(mentionRegex)) return;
 
 			const messageArguments = (message.content.match(mentionRegex) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).split(/ +/g);
-			const commandName = messageArguments.shift();
+			let commandName = messageArguments.shift();
+
+			if (!commandName) return;
+			commandName = commandName.toLowerCase();
 
 			if (!this.bot.commands.has(commandName)) return;
 			if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('Sorry, but I don\'t have permission to post in that channel!');
