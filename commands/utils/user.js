@@ -15,8 +15,11 @@ module.exports = {
 		const messages = stats.rows[0].messages;
 		const commands = stats.rows[0].commands;
 
-		const servers = this.client.guilds.filter(g => g.members.has(userID));
-		const shownServers = servers.array().slice(-3);
+		const serverShardResults = await this.client.shard.broadcastEval(`this.guilds.filter(g => g.members.has('${userID}')).map(g => g.name)`);
+		let servers = [];
+		for (const serverShardResult of serverShardResults) servers = servers.concat(serverShardResult);
+
+		const shownServers = servers.slice(-3);
 
 		const topCommand = {
 			command: topCommandStats.rows[0] && topCommandStats.rows[0].command,
@@ -28,8 +31,10 @@ module.exports = {
 			timesPlayed: topSongStats.rows[0] && topSongStats.rows[0].count
 		};
 
-		let body = `Seen on ${servers.size} servers (Shard ${this.client.shard.id}): `;
-		body += `\`${shownServers.map(s => s.name).join('`, `')} ${shownServers.length < servers.size ? `+ ${servers.size - shownServers.length} more` : ''}\`\n\n`;
+		let body = `Seen on ${servers.length} servers: `;
+		body += `\`${shownServers.join('`, `')}`;
+		body += shownServers.length < servers.length ? `\` + ${servers.length - shownServers.length} more` : '`';
+		body += '\n\n';
 		body += `Most used command: **${topCommand.command ? (this.botCfg.prefix + topCommand.command) : 'No commands used'}** (${topCommand.uses || 0} uses)\n`;
 		body += `Most played song: ${topSong.id ? `[Click here](https://youtube.com/watch?v=${topSong.id}) (Played ${topSong.timesPlayed} times)` : 'No songs played'}\n\n`;
 		body += `Commands used: **${commands}** in total\n`;
