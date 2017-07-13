@@ -23,6 +23,7 @@ module.exports = {
 		});
 
 		let body = JSON.parse(ytRequest.body);
+		if (!body.items) return message.channel.send(':x: The requested video could not be found!');
 		let video = body.items[0];
 
 		if (!video) return message.channel.send(':x: The requested video could not be found!');
