@@ -20,7 +20,7 @@ class WebHelper {
 
 			try {
 				const stats = await this.db.query('SELECT * FROM stats WHERE time >= $1 ORDER BY time DESC', [Date.now() - 30 * 24 * 60 * 60 * 1000]);
-				res.end(JSON.stringify(stats.rows));
+				res.json(stats.rows);
 			} catch (err) {
 				res.status(500);
 				res.end(err.message);
@@ -38,33 +38,23 @@ class WebHelper {
 				users = users.reduce((all, val) => all + val, 0);
 				channels = channels.reduce((all, val) => all + val, 0);
 
-				res.end(JSON.stringify({
+				res.json({
 					guilds: guilds,
 					users: users,
 					channels: channels
-				}));
+				});
 			} catch (err) {
 				res.status(500);
 
-				res.end(JSON.stringify({
+				res.json({
 					error: err.message
-				}));
+				});
 			}
 
 		});
 
 		app.get('/api/commands', async(req, res) => {
-
-			try {
-				res.end(JSON.stringify(this.commands));
-			} catch (err) {
-				res.status(500);
-
-				res.end(JSON.stringify({
-					error: err.message
-				}));
-			}
-
+			res.json(this.commands);
 		});
 
 		app.use('/pages', (req, res) => {
