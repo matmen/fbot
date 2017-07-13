@@ -11,6 +11,6 @@ module.exports = {
 
 		this.commands = this.resourceLoader.loadCommands();
 
-		status.edit(`:white_check_mark: Done! Updated in \`${Date.now() - startTime}ms\`\nYou might want to restart all shards now. There are ${this.songQueues.size} active song queues.`);
+		status.edit(`:white_check_mark: Done! Updated in \`${Date.now() - startTime}ms\``);
 	}
 };
