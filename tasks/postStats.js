@@ -10,6 +10,7 @@ module.exports = {
 			.set('Authorization', botCfg.discordbotsApiKey)
 			.send({
 				shards: guilds
-			});
+			})
+			.then(r => r, e => e);
 	}
 };
