@@ -1,12 +1,12 @@
 module.exports = {
 	description: 'Your personal YuGiOh! trading card',
-	args: '(@user | Attachment | URL)',
+	args: '(@user | Attachment | URL) (Card Title..)',
 	category: 'Fun',
 	cooldown: 5000,
 	run: async function (message, args) {
 		const images = await this.utils.getImagesFromMessage(message, args);
 
-		if (images.length === 0 || !this.utils.isImageArg(message, args[0])) return this.commandHandler.invalidArguments(message);
+		if (images.length === 0 || (this.utils.isImageArg(message, args[0]) && args.length < 2)) return this.commandHandler.invalidArguments(message);
 
 		let raw = await this.jimp.read('./assets/yugioh/raw.png');
 		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0x000000ff); //eslint-disable-line no-unused-vars
