@@ -33,29 +33,59 @@ class Utils {
 		msg.channel.send(`Oh no! There was an unexpected error executing your command. Please try again later\n\`${err || 'Unknown Error'}\``);
 	}
 
-	getImagesFromMessage(message, args) {
-		const imageURLs = [];
+	async getImagesFromMessage(message, args) {
+		let imageURLs = [];
 
 		for (const attachment of message.attachments.values()) imageURLs.push(attachment.url);
-		for (const value of args) {
-			if (this.isURL(value)) imageURLs.push(value);
+		if (args[0] !== '^')
+			for (const value of args) {
+				if (this.isURL(value)) imageURLs.push(value);
 
-			if (value.match(/^<:.+:\d+>$/)) {
-				const id = value.match(/^<:.+:(\d+)>$/);
-				if (id && id[1] && this.bot.client.emojis.has(id[1])) imageURLs.push(this.bot.client.emojis.get(id[1]).url);
-			} else {
-				const match = message.guild.members.find(member => {
-					if (member.user.tag.toLowerCase().includes(value.toLowerCase())) return true;
-					if (member.nickname && member.nickname.toLowerCase().includes(value.toLowerCase())) return true;
-					if (member.user.id === value.replace(/[^\d]/g, '')) return true;
-					return false;
-				});
+				if (value.match(/^<:.+:\d+>$/)) {
+					const id = value.match(/^<:.+:(\d+)>$/);
+					if (id && id[1] && this.bot.client.emojis.has(id[1])) imageURLs.push(this.bot.client.emojis.get(id[1]).url);
+				} else {
+					const match = message.guild.members.filter(member => {
+						if (member.user.tag.toLowerCase().includes(value.toLowerCase())) return true;
+						if (member.nickname && member.nickname.toLowerCase().includes(value.toLowerCase())) return true;
+						if (member.user.id === value.replace(/[^\d]/g, '')) return true;
+						return false;
+					}).sort((m1, m2) => {
+						const m1Time = m1.lastMessage && m1.lastMessage.createdTimestamp || 0;
+						const m2Time = m2.lastMessage && m2.lastMessage.createdTimestamp || 0;
 
-				if (match) imageURLs.push(match.user.displayAvatarURL({
-					format: 'png',
-					size: 2048
-				}));
+						return m2Time - m1Time;
+					}).first();
+
+					if (match) imageURLs.push(match.user.displayAvatarURL({
+						format: 'png',
+						size: 2048
+					}));
+				}
 			}
+
+		if (imageURLs.length === 0) {
+			const messages = await message.channel.fetchMessages({
+				limit: 20
+			});
+
+			const messageAttachments = messages.filter(m => m.attachments.size > 0 && m.attachments.first().height && m.attachments.first().width);
+			const messageEmbeds = messages.filter(m => m.embeds.length > 0 && m.embeds[0].type === 'image');
+			let images = [];
+
+			for (const messageAttachment of messageAttachments.array()) images.push({
+				url: messageAttachment.attachments.first().url,
+				createdTimestamp: messageAttachment.createdTimestamp
+			});
+
+			for (const messageEmbed of messageEmbeds.array()) images.push({
+				url: messageEmbed.embeds[0].url,
+				createdTimestamp: messageEmbed.createdTimestamp
+			});
+
+			images = images.sort((m1, m2) => m2.createdTimestamp - m1.createdTimestamp);
+
+			imageURLs = images.map(i => i.url);
 		}
 
 		return imageURLs;
@@ -67,20 +97,21 @@ class Utils {
 
 	isImageArg(message, value) {
 		if (!value) return false;
+		if (message.attachments.size > 0) return false;
 		if (this.isURL(value)) return true;
 
 		if (value.match(/^<:.+:\d+>$/)) {
 			const id = value.match(/^<:.+:(\d+)>$/);
 			if (id && id[1] && this.bot.client.emojis.has(id[1])) return true;
 		} else {
-			const match = message.guild.members.find(member => {
+			const match = message.guild.members.filter(member => {
 				if (member.user.tag.toLowerCase().includes(value.toLowerCase())) return true;
 				if (member.nickname && member.nickname.toLowerCase().includes(value.toLowerCase())) return true;
 				if (member.user.id === value.replace(/[^\d]/g, '')) return true;
 				return false;
 			});
 
-			if (match) return true;
+			if (match.size > 0) return true;
 		}
 
 		return false;

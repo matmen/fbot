@@ -5,7 +5,7 @@ module.exports = {
 	aliases: ['merge'],
 	cooldown: 5000,
 	run: async function (message, args) {
-		const images = this.utils.getImagesFromMessage(message, args);
+		const images = await this.utils.getImagesFromMessage(message, args);
 
 		if (images.length < 2) return this.commandHandler.invalidArguments(message);
 

@@ -4,7 +4,7 @@ module.exports = {
 	category: 'Fun',
 	cooldown: 5000,
 	run: async function (message, args) {
-		const images = this.utils.getImagesFromMessage(message, args);
+		const images = await this.utils.getImagesFromMessage(message, args);
 		let text = this.utils.isImageArg(message, args[0]) ? args.slice(1).join(' ') : args.join(' ');
 
 		if (images.length === 0 || !text) return this.commandHandler.invalidArguments(message);
