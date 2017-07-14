@@ -8,8 +8,10 @@ module.exports = {
 
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
-		let raw = await this.jimp.read('./assets/autism.png');
 		let image = await this.utils.fetchImage(images[0]);
+		if (image instanceof Error) return this.utils.handleCommandError(image, message);
+
+		let raw = await this.jimp.read('./assets/autism.png');
 		image = await image.resize(491, 491);
 		image = await raw.composite(image, 0, 0);
 		image = await this.utils.getBufferFromJimp(image);

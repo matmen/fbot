@@ -9,9 +9,11 @@ module.exports = {
 
 		if (images.length === 0 || !text) return this.commandHandler.invalidArguments(message);
 
+		let image = await this.utils.fetchImage(images[0]);
+		if (image instanceof Error) return this.utils.handleCommandError(image, message);
+
 		let raw = await this.jimp.read('./assets/watchmojo/raw.png');
 		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0x000000ff); //eslint-disable-line no-unused-vars
-		let image = await this.utils.fetchImage(images[0]);
 		image = await image.resize(this.jimp.AUTO, 480);
 		frame = await frame.composite(image, (frame.bitmap.width / 2 - image.bitmap.width / 2), 4);
 		frame = await frame.composite(raw, 0, 0);

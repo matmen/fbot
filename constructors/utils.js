@@ -123,11 +123,10 @@ class Utils {
 			size: 3000000
 		});
 
-		if (!fetched.ok) return new this.bot.jimp(512, 512, 0xFFFFFFFF);
-
+		if (!fetched.ok) return new Error(`Could not download image (${fetched.status} ${fetched.statusText})`);
 		const buffer = await fetched.buffer();
 
-		return (await this.bot.jimp.read(buffer)) || new this.bot.jimp(512, 512, 0xFFFFFFFF);
+		return await this.bot.jimp.read(buffer);
 	}
 
 	getBufferFromJimp(img, mime) {

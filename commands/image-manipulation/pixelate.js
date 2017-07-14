@@ -8,6 +8,7 @@ module.exports = {
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
 		let image = await this.utils.fetchImage(images[0]);
+		if (image instanceof Error) return this.utils.handleCommandError(image, message);
 
 		let size = this.utils.isImageArg(message, args[0]) ? args[1] : args[0];
 		size = Math.max(2, Math.min(Math.max(image.bitmap.width, image.bitmap.height), parseInt(size) || 10));

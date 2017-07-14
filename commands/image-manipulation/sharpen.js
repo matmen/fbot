@@ -8,14 +8,15 @@ module.exports = {
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
 		let image = await this.utils.fetchImage(images[0]);
+		if (image instanceof Error) return this.utils.handleCommandError(image, message);
 
 		let amount = this.utils.isImageArg(message, args[0]) ? args[1] : args[0];
 		amount = Math.max(1, Math.min(100, parseInt(amount) || 10));
 
 		image = await image.convolution([
-			[-1 * amount, -1 * amount, -1 * amount],
-			[-1 * amount, amount * (amount < 20 ? 8.1 : 8.05), -1 * amount],
-			[-1 * amount, -1 * amount, -1 * amount]
+			[-amount, -amount, -amount],
+			[-amount, amount * (amount < 20 ? 8.1 : 8.05), -amount],
+			[-amount, -amount, -amount]
 		]);
 
 		image = await this.utils.getBufferFromJimp(image);

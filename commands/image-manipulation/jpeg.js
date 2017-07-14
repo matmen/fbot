@@ -10,6 +10,8 @@ module.exports = {
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
 		let image = await this.utils.fetchImage(images[0]);
+		if (image instanceof Error) return this.utils.handleCommandError(image, message);
+
 		image = await image.quality(1);
 		image = await this.utils.getBufferFromJimp(image, 'image/jpeg');
 

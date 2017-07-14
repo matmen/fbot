@@ -8,9 +8,11 @@ module.exports = {
 
 		if (images.length === 0 || (this.utils.isImageArg(message, args[0]) && args.length < 2)) return this.commandHandler.invalidArguments(message);
 
+		let image = await this.utils.fetchImage(images[0]);
+		if (image instanceof Error) return this.utils.handleCommandError(image, message);
+
 		let raw = await this.jimp.read('./assets/yugioh/raw.png');
 		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0x000000ff); //eslint-disable-line no-unused-vars
-		let image = await this.utils.fetchImage(images[0]);
 		image = await image.resize(370, 365);
 		frame = await frame.composite(image, 180, 150);
 		frame = await frame.composite(raw, 0, 0);

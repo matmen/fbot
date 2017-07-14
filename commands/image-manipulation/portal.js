@@ -8,9 +8,11 @@ module.exports = {
 
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
+		let image = await this.utils.fetchImage(images[0]);
+		if (image instanceof Error) return this.utils.handleCommandError(image, message);
+
 		let raw = await this.jimp.read('./assets/portal.png');
 		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0xffffffff); //eslint-disable-line no-unused-vars
-		let image = await this.utils.fetchImage(images[0]);
 		image = await image.resize(this.jimp.AUTO, 617);
 		frame = await frame.composite(image, (raw.bitmap.width / 2 - image.bitmap.width / 2), 419);
 		frame = await frame.composite(raw, 0, 0);
