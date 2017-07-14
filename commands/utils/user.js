@@ -40,7 +40,7 @@ module.exports = {
 		body += `Commands used: **${commands}** in total\n`;
 		body += `Messages sent: **${messages}** in total`;
 
-		const embed = new this.api.RichEmbed();
+		const embed = new this.api.MessageEmbed();
 
 		embed.setTitle(`User stats for ${this.client.users.has(userID) ? this.client.users.get(userID).tag : 'Unknown#0000'}`);
 		embed.setThumbnail(this.client.users.has(userID) && this.client.users.get(userID).avatarURL());

@@ -38,7 +38,7 @@ module.exports = {
 		body += `discord.js v${this.api.version}\n`;
 		body += `fbot #${commitHash}${modified ? '-mod' : ''}`;
 
-		const embed = new this.api.RichEmbed();
+		const embed = new this.api.MessageEmbed();
 
 		embed.setTitle('Bot stats');
 		embed.setDescription(body);

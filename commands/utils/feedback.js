@@ -7,7 +7,7 @@ module.exports = {
 	run: async function (message, args, argsString) {
 		if (!argsString) return this.commandHandler.invalidArguments(message);
 
-		let embed = new this.api.RichEmbed();
+		let embed = new this.api.MessageEmbed();
 
 		embed.setTitle('Feedback');
 		embed.setDescription(argsString);

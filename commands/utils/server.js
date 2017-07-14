@@ -32,7 +32,7 @@ module.exports = {
 		body += `Commands used: **${commands}** in total\n`;
 		body += `Messages sent: **${messages}** in total\n`;
 
-		const embed = new this.api.RichEmbed();
+		const embed = new this.api.MessageEmbed();
 
 		embed.setTitle(`User stats for ${this.client.guilds.has(serverID) ? this.client.guilds.get(serverID).name : 'Unknown Server'}`);
 		embed.setThumbnail(this.client.guilds.has(serverID) && this.client.guilds.get(serverID).iconURL());

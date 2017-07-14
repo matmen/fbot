@@ -30,7 +30,7 @@ module.exports = {
 		body += `Commands used: **${commands}** in total\n`;
 		body += `Messages sent: **${messages}** in total\n`;
 
-		const embed = new this.api.RichEmbed();
+		const embed = new this.api.MessageEmbed();
 
 		embed.setTitle(`Channel stats for #${this.client.channels.has(channelID) ? this.client.channels.get(channelID).name : 'unknown'}`);
 		embed.setThumbnail(this.client.channels.has(channelID) && this.client.channels.get(channelID).guild.iconURL());
