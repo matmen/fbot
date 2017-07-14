@@ -19,11 +19,11 @@
 	"dependencies": {
 		"async-request": "^1.2.0",
 		"colors": "^1.1.2",
-		"discord.js": "github:hydrabolt/discord.js",
+		"discord.js": "github:xmatmen/discord.js",
 		"express": "^4.15.3",
 		"figlet": "^1.2.0",
 		"humanize-duration": "^3.10.0",
-		"jimp": "^0.2.28",
+		"jimp": "github:xmatmen/jimp",
 		"node-fetch": "^1.7.0",
 		"node-opus": "^0.2.6",
 		"pg": "^6.2.3",
