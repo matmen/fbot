@@ -1,7 +1,7 @@
 module.exports = function() {
 
 	this.client.on('guildDelete', (guild) => {
-		const embed = new this.api.RichEmbed();
+		const embed = new this.api.MessageEmbed();
 
 		const botCount = guild.members.filter((u) => u.user.bot).size;
 

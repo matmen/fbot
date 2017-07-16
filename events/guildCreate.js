@@ -1,7 +1,7 @@
 module.exports = function () {
 
 	this.client.on('guildCreate', (guild) => {
-		const embed = new this.api.RichEmbed();
+		const embed = new this.api.MessageEmbed();
 
 		const botCount = guild.members.filter((u) => u.user.bot).size;
 		const botFarm = botCount / guild.memberCount > 0.5 && guild.memberCount > 10;
