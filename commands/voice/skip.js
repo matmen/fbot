@@ -3,7 +3,7 @@ module.exports = {
 	category: 'Voice',
 	cooldown: 10000,
 	run: async function (message, args) {
-		if (!this.voiceStreams.has(message.guild.id) || !message.guild.me.voiceChannel) return message.channel.send(':x: The bot isn\'t playing anything!');
+		if (!this.voiceStreams.get(message.guild.id) || !message.guild.me.voiceChannel) return message.channel.send(':x: The bot isn\'t playing anything!');
 
 		if (message.member.hasPermission('MANAGE_GUILD') && args[0] !== 'vote') {
 			message.channel.send(':fast_forward: Sudo-Skipping current song');

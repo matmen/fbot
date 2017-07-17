@@ -33,6 +33,7 @@ module.exports = {
 		});
 
 		let videoInfo = JSON.parse(videoInfoRequest.body);
+		if (!videoInfo.items) return message.channel.send(':x: The requested video could not be found!');
 
 		const pthms = videoInfo.items[0].contentDetails.duration;
 		const duration = pthmsToMs(pthms);
