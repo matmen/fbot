@@ -10,8 +10,8 @@ module.exports = {
 			let command = this.commands.get(commandName.toLowerCase());
 			if (command.alias) command = this.commands.get(command.name);
 
-			message.channel.send(`+ ${this.botCfg.prefix}${commandName.toLowerCase()}\n- ${command.description}\n\n- Usage:\n- ${this.botCfg.prefix}${commandName.toLowerCase()} ${command.args || ''}`, {
-				code: 'diff'
+			message.channel.send(`# ${this.botCfg.prefix}${commandName}\n- ${command.description}\n\n- Usage:\n- ${this.botCfg.prefix}${commandName} ${command.args || ''}`, {
+				code: 'md'
 			});
 		} else message.channel.send('You can find a list of commands here:\n<https://fbot.menchez.me/>');
 	}
