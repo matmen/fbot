@@ -17,7 +17,7 @@ module.exports = {
 			if (!result) result = new this.jimp(image.bitmap.width, image.bitmap.height, 0xFFFFFFFF);
 
 			image = await image.opacity(1 / (index + 2));
-			result.composite(await image.resize(result.bitmap.width, result.bitmap.height), 0, 0);
+			result = await result.composite(await image.resize(result.bitmap.width, result.bitmap.height), 0, 0);
 		}
 
 		result = await this.utils.getBufferFromJimp(result);
