@@ -12,7 +12,7 @@ module.exports = {
 		let result;
 		for (let index = 0; index < images.length; index++) {
 			let image = await this.utils.fetchImage(images[index]);
-			if (!image) continue;
+			if (!image || image instanceof Error) continue;
 
 			if (!result) result = new this.jimp(image.bitmap.width, image.bitmap.height, 0xFFFFFFFF);
 
