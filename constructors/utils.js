@@ -43,7 +43,7 @@ class Utils {
 
 				if (value.match(/^<:.+:\d+>$/)) {
 					const id = value.match(/^<:.+:(\d+)>$/);
-					if (id && id[1]) imageURLs.push(`https://cdn.discordapp.com/emojis/${id[1]}`);
+					if (id && id[1]) imageURLs.push(`https://cdn.discordapp.com/emojis/${id[1]}.png`);
 				} else {
 					const match = message.guild.members.filter(member => {
 						if (member.user.tag.toLowerCase().includes(value.toLowerCase())) return true;
@@ -102,7 +102,7 @@ class Utils {
 
 		if (value.match(/^<:.+:\d+>$/)) {
 			const id = value.match(/^<:.+:(\d+)>$/);
-			if (id && id[1] && this.bot.client.emojis.has(id[1])) return true;
+			if (id && id[1]) return true;
 		} else {
 			const match = message.guild.members.filter(member => {
 				if (member.user.tag.toLowerCase().includes(value.toLowerCase())) return true;
