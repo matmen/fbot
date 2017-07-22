@@ -15,7 +15,7 @@ module.exports = {
 
 		image = await image.convolution([
 			[-amount, -amount, -amount],
-			[-amount, amount * (amount < 20 ? 8.1 : 8.05), -amount],
+			[-amount, amount * 8 + 1, -amount],
 			[-amount, -amount, -amount]
 		]);
 
