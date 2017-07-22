@@ -11,8 +11,8 @@ module.exports = {
 		let image = await this.utils.fetchImage(images[0]);
 		if (image instanceof Error) return this.utils.handleCommandError(image, message);
 
-        let overlay = await jimp.read('./assets/9gag.png');
-        image = await image.composite(overlay, image.bitmap.width-overlay.bitmap.width-5, image.bitmap.height/2 - overlay.bitmap.height/2);
+		let overlay = await jimp.read('./assets/9gag.png');
+		image = await image.composite(overlay, image.bitmap.width-overlay.bitmap.width-5, image.bitmap.height/2 - overlay.bitmap.height/2);
 
 		image = await this.utils.getBufferFromJimp(image);
 
