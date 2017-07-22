@@ -1,6 +1,6 @@
 module.exports = {
 	description: 'Blurs an image.',
-	args: '(@user | Attachment | URL)',
+	args: '(@user | Attachment | URL) [amount]',
 	category: 'Fun',
 	cooldown: 5000,
 	run: async function (message, args) {
