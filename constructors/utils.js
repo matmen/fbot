@@ -98,7 +98,7 @@ class Utils {
 	isImageArg(message, value) {
 		if (!value) return false;
 		if (message.attachments.size > 0) return false;
-		if (this.isURL(value)) return true;
+		if (value === '^' || this.isURL(value)) return true;
 
 		if (value.match(/^<:.+:\d+>$/)) {
 			const id = value.match(/^<:.+:(\d+)>$/);
