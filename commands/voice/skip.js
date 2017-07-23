@@ -3,7 +3,10 @@ module.exports = {
 	category: 'Voice',
 	cooldown: 10000,
 	run: async function (message, args) {
-		if (!this.voiceStreams.get(message.guild.id) || !message.guild.me.voiceChannel) return message.channel.send(':x: The bot isn\'t playing anything!');
+		if (!message.guild.me.voiceChannel || !this.voiceStreams.has(message.guild.id) || !this.playingSongs.has(message.guild.id)) return message.channel.send(':x: The bot isn\'t playing anything!');
+		const currentSong = this.playingSongs.get(message.guild.id);
+
+		if (currentSong.video.duration - (Date.now() - currentSong.startedAt) < 15000) return message.channel.send(':x: The song is ending in < 15s (Vote would take too long)');
 
 		if (message.member.hasPermission('MANAGE_GUILD') && args[0] !== 'vote') {
 			message.channel.send(':fast_forward: Sudo-Skipping current song');
