@@ -1,8 +1,8 @@
 module.exports = {
 	interval: 30 * 60 * 1000,
-	run: async function() {
+	run: async function () {
 		let guilds = await this.shardManager.fetchClientValues('guilds.size');
-		let channels = await this.shardManager.fetchClientValues('channels.size'); // eslint-disable-line no-unused-vars
+		let channels = await this.shardManager.broadcastEval('this.guilds.map(g => g.memberCount).reduce((a, c) => a + c, 0)'); // eslint-disable-line no-unused-vars
 		let users = await this.shardManager.fetchClientValues('users.size'); // eslint-disable-line no-unused-vars
 		let messages = await this.db.query('SELECT COUNT(*) FROM messages'); // eslint-disable-line no-unused-vars
 		let commands = await this.db.query('SELECT COUNT(*) FROM COMMANDS'); // eslint-disable-line no-unused-vars
