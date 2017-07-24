@@ -1,24 +1,17 @@
 module.exports = {
 	description: 'tRAnSfOrMs tExT iNto sPoNgEmOcK fOrMaT.',
-  aliases: ['mock'],
+  	aliases: ['mock'],
 	category: 'Fun',
-	args: '(text)',
+	args: '(text..)',
 	cooldown: 1000,
 	run: async function(message, args, argsString) {
-
 		if(!argsString) return this.commandHandler.invalidArguments(message);
-
-		const text = this.utils.filterMentions(argsString).match(/.{1,15}/g).join('\n');
     
-    let mockText = argsString.split('');
-		
-    for(let i = 0; i < mockText.length; i++){
-      mockText[i] = Math.random() >= 0.5 ? mockText[i].toUpperCase() : mockText[i].toLowerCase(); 
-    }
+    		let text = [];
 
-		if(mock.length > 2000) return message.channel.send('The message you tried to convert is too long, try something shorter');
+		for(const char of this.utils.filterMentions(argsString).split(''))
+			text.push(Math.random() >= 0.5 ? char.toUpperCase() : char.toLowerCase());
 
-		message.channel.send(mockText.join(''));
-
+		message.channel.send(text.join(''));
 	}
 };
