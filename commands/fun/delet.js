@@ -7,7 +7,7 @@ module.exports = {
 	run: async function (message, args) {
 		if (args.length === 0) {
 			message.channel.send('delet yourself');
-		} else if (args.length === 1 && args[0].match(/^(<@!?)?\d+>?$/)) {
+		} else if (args.length === 1 && /^(<@!?)?\d+>?$/.test(args[0])) {
 			let id = args[0].replace(/[^\d]/g, '');
 			if (id === this.client.user.id || this.utils.isAdmin(id)) id = message.author.id;
 

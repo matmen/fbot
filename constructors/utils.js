@@ -41,9 +41,8 @@ class Utils {
 			for (const value of args) {
 				if (this.isURL(value)) imageURLs.push(value);
 
-				if (value.match(/^<:.+:\d+>$/)) {
-					const id = value.match(/^<:.+:(\d+)>$/);
-					if (id && id[1]) imageURLs.push(`https://cdn.discordapp.com/emojis/${id[1]}.png`);
+				if (/^<:.+:\d+>$/.test(value)) {
+					imageURLs.push(`https://cdn.discordapp.com/emojis/${value.match(/^<:.+:(\d+)>$/)[1]}.png`);
 				} else {
 					const match = message.guild.members.filter(member => {
 						if (member.user.tag.toLowerCase().includes(value.toLowerCase())) return true;
@@ -100,9 +99,8 @@ class Utils {
 		if (message.attachments.size > 0) return false;
 		if (value === '^' || this.isURL(value)) return true;
 
-		if (value.match(/^<:.+:\d+>$/)) {
-			const id = value.match(/^<:.+:(\d+)>$/);
-			if (id && id[1]) return true;
+		if (/^<:.+:\d+>$/.test(value)) {
+			return true;
 		} else {
 			const match = message.guild.members.filter(member => {
 				if (member.user.tag.toLowerCase().includes(value.toLowerCase())) return true;

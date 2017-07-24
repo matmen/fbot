@@ -9,30 +9,28 @@ module.exports = function () {
 		const isBlacklisted = await this.utils.queryDB('SELECT * FROM blacklists WHERE (type = \'server\' AND id = $1) OR (type = \'channel\' AND id = $2) OR (type = \'user\' AND id = $3)', [message.guild.id, message.channel.id, message.author.id]);
 		if (isBlacklisted.rowCount > 0) return;
 
-		let text = message.content;
+		let text = message.content.toLowerCase();
 
-		if (text.match(/^ok$/i)) await message.react('🆗');
+		if (text === 'ok') await message.react('🆗');
 
-		if (text.match(/y\/n(\?)?$/i)) {
+		if (/y\/n(\?)?$/.test(text)) {
 			await message.react('🔼');
 			await message.react('🔽');
 		}
 
-		if (text.match(/🤔/gi)) await message.react('🤔');
+		if (text.includes('🤔')) await message.react('🤔');
 
-		if (text.match(/(^| )lit( |$)/i)) await message.react('🔥');
+		if (/\blit\b/i.test(text)) await message.react('🔥');
 
-		if (text.match(/is this the police/i)) await message.react('🚔');
+		if (text.includes('press f')) await message.react('🇫');
 
-		if (text.match(/press f/i)) await message.react('🇫');
+		if (text.includes('snek')) await message.react('🐍');
 
-		if (text.match(/snek/i)) await message.react('🐍');
+		if (text.includes('murica')) await message.react('🇺🇸');
 
-		if (text.match(/murica/i)) await message.react('🇺🇸');
+		if (text.includes('heil')) await message.react('🇩🇪');
 
-		if (text.match(/heil/i)) await message.react('🇩🇪');
-
-		if (text.match(/^add fbot to your( discord)? server at fbot\.menchez\.me$/i)) message.channel.send(message.content);
+		if (/^add fbot to your( discord)? server at fbot\.menchez\.me$/.test(text)) message.channel.send(message.content);
 	});
 
 };

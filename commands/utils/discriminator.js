@@ -7,7 +7,7 @@ module.exports = {
 	run: async function (message, args, argsString) {
 		let discriminator = message.author.discriminator;
 
-		if (argsString && argsString.match(/^\d{4}$/)) discriminator = argsString; // DO NOT EVER remove this, or bad things might happen (broadcasting eval, yk?)
+		if (argsString && /^\d{4}$/.test(argsString)) discriminator = argsString;
 
 		let resultArray = [];
 		const results = await this.client.shard.broadcastEval(`this.users.filter(u => u.discriminator === '${discriminator}').map(u => u.tag)`);
