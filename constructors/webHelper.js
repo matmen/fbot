@@ -32,7 +32,7 @@ class WebHelper {
 
 			try {
 				let guilds = await this.shardManager.fetchClientValues('guilds.size');
-				let users = await this.shardManager.fetchClientValues('users.size');
+				let users = await this.shardManager.broadcastEval('this.guilds.map(g => g.memberCount).reduce((a, c) => a + c, 0)');
 				let channels = await this.shardManager.fetchClientValues('channels.size');
 				guilds = guilds.reduce((all, val) => all + val, 0);
 				users = users.reduce((all, val) => all + val, 0);

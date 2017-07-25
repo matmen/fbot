@@ -6,7 +6,7 @@ class AiFilter {
 	check(str) {
 		if (!str) return false;
 
-		if (str.match(/:\w{1,}:|^.?[^a-z0-9 ']\w{1,}|(#|@)\w{1,}/ig))
+		if (/:\w{1,}:|^.?[^a-z0-9 ']\w{1,}|(#|@)\w{1,}/ig.test(str))
 			return false;
 
 		let clean = str.trim().toUpperCase()

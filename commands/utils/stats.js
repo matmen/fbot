@@ -23,13 +23,13 @@ module.exports = {
 		const shardGuilds = await this.client.shard.fetchClientValues('guilds.size');
 		const guildCount = shardGuilds.reduce((all, val) => all + val, 0);
 
-		const shardUsers = await this.client.shard.fetchClientValues('users.size');
+		const shardUsers = await this.client.shard.broadcastEval('this.guilds.map(g => g.memberCount).reduce((a, c) => a + c, 0)');
 		const userCount = shardUsers.reduce((all, val) => all + val, 0);
 
 		const commitHash = require('child_process').execSync('git rev-parse --short HEAD').toString().trim();
 		const modified = !!require('child_process').execSync('git status -s').toString();
 
-		let body = `Listening on ${guildCount} servers with ~${userCount} users\n\n`;
+		let body = `Listening on ${guildCount} servers with ${userCount} users\n\n`;
 		body += `Most used command: **${topCommand.command ? (this.botCfg.prefix + topCommand.command) : 'No commands used'}** (${topCommand.uses || 0} uses)\n`;
 		body += `Most played song: ${topSong.id ? `[Click here](https://youtube.com/watch?v=${topSong.id}) (Played ${topSong.timesPlayed} times)` : 'No songs played'}\n\n`;
 		body += `Commands used: **${commands}** in total\n`;

@@ -1,5 +1,5 @@
 module.exports = {
-	description: 'Sharpens the image',
+	description: 'Deepfries the image',
 	args: '(@user | Attachment | URL) [amount]',
 	category: 'Fun',
 	cooldown: 5000,
@@ -13,18 +13,28 @@ module.exports = {
 		let amount = this.utils.isImageArg(message, args[0]) ? args[1] : args[0];
 		amount = Math.max(1, Math.min(100, parseInt(amount) || 10));
 
+		image = await image.brightness(.2);
+		image = await image.contrast(amount / 100);
+
 		image = await image.convolution([
 			[-amount, -amount, -amount],
 			[-amount, amount * 8 + 1, -amount],
 			[-amount, -amount, -amount]
 		]);
 
-		image = await this.utils.getBufferFromJimp(image);
+		image = await image.color([{
+			apply: 'saturate',
+			params: [amount * 5]
+		}]);
+
+		image = await image.quality(1);
+
+		image = await this.utils.getBufferFromJimp(image, 'image/jpeg');
 
 		message.channel.send(`\`Amount: ${amount}\``, {
 			files: [{
 				attachment: image,
-				name: 'sharpen.png'
+				name: 'deepfry.jpg'
 			}]
 		});
 	}

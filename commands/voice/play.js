@@ -116,10 +116,10 @@ const pthmsToMs = (pthms) => {
 	const sRegex = /(\d+)S/;
 	let time = 0;
 
-	time += pthms.match(dRegex) ? parseInt(pthms.match(dRegex)[1] * 60 * 60 * 24) : 0;
-	time += pthms.match(hRegex) ? parseInt(pthms.match(hRegex)[1] * 60 * 60) : 0;
-	time += pthms.match(mRegex) ? parseInt(pthms.match(mRegex)[1] * 60) : 0;
-	time += pthms.match(sRegex) ? parseInt(pthms.match(sRegex)[1]) : 0;
+	time += dRegex.test(pthms) ? parseInt(pthms.match(dRegex)[1] * 60 * 60 * 24) : 0;
+	time += dRegex.test(pthms) ? parseInt(pthms.match(hRegex)[1] * 60 * 60) : 0;
+	time += dRegex.test(pthms) ? parseInt(pthms.match(mRegex)[1] * 60) : 0;
+	time += dRegex.test(pthms) ? parseInt(pthms.match(sRegex)[1]) : 0;
 
 	return time * 1000;
 };

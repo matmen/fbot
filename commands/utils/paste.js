@@ -7,13 +7,13 @@ module.exports = {
 	run: async function (message, args) {
 		if (args.length < 2) return this.commandHandler.invalidArguments(message);
 
-		let unlisted = args[0] === 'true';
-		let title = args[unlisted ? 1 : 0];
-		let text = args.slice(unlisted ? 2 : 1).join(' ');
+		const unlisted = args[0] === 'true';
+		const title = args[unlisted ? 1 : 0];
+		const text = args.slice(unlisted ? 2 : 1).join(' ');
 
-		var msg = await message.channel.send('Creating paste..');
+		const msg = await message.channel.send('Creating paste..');
 
-		let response = await this.request('https://pastebin.com/api/api_post.php', {
+		const response = await this.request('https://pastebin.com/api/api_post.php', {
 			method: 'POST',
 			data: {
 				api_dev_key: this.botCfg.pastebinApiKey,

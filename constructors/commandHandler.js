@@ -12,9 +12,9 @@ class CommandHandler {
 			const prefixResult = await this.bot.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', ['prefix', message.guild.id]);
 			const prefix = prefixResult.rowCount > 0 ? prefixResult.rows[0].value : this.bot.botCfg.prefix;
 
-			if (!message.content.startsWith(prefix) && !message.content.match(mentionRegex)) return;
+			if (!message.content.startsWith(prefix) && !mentionRegex.test(message.content)) return;
 
-			const messageArguments = (message.content.match(mentionRegex) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).split(/ +/g);
+			const messageArguments = (mentionRegex.test(message.content) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).split(/ +/g);
 			let commandName = messageArguments.shift();
 
 			if (!commandName) return;
@@ -102,7 +102,7 @@ class CommandHandler {
 
 		const prefixResult = await this.bot.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', ['prefix', message.guild.id]);
 		const prefix = prefixResult.rowCount > 0 ? prefixResult.rows[0].value : this.bot.botCfg.prefix;
-		const messageArguments = (message.content.match(mentionRegex) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).split(/ +/g);
+		const messageArguments = (mentionRegex.test(message.content) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).split(/ +/g);
 		const commandName = messageArguments.shift().toLowerCase();
 		let command = this.bot.commands.get(commandName);
 		if (command.alias) command = this.bot.commands.get(command.name);

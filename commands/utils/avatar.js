@@ -7,7 +7,7 @@ module.exports = {
 		let id = args[0];
 		if (!id) id = message.author.id;
 
-		if (!id.match(/^(<@!?)?\d+>?$/)) return this.commandHandler.invalidArguments(message);
+		if (!/^(<@!?)?\d+>?$/.test(id)) return this.commandHandler.invalidArguments(message);
 		id = id.replace(/[^\d]/g, '');
 
 		if (!this.client.users.has(id)) return message.channel.send('The requested user could not be found');
