@@ -13,9 +13,9 @@ module.exports = {
 
 		let overlay = await this.jimp.read('./assets/ifunny.png');
 		overlay = await overlay.resize(image.bitmap.width, this.jimp.AUTO, this.jimp.RESIZE_BILINEAR);
-		
+
 		let totalImage = new this.jimp(image.bitmap.width, image.bitmap.height + overlay.bitmap.height, 0x000000ff);
-                totalImage = await totalImage.composite(image, 0, 0);
+		totalImage = await totalImage.composite(image, 0, 0);
 		totalImage = await totalImage.composite(overlay, 0, (totalImage.bitmap.height - overlay.bitmap.height));
 		image = await this.utils.getBufferFromJimp(totalImage);
 
