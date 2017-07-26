@@ -20,6 +20,7 @@ module.exports = {
 
 		const reactions = await skipVote.awaitReactions((reaction, user) => {
 			if (!message.guild.member(user).voiceChannel) return false;
+			if (!message.guild.me.voiceChannel) return false;
 			return message.guild.member(user).voiceChannel.id === message.guild.me.voiceChannel.id;
 		}, {
 			time: 10000
