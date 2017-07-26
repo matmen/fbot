@@ -110,10 +110,10 @@ module.exports = {
 };
 
 const pthmsToMs = (pthms) => {
-	const dRegex = /(\d+)D/;
-	const hRegex = /(\d+)H/;
-	const mRegex = /(\d+)M/;
-	const sRegex = /(\d+)S/;
+	const dRegex = /[^\d]*(\d+)D.*/;
+	const hRegex = /[^\d]*(\d+)H.*/;
+	const mRegex = /[^\d]*(\d+)M.*/;
+	const sRegex = /[^\d]*(\d+)S.*/;
 	let time = 0;
 
 	time += dRegex.test(pthms) ? parseInt(pthms.match(dRegex)[1] * 60 * 60 * 24) : 0;
