@@ -2,7 +2,7 @@ module.exports = {
 	description: 'Adds a fisheye effect to an image',
 	args: '(@user | Attachment | URL)',
 	category: 'Fun',
-	aliases: ['bulge', 'buldge'],
+	aliases: ['bulge', 'buldge', 'thicc'],
 	cooldown: 5000,
 	run: async function (message, args) {
 		const images = await this.utils.getImagesFromMessage(message, args);

@@ -117,9 +117,9 @@ const pthmsToMs = (pthms) => {
 	let time = 0;
 
 	time += dRegex.test(pthms) ? parseInt(pthms.match(dRegex)[1] * 60 * 60 * 24) : 0;
-	time += dRegex.test(pthms) ? parseInt(pthms.match(hRegex)[1] * 60 * 60) : 0;
-	time += dRegex.test(pthms) ? parseInt(pthms.match(mRegex)[1] * 60) : 0;
-	time += dRegex.test(pthms) ? parseInt(pthms.match(sRegex)[1]) : 0;
+	time += hRegex.test(pthms) ? parseInt(pthms.match(hRegex)[1] * 60 * 60) : 0;
+	time += mRegex.test(pthms) ? parseInt(pthms.match(mRegex)[1] * 60) : 0;
+	time += sRegex.test(pthms) ? parseInt(pthms.match(sRegex)[1]) : 0;
 
 	return time * 1000;
 };
