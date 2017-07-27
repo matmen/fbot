@@ -124,7 +124,9 @@ class Utils {
 		if (!fetched.ok) return new Error(`Could not download image (${fetched.status} ${fetched.statusText})`);
 		const buffer = await fetched.buffer();
 
-		return await this.bot.jimp.read(buffer);
+		const result = await this.bot.jimp.read(buffer);
+		if (result.bitmap.width * result.bitmap.height > 10000 ** 2) return new Error('Cannot process images larger than 100 Megapixels');
+		return result;
 	}
 
 	getBufferFromJimp(img, mime) {
