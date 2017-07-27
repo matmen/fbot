@@ -31,6 +31,8 @@ module.exports = function () {
 		if (text.includes('heil')) await message.react('🇩🇪');
 
 		if (/^add fbot to your( discord)? server at fbot\.menchez\.me$/.test(text)) message.channel.send(message.content);
+
+		if (text.includes('machine broke')) message.channel.send('understandable, have a nice day');
 	});
 
 };
