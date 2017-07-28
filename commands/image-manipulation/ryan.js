@@ -1,5 +1,5 @@
 module.exports = {
-	description: '',
+	description: 'why do we need obamacare',
 	args: '(@user | Attachment | URL)',
 	aliases: ['obamacare'],
 	category: 'Fun',
