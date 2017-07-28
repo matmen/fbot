@@ -16,7 +16,7 @@ module.exports = {
 		const faces = await this.fetch('https://api.projectoxford.ai/face/v1.0/detect?returnFaceId=false&returnFaceLandmarks=true', {
 			method: 'POST',
 			headers: {
-				'Ocp-Apim-Subscription-Key': this.botCfg.oxfordKey, //API Key totally not stolen from NotSoBot
+				'Ocp-Apim-Subscription-Key': this.botCfg.oxfordKey,
 				'Content-Type': 'application/octet-stream'
 			},
 			body: await this.utils.getBufferFromJimp(image)
