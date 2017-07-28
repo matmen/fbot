@@ -1,8 +1,8 @@
-const eyesList = ['blue', 'green', 'pink', 'red', 'yellow', 'swastika', 'normal'];
+const eyesList = ['big', 'blood', 'blue', 'googly', 'green', 'horror', 'illuminati', 'money', 'normal', 'pink', 'red', 'small', 'spongebob', 'swastika', 'yellow'];
 
 module.exports = {
 	description: 'Replaces the eyes on a face',
-	args: '(@user | Attachment | URL) [red | green | blue | yellow | pink | swastika | normal]',
+	args: `(@user | Attachment | URL) [${eyesList.join(' | ')}]`,
 	category: 'Fun',
 	cooldown: 5000,
 	run: async function (message, args) {
@@ -22,7 +22,7 @@ module.exports = {
 			body: await this.utils.getBufferFromJimp(image)
 		}).then(r => r.json());
 
-		if (faces.length < 1) return message.channel.send(':x: No face detected');
+		if (!faces.length) return message.channel.send(':x: No face detected');
 
 		const eyes = [];
 
