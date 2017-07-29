@@ -14,7 +14,7 @@ module.exports = {
 
 		let raw = await this.jimp.read('./assets/watchmojo/raw.png');
 		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0x000000ff); //eslint-disable-line no-unused-vars
-		image = await image.resize(this.jimp.AUTO, 480);
+		image = await image.contain(854, 480);
 		frame = await frame.composite(image, (frame.bitmap.width / 2 - image.bitmap.width / 2), 4);
 		frame = await frame.composite(raw, 0, 0);
 
