@@ -10,7 +10,7 @@ module.exports = {
 		if (images.length < 2) return this.commandHandler.invalidArguments(message);
 
 		let result;
-		for (let index = 0; index < images.length; index++) {
+		for (let index = 0; index < Math.min(images.length, 20); index++) {
 			let image = await this.utils.fetchImage(images[index]);
 			if (!image || image instanceof Error) continue;
 
