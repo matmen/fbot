@@ -1,4 +1,4 @@
-const eyesList = ['big', 'blood', 'blue', 'googly', 'green', 'horror', 'illuminati', 'money', 'normal', 'pink', 'red', 'small', 'spongebob', 'swastika', 'yellow'];
+const eyesList = ['big', 'blood', 'blue', 'googly', 'green', 'horror', 'illuminati', 'money', 'normal', 'pink', 'red', 'small', 'spongebob', 'swastika', 'yellow', 'spinner'];
 
 module.exports = {
 	description: 'Replaces the eyes on a face',
@@ -6,14 +6,15 @@ module.exports = {
 	category: 'Fun',
 	cooldown: 5000,
 	run: async function (message, args) {
-		const images = await this.utils.getImagesFromMessage(message, args);
+		if (args.length > 0 && ['list', 'help'].includes(args[0].toLowerCase())) return message.channel.send(`Available eyes:\n\`\`\`http\n${eyesList.join(', ')}\`\`\``);
 
+		const images = await this.utils.getImagesFromMessage(message, args);
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
 		let image = await this.utils.fetchImage(images[0]);
 		if (image instanceof Error) return this.utils.handleCommandError(image, message);
 
-		const faces = await this.fetch('https://api.projectoxford.ai/face/v1.0/detect?returnFaceId=false&returnFaceLandmarks=true', {
+		const faces = await this.fetch('https://api.projectoxford.ai/face/v1.0/detect?returnFaceId=false&returnFaceLandmarks=true&returnFaceAttributes=headPose', {
 			method: 'POST',
 			headers: {
 				'Ocp-Apim-Subscription-Key': this.botCfg.oxfordKey,
@@ -30,13 +31,15 @@ module.exports = {
 			eyes.push({
 				x: face.faceLandmarks.pupilLeft.x,
 				y: face.faceLandmarks.pupilLeft.y,
-				width: face.faceLandmarks.eyeLeftInner.x - face.faceLandmarks.eyeLeftOuter.x
+				width: face.faceLandmarks.eyeLeftInner.x - face.faceLandmarks.eyeLeftOuter.x,
+				rotation: face.faceAttributes.headPose.roll
 			});
 
 			eyes.push({
 				x: face.faceLandmarks.pupilRight.x,
 				y: face.faceLandmarks.pupilRight.y,
-				width: face.faceLandmarks.eyeRightOuter.x - face.faceLandmarks.eyeRightInner.x
+				width: face.faceLandmarks.eyeRightOuter.x - face.faceLandmarks.eyeRightInner.x,
+				rotation: face.faceAttributes.headPose.roll
 			});
 		}
 
@@ -47,7 +50,8 @@ module.exports = {
 
 		for (const eye of eyes) {
 			let tEye = await eyeImage.clone();
-			tEye.resize(eye.width * 20, this.jimp.AUTO);
+			tEye = await tEye.resize(eye.width * 20, this.jimp.AUTO);
+			tEye = await tEye.rotate(-eye.rotation);
 
 			image.composite(tEye, eye.x - tEye.bitmap.width / 2, eye.y - tEye.bitmap.height / 2);
 		}
