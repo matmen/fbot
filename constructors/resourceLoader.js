@@ -67,6 +67,9 @@ class ResourceLoader {
 		});
 		this.bot.childProcess = require('child_process');
 		this.bot.aiFilter = new AiFilter();
+		this.bot.gm = require('gm').subClass({
+			imageMagick: true
+		});
 	}
 
 	createDbInstance() {
