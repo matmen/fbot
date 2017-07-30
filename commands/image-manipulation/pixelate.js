@@ -8,7 +8,7 @@ module.exports = {
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
 		let size = this.utils.isImageArg(message, args[0]) ? args[1] : args[0];
-		size = Math.max(2, Math.min(Math.max(image.bitmap.width, image.bitmap.height), parseInt(size) || 10));
+		size = Math.max(2, parseInt(size) || 10);
 
 		const image = await this.utils.fetchFromAPI('pixelate', {
 			images,
