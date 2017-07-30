@@ -7,15 +7,15 @@ module.exports = {
 		const images = await this.utils.getImagesFromMessage(message, args);
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
-		let image = await this.utils.fetchImage(images[0]);
-		if (image instanceof Error) return this.utils.handleCommandError(image, message);
-
 		let size = this.utils.isImageArg(message, args[0]) ? args[1] : args[0];
 		size = Math.max(2, Math.min(Math.max(image.bitmap.width, image.bitmap.height), parseInt(size) || 10));
 
-		image = await image.pixelate(size);
-
-		image = await this.utils.getBufferFromJimp(image);
+		const image = await this.utils.fetchFromAPI('pixelate', {
+			images,
+			args: {
+				amount: size
+			}
+		});
 
 		message.channel.send(`\`Size: ${size}\``, {
 			files: [{

@@ -8,16 +8,9 @@ module.exports = {
 
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
-		let image = await this.utils.fetchImage(images[0]);
-		if (image instanceof Error) return this.utils.handleCommandError(image, message);
-
-		let overlay = await this.jimp.read('./assets/ifunny.png');
-		overlay = await overlay.resize(image.bitmap.width, this.jimp.AUTO, this.jimp.RESIZE_BILINEAR);
-
-		let totalImage = new this.jimp(image.bitmap.width, image.bitmap.height + overlay.bitmap.height, 0x000000ff);
-		totalImage = await totalImage.composite(image, 0, 0);
-		totalImage = await totalImage.composite(overlay, 0, (totalImage.bitmap.height - overlay.bitmap.height));
-		image = await this.utils.getBufferFromJimp(totalImage);
+		const image = await this.utils.fetchFromAPI('ifunny', {
+			images
+		});
 
 		message.channel.send({
 			files: [{

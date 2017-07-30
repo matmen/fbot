@@ -7,11 +7,9 @@ module.exports = {
 		const images = await this.utils.getImagesFromMessage(message, args);
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
-		let image = await this.utils.fetchImage(images[0]);
-		if (image instanceof Error) return this.utils.handleCommandError(image, message);
-
-		image = await image.invert();
-		image = await this.utils.getBufferFromJimp(image);
+		const image = await this.utils.fetchFromAPI('invert', {
+			images
+		});
 
 		message.channel.send({
 			files: [{

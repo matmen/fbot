@@ -7,15 +7,15 @@ module.exports = {
 		const images = await this.utils.getImagesFromMessage(message, args);
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
-		let image = await this.utils.fetchImage(images[0]);
-		if (image instanceof Error) return this.utils.handleCommandError(image, message);
-
 		let amount = this.utils.isImageArg(message, args[0]) ? args[1] : args[0];
 		amount = Math.max(-100, Math.min(100, parseInt(amount) || 100));
 
-		image = await image.contrast(amount / 100);
-
-		image = await this.utils.getBufferFromJimp(image);
+		const image = await this.utils.fetchFromAPI('contrast', {
+			images,
+			args: {
+				amount: amount / 100
+			}
+		});
 
 		message.channel.send(`\`Amount: ${amount}\``, {
 			files: [{

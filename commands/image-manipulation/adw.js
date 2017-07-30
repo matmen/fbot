@@ -9,15 +9,9 @@ module.exports = {
 
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
-		let image = await this.utils.fetchImage(images[0]);
-		if (image instanceof Error) return this.utils.handleCommandError(image, message);
-
-		let raw = await this.jimp.read('./assets/adw.png');
-		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0x000000ff); //eslint-disable-line no-unused-vars
-		image = await image.resize(128, 128);
-		frame = await frame.composite(image, 384, 114);
-		frame = await frame.composite(raw, 0, 0);
-		image = await this.utils.getBufferFromJimp(frame);
+		const image = await this.utils.fetchFromAPI('adw', {
+			images
+		});
 
 		message.channel.send({
 			files: [{

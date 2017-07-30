@@ -9,26 +9,12 @@ module.exports = {
 
 		if (images.length === 0 || !text) return this.commandHandler.invalidArguments(message);
 
-		let image = await this.utils.fetchImage(images[0]);
-		if (image instanceof Error) return this.utils.handleCommandError(image, message);
-
-		let raw = await this.jimp.read('./assets/reminder/raw.png');
-		let frame = await new this.jimp(raw.bitmap.width, raw.bitmap.height, 0xffffffff); //eslint-disable-line no-unused-vars
-		image = await image.resize(325, 325);
-		frame = await frame.composite(image, 0, 99);
-		frame = await frame.composite(raw, 0, 0);
-
-		const font = await this.jimp.loadFont('./assets/reminder/seguisb.fnt');
-		text = this.utils.filterMentions(text);
-
-		let line = 0;
-		for (const part of text.match(/.{1,15}/g)) {
-			if (line > 7) continue;
-			frame.print(font, 370, (200 + 32 * line), part.trim());
-			line++;
-		}
-
-		image = await this.utils.getBufferFromJimp(frame);
+		const image = await this.utils.fetchFromAPI('reminder', {
+			images,
+			args: {
+				text: this.utils.filterMentions(text)
+			}
+		});
 
 		message.channel.send({
 			files: [{

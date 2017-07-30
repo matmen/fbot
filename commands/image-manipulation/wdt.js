@@ -9,13 +9,9 @@ module.exports = {
 
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
-		let image = await this.utils.fetchImage(images[0]);
-		if (image instanceof Error) return this.utils.handleCommandError(image, message);
-
-		let raw = await this.jimp.read('./assets/wdt.png');
-		image = await image.contain(700, 375);
-		image = await raw.composite(image, raw.bitmap.width / 2 - image.bitmap.width / 2, raw.bitmap.height / 2 - image.bitmap.height / 2);
-		image = await this.utils.getBufferFromJimp(image);
+		const image = await this.utils.fetchFromAPI('wdt', {
+			images
+		});
 
 		message.channel.send({
 			files: [{

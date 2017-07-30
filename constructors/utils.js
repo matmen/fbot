@@ -115,18 +115,36 @@ class Utils {
 		return false;
 	}
 
-	async fetchImage(url) {
-		const fetched = await this.bot.fetch(url, {
-			timeout: 30000,
-			size: 3000000
+	async fetchFromAPI(endpoint, options) {
+		const https = require('https');
+		const agent = new https.Agent({
+			rejectUnauthorized: false
 		});
 
-		if (!fetched.ok) return new Error(`Could not download image (${fetched.status} ${fetched.statusText})`);
-		const buffer = await fetched.buffer();
+		const result = await this.bot.fetch(`https://localhost:3000/${endpoint}`, Object.assign(options, {
+			agent,
+			method: 'POST',
+			body: JSON.stringify(Object.assign({}, {
+				images: options.images
+			}, {
+				args: options.args
+			})),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}));
 
-		const result = await this.bot.jimp.read(buffer);
-		if (result.bitmap.width * result.bitmap.height > 10000 ** 2) return new Error('Cannot process images larger than 100 Megapixels');
-		return result;
+		if (!result.ok) {
+			const body = await result.json();
+
+			let error = new Error('Could not fetch result from API');
+			if (body && body.meta && body.meta.error) error = new Error(body.meta.error.message);
+
+			return Promise.reject(error);
+		} else {
+			const buffer = await result.buffer();
+			return buffer;
+		}
 	}
 
 	getBufferFromJimp(img, mime) {

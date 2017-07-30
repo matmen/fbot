@@ -9,22 +9,15 @@ module.exports = {
 
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
-		let image = await this.utils.fetchImage(images[0]);
-		if (image instanceof Error) return this.utils.handleCommandError(image, message);
+		const image = await this.utils.fetchFromAPI('magik', {
+			images
+		});
 
-		const buffer = await this.utils.getBufferFromJimp(image);
-
-		this.gm(buffer)
-			.out('-liquid-rescale', '50%', '-liquid-rescale', '150%')
-			.toBuffer('PNG', (err, buffer) => {
-				if (err) return this.utils.handleCommandError(err, message);
-
-				message.channel.send({
-					files: [{
-						attachment: buffer,
-						name: 'magik.png'
-					}]
-				});
-			});
+		message.channel.send({
+			files: [{
+				attachment: image,
+				name: 'magik.png'
+			}]
+		});
 	}
 };

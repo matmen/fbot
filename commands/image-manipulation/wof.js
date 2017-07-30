@@ -4,20 +4,18 @@ module.exports = {
 	category: 'Fun',
 	aliases: ['wheel'],
 	cooldown: 5000,
-	run: async function(message, args) {
-		if(args.length < 2 || args.length > 5) return this.commandHandler.invalidArguments(message);
+	run: async function (message, args) {
+		if (args.length < 2 || args.length > 5) return this.commandHandler.invalidArguments(message);
 
-		let url = `http://atom.smasher.org/wof/word-puzzle.jpg.php?c=${encodeURI(this.utils.filterMentions(args.shift()))}`;
-
-		let lineNr = 1;
-		for(const line of args) {
-			url += `&l${lineNr}=${encodeURI(this.utils.filterMentions(line))}`;
-			lineNr++;
-		}
+		const image = await this.utils.fetchFromAPI('wof', {
+			args: {
+				args
+			}
+		});
 
 		message.channel.send({
 			files: [{
-				attachment: url,
+				attachment: image,
 				name: 'wof.png'
 			}]
 		});

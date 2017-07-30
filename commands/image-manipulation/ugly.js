@@ -8,13 +8,9 @@ module.exports = {
 
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
-		let image = await this.utils.fetchImage(images[0]);
-		if (image instanceof Error) return this.utils.handleCommandError(image, message);
-
-		let raw = await this.jimp.read('./assets/ugly.png');
-		image = await image.resize(191, 270);
-		image = await raw.composite(image, 0, 0);
-		image = await this.utils.getBufferFromJimp(image);
+		const image = await this.utils.fetchFromAPI('ugly', {
+			images
+		});
 
 		message.channel.send({
 			files: [{

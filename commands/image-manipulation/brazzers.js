@@ -8,13 +8,9 @@ module.exports = {
 
 		if (images.length === 0) return this.commandHandler.invalidArguments(message);
 
-		let image = await this.utils.fetchImage(images[0]);
-		if (image instanceof Error) return this.utils.handleCommandError(image, message);
-
-		let overlay = await this.jimp.read('./assets/brazzers.png');
-		overlay = await overlay.resize(image.bitmap.width / 3, this.jimp.AUTO);
-		image = await image.composite(overlay, (image.bitmap.width - overlay.bitmap.width), (image.bitmap.height - overlay.bitmap.height));
-		image = await this.utils.getBufferFromJimp(image);
+		const image = await this.utils.fetchFromAPI('brazzers', {
+			images
+		});
 
 		message.channel.send({
 			files: [{

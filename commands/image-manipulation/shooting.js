@@ -6,17 +6,11 @@ module.exports = {
 	run: async function (message, args, argsString) {
 		if (!argsString) return this.commandHandler.invalidArguments(message);
 
-		let image = await this.jimp.read('./assets/shooting/raw.png');
-		const font = await this.jimp.loadFont('./assets/shooting/seguisb.fnt');
-
-		let line = 0;
-		for (const part of argsString.match(/.{1,20}/g)) {
-			if (line > 5) return;
-			image.print(font, 440, (455 + 24 * line), part.trim());
-			line++;
-		}
-
-		image = await this.utils.getBufferFromJimp(image);
+		const image = await this.utils.fetchFromAPI('shooting', {
+			args: {
+				text: this.utils.filterMentions(argsString)
+			}
+		});
 
 		message.channel.send({
 			files: [{
