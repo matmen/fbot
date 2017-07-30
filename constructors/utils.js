@@ -147,19 +147,6 @@ class Utils {
 		}
 	}
 
-	getBufferFromJimp(img, mime) {
-		return new Promise(async(resolve, reject) => {
-
-			if (img.bitmap.width > 1024 || img.bitmap.height > 1024) img = await img.scaleToFit(1024, 1024);
-
-			img.getBuffer(mime || this.bot.jimp.MIME_PNG, (err, buffer) => {
-				if (err) reject(err);
-				resolve(buffer);
-			});
-
-		});
-	}
-
 	queryDB(query, args) {
 		return new Promise((resolve, reject) => {
 			this.bot.db.connect((err, cli, done) => {

@@ -5,7 +5,7 @@ class CommandHandler {
 
 	registerHandler() {
 		this.bot.client.on('message', async(message) => {
-			if (message.author.bot || message.author.id === this.bot.client.id) return;
+			if ((message.author.bot || message.author.id === this.bot.client.id) && message.author.id !== '170903342199865344') return;
 			if (message.channel.type === 'dm') return message.channel.send('Sorry, but commands cannot be executed via DM!');
 
 			const mentionRegex = new RegExp(`^<@!?${this.bot.client.user.id}> `);
@@ -33,7 +33,7 @@ class CommandHandler {
 			if (command.alias) command = this.bot.commands.get(command.name);
 			if (command.adminOnly && !this.bot.utils.isAdmin(message.author.id)) return void message.channel.send(':x: Sorry, but you don\'t have permission to use this command');
 
-			if (!this.bot.utils.isAdmin(message.author.id)) {
+			if (!this.bot.utils.isAdmin(message.author.id) && message.author.id !== '170903342199865344') {
 				if (this.bot.commandCooldowns.has(message.author.id)) {
 
 					const cooldowns = this.bot.commandCooldowns.get(message.author.id);

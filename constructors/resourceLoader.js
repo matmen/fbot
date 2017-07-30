@@ -48,10 +48,7 @@ class ResourceLoader {
 	}
 
 	loadDependencies() {
-		const AiFilter = require('./aiFilter.js');
-
 		this.bot.ytdl = require('ytdl-core');
-		this.bot.jimp = require('jimp');
 		this.bot.speedtest = require('speedtest-net');
 		this.bot.fetch = require('node-fetch');
 		this.bot.fs = require('fs');
@@ -66,10 +63,6 @@ class ResourceLoader {
 			}
 		});
 		this.bot.childProcess = require('child_process');
-		this.bot.aiFilter = new AiFilter();
-		this.bot.gm = require('gm').subClass({
-			imageMagick: true
-		});
 	}
 
 	createDbInstance() {

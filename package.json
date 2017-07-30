@@ -24,7 +24,6 @@
 		"figlet": "^1.2.0",
 		"gm": "^1.23.0",
 		"humanize-duration": "^3.10.0",
-		"jimp": "github:xmatmen/jimp",
 		"node-fetch": "^1.7.0",
 		"node-opus": "^0.2.6",
 		"pg": "^6.2.3",
