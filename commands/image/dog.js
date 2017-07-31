@@ -3,12 +3,12 @@ module.exports = {
 	category: 'Fun',
 	cooldown: 5000,
 	run: async function (message) {
-		const response = await this.request('https://random.dog/woof');
+		const dog = await this.utils.fetchFromAPI('dog');
 
 		message.channel.send({
 			files: [{
-				attachment: `https://random.dog/${response.body}`,
-				name: response.body
+				attachment: dog,
+				name: 'dog.png'
 			}]
 		});
 	}

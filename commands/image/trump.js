@@ -3,13 +3,12 @@ module.exports = {
 	category: 'Fun',
 	cooldown: 1000,
 	run: async function (message) {
-		const trumps = this.fs.readdirSync('./assets/trump/');
-		const trumpName = trumps[Math.floor(Math.random() * trumps.length)];
+		const trump = await this.utils.fetchFromAPI('trump');
 
 		message.channel.send({
 			files: [{
-				attachment: './assets/trump/' + trumpName,
-				name: 'trump.' + trumpName.replace(/.+\./, '')
+				attachment: trump,
+				name: 'trump.png'
 			}]
 		});
 	}

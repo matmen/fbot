@@ -121,18 +121,24 @@ class Utils {
 			rejectUnauthorized: false
 		});
 
-		const result = await this.bot.fetch(`https://localhost:3000/${endpoint}`, Object.assign(options, {
-			agent,
-			method: 'POST',
-			body: JSON.stringify(Object.assign({}, {
-				images: options.images
-			}, {
-				args: options.args
-			})),
-			headers: {
+		const requestOptions = {
+			agent
+		};
+
+		if (options) {
+			requestOptions.method = 'POST';
+
+			requestOptions.headers = {
 				'Content-Type': 'application/json'
-			}
-		}));
+			};
+
+			requestOptions.body = JSON.stringify({
+				images: options.images,
+				args: options.args
+			});
+		}
+
+		const result = await this.bot.fetch(`https://localhost:3000/${endpoint}`, requestOptions);
 
 		if (!result.ok) {
 			const body = await result.json();

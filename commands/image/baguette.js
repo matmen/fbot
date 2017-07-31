@@ -4,13 +4,12 @@ module.exports = {
 	aliases: ['french'],
 	cooldown: 1000,
 	run: async function (message) {
-		const baguettes = this.fs.readdirSync('./assets/baguette/');
-		const baguetteName = baguettes[Math.floor(Math.random() * baguettes.length)];
+		const baguette = await this.utils.fetchFromAPI('baguette');
 
 		message.channel.send({
 			files: [{
-				attachment: './assets/baguette/' + baguetteName,
-				name: 'baguette.' + baguetteName.replace(/.+\./, '')
+				attachment: baguette,
+				name: 'baguette.png'
 			}]
 		});
 	}
