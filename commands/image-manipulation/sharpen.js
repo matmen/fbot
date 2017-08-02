@@ -10,7 +10,7 @@ module.exports = {
 		let amount = this.utils.isImageArg(message, args[0]) ? args[1] : args[0];
 		amount = Math.max(1, Math.min(100, parseInt(amount) || 10));
 
-		const image = await this.utils.fetchFromAPI('russia', {
+		const image = await this.utils.fetchFromAPI('sharpen', {
 			images,
 			args: {
 				amount: amount / 100
