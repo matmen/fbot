@@ -34,7 +34,7 @@ module.exports = {
 
 		const embed = new this.api.MessageEmbed();
 
-		embed.setTitle(`User stats for ${this.client.guilds.has(serverID) ? this.client.guilds.get(serverID).name : 'Unknown Server'}`);
+		embed.setTitle(`Server stats for ${this.client.guilds.has(serverID) ? this.client.guilds.get(serverID).name : 'Unknown Server'}`);
 		embed.setThumbnail(this.client.guilds.has(serverID) && this.client.guilds.get(serverID).iconURL());
 		embed.setDescription(body);
 		embed.setFooter('fbot.menchez.me');
