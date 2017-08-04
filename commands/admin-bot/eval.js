@@ -8,7 +8,7 @@ module.exports = {
 		if (!argsString) return this.commandHandler.invalidArguments(message);
 
 		let result = eval(argsString);
-		result = JSON.stringify(result, null, 4) || 'undefined';
+		result = this.util.inspect(result);
 
 		message.channel.send(result, {
 			code: 'js'
