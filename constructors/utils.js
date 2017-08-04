@@ -30,7 +30,7 @@ class Utils {
 	handleCommandError(err, msg, done) {
 		if (done) done();
 		console.error(`${`[Shard ${this.bot.client.shard.id}] [ERROR]`.red} Error:\n${(err && err.stack) || err}`); // eslint-disable-line no-console
-		msg.channel.send(`:x: ${err || 'Unknown Error'}\``);
+		msg.channel.send(`:x: ${err || 'Unknown Error'}`);
 	}
 
 	async getImagesFromMessage(message, args) {
