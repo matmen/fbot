@@ -2,6 +2,7 @@ module.exports = {
 	description: 'Press F to pay respects',
 	args: '(@user | Attachment | URL)',
 	category: 'Fun',
+	aliases: ['respects'],
 	cooldown: 5000,
 	run: async function (message, args) {
 		const images = await this.utils.getImagesFromMessage(message, args);
