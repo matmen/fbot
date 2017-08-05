@@ -34,7 +34,7 @@ module.exports = function () {
 
 		if (text.includes('machine broke')) message.channel.send('understandable, have a nice day');
 		
-		if (/git \w+/.test(text)) {
+		if (/\bgit \w+/.test(text)) {
 			const word = /git (\w+)/.exec(text)[1];
 			message.channel.send(`Error: Command failed: git ${word}\ngit: '${word}' is not a git command. See 'git --help'.`, { code: true });
 		}
