@@ -33,6 +33,11 @@ module.exports = function () {
 		if (/^add fbot to your( discord)? server at fbot\.menchez\.me$/.test(text)) message.channel.send(message.content);
 
 		if (text.includes('machine broke')) message.channel.send('understandable, have a nice day');
+		
+		if (/git \w+/.test(text)) {
+			const word = /git (\w+)/.exec(text)[1];
+			message.channel.send(`Error: Command failed: git ${word}\ngit: '$[word}' is not a git command. See 'git --help'.`, { code: true });
+		}
 	});
 
 };
