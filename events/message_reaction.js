@@ -36,7 +36,7 @@ module.exports = function () {
 		
 		if (/git \w+/.test(text)) {
 			const word = /git (\w+)/.exec(text)[1];
-			message.channel.send(`Error: Command failed: git ${word}\ngit: '$[word}' is not a git command. See 'git --help'.`, { code: true });
+			message.channel.send(`Error: Command failed: git ${word}\ngit: '${word}' is not a git command. See 'git --help'.`, { code: true });
 		}
 	});
 
