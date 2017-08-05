@@ -129,7 +129,8 @@ class Utils {
 			requestOptions.method = 'POST';
 
 			requestOptions.headers = {
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${this.bot.botCfg.apiKey}`
 			};
 
 			requestOptions.body = JSON.stringify({

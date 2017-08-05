@@ -8,6 +8,7 @@
   },
   "websitePort": 443,
   "disableWebHelper": false,
+  "apiKey": "",
   "pastebinApiKey": "",
   "youtubeApiKey": "",
   "bitlyLogin": "",
