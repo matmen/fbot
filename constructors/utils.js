@@ -122,16 +122,15 @@ class Utils {
 		});
 
 		const requestOptions = {
-			agent
+			agent,
+			headers: {
+				'Authorization': `Bearer ${this.bot.botCfg.apiKey}`
+			}
 		};
 
 		if (options) {
 			requestOptions.method = 'POST';
-
-			requestOptions.headers = {
-				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${this.bot.botCfg.apiKey}`
-			};
+			requestOptions.headers['Content-Type'] = 'application/json';
 
 			requestOptions.body = JSON.stringify({
 				images: options.images,
