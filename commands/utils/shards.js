@@ -11,7 +11,7 @@ module.exports = {
 		list += '├──────────┼───────────┼────────┼─────────┤\n';
 
 		for (let shardID = 0; shardID < this.client.shard.count; shardID++) {
-			list += `│ ${shardID}${' '.repeat(8 - shardID.toString().length)} │ ${Math.round(shardPings[shardID])}ms${' '.repeat(7 - Math.round(shardPings[shardID]).toString().length)} │ ${shardGuilds[shardID]}${' '.repeat(6 - shardGuilds[shardID].toString().length)} │ ~${shardUsers[shardID]}${' '.repeat(6 - shardUsers[shardID].toString().length)} │\n`;
+			list += `│ ${shardID === this.client.shard.id ? '> ' : '  '}${shardID}${' '.repeat(6 - shardID.toString().length)} │ ${Math.round(shardPings[shardID])}ms${' '.repeat(7 - Math.round(shardPings[shardID]).toString().length)} │ ${shardGuilds[shardID]}${' '.repeat(6 - shardGuilds[shardID].toString().length)} │ ${shardUsers[shardID]}${' '.repeat(7 - shardUsers[shardID].toString().length)} │\n`;
 		}
 
 		const avgPing = Math.round(shardPings.reduce((p, v) => (p + v) / 2, shardPings[0]));
@@ -19,7 +19,7 @@ module.exports = {
 		const totalUsers = shardUsers.reduce((p, v) => p + v, 0);
 
 		list += '├──────────┼───────────┼────────┼─────────┤\n';
-		list += `│ Total    │ ${avgPing}ms${' '.repeat(7 - avgPing.toString().length)} │ ${totalGuilds}${' '.repeat(6 - totalGuilds.toString().length)} │ ~${totalUsers}${' '.repeat(6 - totalUsers.toString().length)} │\n`;
+		list += `│ Total    │ ${avgPing}ms${' '.repeat(7 - avgPing.toString().length)} │ ${totalGuilds}${' '.repeat(6 - totalGuilds.toString().length)} │ ${totalUsers}${' '.repeat(7 - totalUsers.toString().length)} │\n`;
 		list += '└──────────┴───────────┴────────┴─────────┘';
 
 		message.channel.send(list, {
