@@ -17,8 +17,8 @@ module.exports = {
 				if (!resultArray.includes(tag)) resultArray.push(tag);
 		}
 
-		message.channel.send(JSON.stringify(resultArray, null, 4), {
-			code: 'js'
+		message.channel.send(resultArray.join('\n') || 'No users found', {
+			code: 'http'
 		});
 	}
 };
