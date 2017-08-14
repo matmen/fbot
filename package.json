@@ -1,25 +1,25 @@
 {
 	"name": "fbot",
 	"version": "2.0.0",
-	"description": "A discord bot",
+	"description": "A discord meme bot",
 	"main": "shardingManager.js",
 	"scripts": {
 		"test": "eslint **/*.js"
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/xmatmen/memecord.git"
+		"url": "git+https://github.com/xmatmen/fbot.git"
 	},
 	"author": "matmen",
 	"license": "AGPL-3.0",
 	"bugs": {
-		"url": "https://github.com/xmatmen/memecord/issues"
+		"url": "https://github.com/xmatmen/fbot/issues"
 	},
-	"homepage": "https://github.com/xmatmen/memecord#readme",
+	"homepage": "https://github.com/xmatmen/fbot",
 	"dependencies": {
 		"async-request": "^1.2.0",
 		"colors": "^1.1.2",
-		"discord.js": "github:xmatmen/discord.js",
+		"discord.js": "github:hydrabolt/discord.js",
 		"express": "^4.15.3",
 		"figlet": "^1.2.0",
 		"gm": "^1.23.0",
