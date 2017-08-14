@@ -3,10 +3,9 @@ module.exports = {
 	category: 'Utils',
 	args: '[#channel]',
 	cooldown: 5000,
-	run: async function (message, args) {
+	run: async function (message, args, argsString) {
 		let channelID = message.channel.id;
-
-		if (args.length === 1 && /^(<#!?)?\d+>?$/.test(args[0])) channelID = args[0].replace(/[^\d]/g, '');
+		if (argsString && /^(<#!?)?\d+>?$/.test(argsString)) channelID = argsString.replace(/[^\d]/g, '');
 
 		const stats = await this.utils.queryDB('SELECT (SELECT count(*) FROM messages WHERE channelID = $1) messages, (SELECT count(*) FROM commands WHERE channelid = $1) commands', [channelID]);
 		const topCommandStats = await this.utils.queryDB('SELECT command,count(*) FROM commands WHERE channelid = $1 GROUP BY 1 ORDER BY count(*) DESC LIMIT 1', [channelID]);
@@ -25,7 +24,7 @@ module.exports = {
 			messages: topUserStats.rows[0] && topUserStats.rows[0].count
 		};
 
-		let body = `Most messages from: ${this.client.users.has(topUser.id) ? this.client.users.get(topUser.id).tag : 'Unknown#0000'} (${topUser.messages || 0} messages)\n`;
+		let body = `Most messages from: **${this.client.users.has(topUser.id) ? this.client.users.get(topUser.id).tag : 'Unknown#0000'}** (${topUser.messages || 0} messages)\n`;
 		body += `Most used command: **${topCommand.command ? (this.botCfg.prefix + topCommand.command) : 'No commands used'}** (${topCommand.uses || 0} uses)\n\n`;
 		body += `Commands used: **${commands}** in total\n`;
 		body += `Messages sent: **${messages}** in total\n`;
@@ -33,7 +32,7 @@ module.exports = {
 		const embed = new this.api.MessageEmbed();
 
 		embed.setTitle(`Channel stats for #${this.client.channels.has(channelID) ? this.client.channels.get(channelID).name : 'unknown'}`);
-		embed.setThumbnail(this.client.channels.has(channelID) && this.client.channels.get(channelID).guild.iconURL());
+		if (this.client.channels.has(channelID)) embed.setThumbnail(this.client.channels.get(channelID).guild.iconURL());
 		embed.setDescription(body);
 		embed.setFooter('fbot.menchez.me');
 		embed.setColor(0x3366ff);

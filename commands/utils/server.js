@@ -3,10 +3,9 @@ module.exports = {
 	category: 'Utils',
 	args: '[server ID]',
 	cooldown: 5000,
-	run: async function (message, args) {
+	run: async function (message, args, argsString) {
 		let serverID = message.guild.id;
-
-		if (args.length === 1 && /^\d+$/.test(args[0])) serverID = args[0].replace(/[^\d]/g, '');
+		if (argsString && /^\d+$/.test(argsString)) serverID = argsString.replace(/[^\d]/g, '');
 
 		const stats = await this.utils.queryDB('SELECT (SELECT count(*) FROM messages WHERE serverid = $1) messages, (SELECT count(*) FROM commands WHERE serverid = $1) commands', [serverID]);
 		const topCommandStats = await this.utils.queryDB('SELECT command,count(*) FROM commands WHERE serverid = $1 GROUP BY 1 ORDER BY count(*) DESC LIMIT 1', [serverID]);
@@ -35,7 +34,7 @@ module.exports = {
 		const embed = new this.api.MessageEmbed();
 
 		embed.setTitle(`Server stats for ${this.client.guilds.has(serverID) ? this.client.guilds.get(serverID).name : 'Unknown Server'}`);
-		embed.setThumbnail(this.client.guilds.has(serverID) && this.client.guilds.get(serverID).iconURL());
+		if (this.client.guilds.has(serverID)) embed.setThumbnail(this.client.guilds.get(serverID).iconURL());
 		embed.setDescription(body);
 		embed.setFooter('fbot.menchez.me');
 		embed.setColor(0x3366ff);

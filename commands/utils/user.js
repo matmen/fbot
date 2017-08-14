@@ -3,10 +3,9 @@ module.exports = {
 	category: 'Utils',
 	args: '[@user]',
 	cooldown: 5000,
-	run: async function (message, args) {
+	run: async function (message, args, argsString) {
 		let userID = message.author.id;
-
-		if (args.length === 1 && /^(<@!?)?\d+>?$/.test(args[0])) userID = args[0].replace(/[^\d]/g, '');
+		if (argsString && /^(<@!?)?\d+>?$/.test(argsString)) userID = argsString.replace(/[^\d]/g, '');
 
 		const stats = await this.utils.queryDB('SELECT (SELECT count(*) FROM messages WHERE userid = $1) messages, (SELECT count(*) FROM commands WHERE userid = $1) commands', [userID]);
 		const topCommandStats = await this.utils.queryDB('SELECT command,count(*) FROM commands WHERE userid = $1 GROUP BY 1 ORDER BY count(*) DESC LIMIT 1', [userID]);
@@ -43,7 +42,7 @@ module.exports = {
 		const embed = new this.api.MessageEmbed();
 
 		embed.setTitle(`User stats for ${this.client.users.has(userID) ? this.client.users.get(userID).tag : 'Unknown#0000'}`);
-		embed.setThumbnail(this.client.users.has(userID) && this.client.users.get(userID).avatarURL());
+		if (this.client.users.has(userID)) embed.setThumbnail(this.client.users.get(userID).avatarURL());
 		embed.setDescription(body);
 		embed.setFooter('fbot.menchez.me');
 		embed.setColor(0x3366ff);
