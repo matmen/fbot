@@ -15,7 +15,7 @@ module.exports = {
 
 		const voiceChannel = message.member.voiceChannel;
 		if (!voiceChannel) return message.channel.send(':x: Please be in a voice channel first!');
-		if (voiceChannel.permissionsFor(message.guild.me).has('CONNECT')) return message.channel.send(':x: I don\'t have permissions to join your current voice channel!');
+		if (!voiceChannel.permissionsFor(message.guild.me).has('CONNECT')) return message.channel.send(':x: I don\'t have permissions to join your current voice channel!');
 
 		if (message.guild.me.voiceChannel && message.guild.me.voiceChannel.id !== voiceChannel.id) return message.channel.send(':x: I am already playing in another channel!');
 
