@@ -7,7 +7,7 @@ class Utils {
 
 		return string.replace(/<@&(\d+)>|<@!(\d+)>|<@(\d+)>|<#(\d+)>/g, (match, RID, NID, UID, CID) => {
 			if (UID && this.bot.client.users.has(UID)) return `@${this.bot.client.users.get(UID).username}`;
-			if (NID && this.bot.client.users.has(NID)) return `@${this.bot.client.users.get(UID).username}`;
+			if (NID && this.bot.client.users.has(NID)) return `@${this.bot.client.users.get(NID).username}`;
 			if (CID && this.bot.client.channels.has(CID)) return `#${this.bot.client.channels.get(CID).name}`;
 
 			if (RID || NID)
