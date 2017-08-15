@@ -50,6 +50,7 @@ class ResourceLoader {
 	loadDependencies() {
 		this.bot.ytdl = require('ytdl-core');
 		this.bot.speedtest = require('speedtest-net');
+		this.bot.fetch = require('node-fetch');
 		this.bot.fs = require('fs');
 		this.bot.request = require('async-request');
 		this.bot.figlet = require('figlet');
