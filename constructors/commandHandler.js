@@ -7,13 +7,13 @@ class CommandHandler {
 		if (message.author.bot) return;
 		if (message.channel.type === 'dm') return message.channel.send('Sorry, but commands cannot be executed via DM!');
 
-		const mentionRegex = new RegExp(`^<@!?${this.bot.client.user.id}> `);
+		const mentionRegex = new RegExp(`^<@!?${this.bot.client.user.id}>`);
 		const prefixResult = await this.bot.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', ['prefix', message.guild.id]);
 		const prefix = prefixResult.rowCount > 0 ? prefixResult.rows[0].value : this.bot.botCfg.prefix;
 
 		if (!message.content.startsWith(prefix) && !mentionRegex.test(message.content)) return;
 
-		const messageArguments = (mentionRegex.test(message.content) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).split(/ +/g);
+		const messageArguments = (mentionRegex.test(message.content) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).replace(/^ +/g, '').split(/ +/g);
 		let commandName = messageArguments.shift();
 
 		if (!commandName) return;
