@@ -3,6 +3,7 @@ module.exports = {
 	category: 'Voice',
 	cooldown: 1000,
 	run: async function (message) {
+		if (!message.guild) return message.channel.send('Sorry, but this command cannot be executed via DM!');
 		if (!message.member.hasPermission('MANAGE_GUILD')) return message.channel.send(`:x: Only guild administrators can force the bot to leave. Either wait until all songs have finished playing, or use \`${this.botCfg.prefix}skip\` to skip them`);
 
 		const channel = message.guild.me.voiceChannel;

@@ -15,11 +15,11 @@ module.exports = {
 		embed.addField('User', message.author.tag, true);
 		embed.addField('User ID', message.author.id, true);
 
-		embed.addField('Channel', '#' + message.channel.name, true);
-		embed.addField('Channel ID', message.channel.id, true);
+		embed.addField('Channel', '#' + message.guild ? message.channel.name : 'DM', true);
+		embed.addField('Channel ID', message.guild ? message.channel.id : 'N/A', true);
 
-		embed.addField('Server', message.guild.name, true);
-		embed.addField('Server ID', message.guild.id, true);
+		embed.addField('Server', message.guild ? message.guild.name : 'DM', true);
+		embed.addField('Server ID', message.guild ? message.guild.id : 'N/A', true);
 
 		embed.setFooter('Feedback #' + message.id);
 		embed.setColor(0x3366ff);

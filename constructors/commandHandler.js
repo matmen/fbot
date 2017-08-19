@@ -5,11 +5,14 @@ class CommandHandler {
 
 	async handleMessage(message) {
 		if (message.author.bot) return;
-		if (message.channel.type === 'dm') return message.channel.send('Sorry, but commands cannot be executed via DM!');
 
 		const mentionRegex = new RegExp(`^<@!?${this.bot.client.user.id}>`);
-		const prefixResult = await this.bot.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', ['prefix', message.guild.id]);
-		const prefix = prefixResult.rowCount > 0 ? prefixResult.rows[0].value : this.bot.botCfg.prefix;
+		let prefix = this.bot.botCfg.prefix;
+
+		if (message.guild) {
+			const prefixResult = await this.bot.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', ['prefix', message.guild.id]);
+			if (prefixResult.rowCount > 0) prefix = prefixResult.rows[0].value;
+		}
 
 		if (!message.content.startsWith(prefix) && !mentionRegex.test(message.content)) return;
 
@@ -20,11 +23,11 @@ class CommandHandler {
 		commandName = commandName.toLowerCase();
 
 		if (!this.bot.commands.has(commandName)) return;
-		if (!message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('Sorry, but I don\'t have permission to post in that channel!');
-		if (!message.channel.permissionsFor(message.guild.me).has('ATTACH_FILES')) return message.channel.send('Sorry, but I probably need the Attach Files permission to handle this command properly!');
+		if (message.guild && !message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('Sorry, but I don\'t have permission to post in that channel!');
+		if (message.guild && !message.channel.permissionsFor(message.guild.me).has('ATTACH_FILES')) return message.channel.send('Sorry, but I probably need the Attach Files permission to handle this command properly!');
 
 		if (!this.bot.utils.isAdmin(message.author.id)) {
-			const isBlacklisted = await this.bot.utils.queryDB('SELECT * FROM blacklists WHERE (type = \'server\' AND id = $1) OR (type = \'channel\' AND id = $2) OR (type = \'user\' AND id = $3)', [message.guild.id, message.channel.id, message.author.id]);
+			const isBlacklisted = await this.bot.utils.queryDB('SELECT * FROM blacklists WHERE (type = \'server\' AND id = $1) OR (type = \'channel\' AND id = $2) OR (type = \'user\' AND id = $3)', [message.guild ? message.guild.id : message.channel.id, message.channel.id, message.author.id]);
 			if (isBlacklisted.rowCount > 0) return;
 		}
 
@@ -68,7 +71,7 @@ class CommandHandler {
 			this.bot.utils.handleCommandError(err, message);
 		});
 
-		this.bot.utils.queryDB('INSERT INTO commands VALUES ($1, $2, $3, $4, $5)', [message.id, command.name, message.author.id, message.channel.id, message.guild.id]);
+		this.bot.utils.queryDB('INSERT INTO commands VALUES ($1, $2, $3, $4, $5)', [message.id, command.name, message.author.id, message.channel.id, message.guild ? message.guild.id : message.channel.id]);
 	}
 
 	registerHandler() {
@@ -106,9 +109,13 @@ class CommandHandler {
 
 	async invalidArguments(message) {
 		const mentionRegex = new RegExp(`^<@!?${this.bot.client.user.id}> `);
+		let prefix = this.bot.botCfg.prefix;
 
-		const prefixResult = await this.bot.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', ['prefix', message.guild.id]);
-		const prefix = prefixResult.rowCount > 0 ? prefixResult.rows[0].value : this.bot.botCfg.prefix;
+		if (message.guild) {
+			const prefixResult = await this.bot.utils.queryDB('SELECT value FROM settings WHERE setting = $1 AND server = $2', ['prefix', message.guild.id]);
+			if (prefixResult.rowCount > 0) prefix = prefixResult.rows[0].value;
+		}
+
 		const messageArguments = (mentionRegex.test(message.content) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).split(/ +/g);
 		const commandName = messageArguments.shift().toLowerCase();
 		let command = this.bot.commands.get(commandName);

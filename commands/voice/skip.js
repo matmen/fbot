@@ -3,6 +3,7 @@ module.exports = {
 	category: 'Voice',
 	cooldown: 10000,
 	run: async function (message, args) {
+		if (!message.guild) return message.channel.send('Sorry, but this command cannot be executed via DM!');
 		if (!message.guild.me.voiceChannel || !this.voiceStreams.has(message.guild.id) || !this.playingSongs.has(message.guild.id)) return message.channel.send(':x: The bot isn\'t playing anything!');
 		const currentSong = this.playingSongs.get(message.guild.id);
 

@@ -11,6 +11,7 @@ module.exports = {
 	args: '(query..)',
 	cooldown: 10000,
 	run: async function (message, args, argsString) {
+		if (!message.guild) return message.channel.send('Sorry, but this command cannot be executed via DM!');
 		if (!argsString) return this.commandHandler.invalidArguments(message);
 
 		const voiceChannel = message.member.voiceChannel;

@@ -7,6 +7,8 @@ module.exports = {
 		let user = message.author;
 
 		if (argsString) {
+			if (!message.guild) return message.channel.send('Sorry, but this command cannot be executed via DM!');
+
 			const match = message.guild.members.filter(member => {
 				if (member.user.tag.toLowerCase().includes(argsString.toLowerCase())) return true;
 				if (member.nickname && member.nickname.toLowerCase().includes(argsString.toLowerCase())) return true;

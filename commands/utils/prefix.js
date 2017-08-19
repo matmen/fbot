@@ -4,6 +4,8 @@ module.exports = {
 	args: '[*reset | *prefix]',
 	cooldown: 1000,
 	run: async function (message, args, argsString) {
+		if (!message.guild) return message.channel.send('Sorry, but this command cannot be executed via DM!');
+
 		if (argsString) {
 			if (!message.member.hasPermission('MANAGE_GUILD') && !this.utils.isAdmin(message.author.id)) return message.channel.send(':x: Only guild administrators can change the prefix');
 

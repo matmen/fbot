@@ -4,6 +4,7 @@ module.exports = {
 	args: '[volume]',
 	cooldown: 1000,
 	run: async function (message, args) {
+		if (!message.guild) return message.channel.send('Sorry, but this command cannot be executed via DM!');
 		if (!this.voiceStreams.has(message.guild.id) || !message.guild.me.voiceChannel) return message.channel.send(':x: The bot isn\'t playing anything!');
 		if (!message.member.voiceChannel || message.member.voiceChannel.id !== message.guild.me.voiceChannel.id) return message.channel.send(':x: You cant control the volume when you\'re not in the voice channel!');
 

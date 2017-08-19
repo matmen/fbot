@@ -41,6 +41,25 @@ class Utils {
 				if (/^<:.+:\d+>$/.test(value)) {
 					imageURLs.push(`https://cdn.discordapp.com/emojis/${value.match(/^<:.+:(\d+)>$/)[1]}.png`);
 				} else {
+					if (value === 'me') {
+						imageURLs.push(message.author.displayAvatarURL({
+							format: 'png',
+							size: 2048
+						}));
+
+						continue;
+					}
+
+					if (!message.guild) {
+						if (message.author.tag.toLowerCase().includes(value.toLowerCase()) || message.author.id === value.replace(/[^\d]/g, ''))
+							imageURLs.push(message.author.displayAvatarURL({
+								format: 'png',
+								size: 2048
+							}));
+
+						continue;
+					}
+
 					const match = message.guild.members.filter(member => {
 						if (member.user.tag.toLowerCase().includes(value.toLowerCase())) return true;
 						if (member.nickname && member.nickname.toLowerCase().includes(value.toLowerCase())) return true;

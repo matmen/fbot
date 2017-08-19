@@ -10,6 +10,7 @@ module.exports = {
 	category: 'Voice',
 	cooldown: 1000,
 	run: async function (message) {
+		if (!message.guild) return message.channel.send('Sorry, but this command cannot be executed via DM!');
 		const queue = this.songQueues.get(message.guild.id);
 
 		if (!queue || queue.length === 0) return message.channel.send(`The song queue is empty, add songs using \`${this.botCfg.prefix}play\``);

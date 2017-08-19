@@ -4,6 +4,8 @@ module.exports = {
 	args: '[server ID]',
 	cooldown: 5000,
 	run: async function (message, args, argsString) {
+		if (!message.guild) return message.channel.send('Sorry, but this command cannot be executed via DM!');
+
 		let serverID = message.guild.id;
 		if (argsString && /^\d+$/.test(argsString)) serverID = argsString.replace(/[^\d]/g, '');
 

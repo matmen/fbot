@@ -5,6 +5,7 @@ module.exports = {
 	adminOnly: true,
 	cooldown: 1000,
 	run: async function (message, args) {
+		if (!message.guild) return message.channel.send('Sorry, but this command cannot be executed via DM!');
 		if (args.length < 2) return this.commandHandler.invalidArguments(message);
 
 		const user = this.client.users.get(args.shift().replace(/[^\d]/g, ''));
