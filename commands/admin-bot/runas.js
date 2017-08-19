@@ -11,7 +11,7 @@ module.exports = {
 		if (!user) return message.channel.send('Error: `Invalid User`');
 		if (!message.guild.member(user)) return message.channel.send('Error: `User is not in guild`');
 
-		this.client.emit('message', Object.assign(message, {
+		this.commandHandler.handleMessage(Object.assign(message, {
 			author: user,
 			member: message.guild.member(user),
 			content: `<@${this.client.user.id}> ${args.join(' ')}`
