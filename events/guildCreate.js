@@ -21,7 +21,8 @@ module.exports = function () {
 			}
 		});
 
-		guild.defaultChannel.send(this.botCfg.messages.serverJoinMessage);
+		const channel = guild.channels.find(c => c.type === 'text' && c.permissionsFor(guild.me).has('SEND_MESSAGES'));
+		if (channel) channel.send(this.botCfg.messages.serverJoinMessage);
 	});
 
 };
