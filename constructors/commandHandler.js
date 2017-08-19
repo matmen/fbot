@@ -4,7 +4,7 @@ class CommandHandler {
 	}
 
 	async handleMessage(message) {
-		if ((message.author.bot || message.author.id === this.bot.client.id) && message.author.id !== '170903342199865344') return;
+		if (message.author.bot) return;
 		if (message.channel.type === 'dm') return message.channel.send('Sorry, but commands cannot be executed via DM!');
 
 		const mentionRegex = new RegExp(`^<@!?${this.bot.client.user.id}> `);
