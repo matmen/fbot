@@ -26,6 +26,10 @@ module.exports = {
 			time: 10000
 		});
 
+		skipVote.delete({
+			timeout: 10000
+		});
+
 		const forVotes = reactions.has('✅') ? reactions.get('✅').users.size : 0;
 		const againstVotes = reactions.get('❎') ? reactions.get('❎').users.size : 0;
 
