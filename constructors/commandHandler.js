@@ -80,6 +80,7 @@ class CommandHandler {
 		});
 
 		this.bot.client.on('messageUpdate', (oldMessage, newMessage) => {
+			if (oldMessage.content === newMessage.content) return;
 			this.handleMessage(newMessage);
 		});
 	}
