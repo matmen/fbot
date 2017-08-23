@@ -80,7 +80,7 @@ class Utils {
 			}
 
 		if (imageURLs.length === 0) {
-			const messages = await message.channel.fetchMessages({
+			const messages = await message.channel.messages.fetch({
 				limit: 20
 			});
 
