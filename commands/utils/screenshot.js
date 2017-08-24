@@ -14,9 +14,7 @@ module.exports = {
 		});
 		const page = await browser.newPage();
 
-		setTimeout(() => {
-			browser.close();
-		}, 30000);
+		setTimeout(browser.close, 30000);
 
 		await page.goto(argsString);
 
