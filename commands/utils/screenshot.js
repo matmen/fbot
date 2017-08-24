@@ -9,9 +9,14 @@ module.exports = {
 		if (!/^https?:\/\//.test(argsString)) argsString = `http://${argsString}`;
 
 		const browser = await this.puppeteer.launch({
-			args: ['--no-sandbox']
+			args: ['--no-sandbox'],
+			ignoreHTTPSErrors: true
 		});
 		const page = await browser.newPage();
+
+		setTimeout(() => {
+			browser.close();
+		}, 30000);
 
 		await page.goto(argsString);
 
