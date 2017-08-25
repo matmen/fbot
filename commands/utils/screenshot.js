@@ -1,3 +1,8 @@
+const headers = new Map([
+	['Accept-Language', 'en-US'],
+	['Content-Language', 'en-US']
+]);
+
 module.exports = {
 	description: 'Takes a screenshot of a web page',
 	category: 'Utils',
@@ -12,18 +17,18 @@ module.exports = {
 			args: ['--no-sandbox'],
 			ignoreHTTPSErrors: true
 		});
-		const page = await browser.newPage();
-		page.setExtraHTTPHeaders(new Map([
-			['Accept-Language', 'en-US']
-		]));
 
 		setTimeout(() => {
 			browser.close();
 		}, 30000);
 
-		await page.goto(argsString);
+		const page = await browser.newPage();
+		await page.setJavaScriptEnabled(false);
+		page.setExtraHTTPHeaders(headers);
 
+		await page.goto(argsString);
 		const result = await page.screenshot();
+
 		browser.close();
 
 		message.channel.send({
