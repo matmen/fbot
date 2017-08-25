@@ -13,6 +13,9 @@ module.exports = {
 			ignoreHTTPSErrors: true
 		});
 		const page = await browser.newPage();
+		page.setExtraHTTPHeaders(new Map([
+			['Accept-Language', 'en-US']
+		]));
 
 		setTimeout(() => {
 			browser.close();
