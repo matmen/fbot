@@ -2,6 +2,7 @@ module.exports = {
 	description: 'Deepfries the image',
 	args: '(@user | Attachment | URL) [amount]',
 	category: 'Fun',
+	aliases: ['df'],
 	cooldown: 5000,
 	run: async function (message, args) {
 		const images = await this.utils.getImagesFromMessage(message, args);
