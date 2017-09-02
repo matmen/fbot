@@ -2,3 +2,4 @@ node_modules/
 configs/*.json
 *.pfx
 package-lock.json
+web/avatars/
