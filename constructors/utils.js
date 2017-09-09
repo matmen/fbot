@@ -122,21 +122,9 @@ class Utils {
 		if (!value) return false;
 		if (message.attachments.size > 0) return false;
 		if (value === '^' || this.isURL(value)) return true;
+		if (/^<:.+:\d+>$/.test(value)) return true;
 
-		if (/^<:.+:\d+>$/.test(value)) {
-			return true;
-		} else {
-			const match = message.guild.members.filter(member => {
-				if (member.user.tag.toLowerCase().includes(value.toLowerCase())) return true;
-				if (member.nickname && member.nickname.toLowerCase().includes(value.toLowerCase())) return true;
-				if (member.user.id === value.replace(/[^\d]/g, '')) return true;
-				return false;
-			});
-
-			if (match.size > 0) return true;
-		}
-
-		return false;
+		return !!this.getMemberFromString(message, value);
 	}
 
 	async fetchFromAPI(endpoint, options) {
