@@ -8,7 +8,7 @@ module.exports = function () {
 		let channel = await this.utils.queryDB('SELECT value FROM settings WHERE server = $1 AND setting = $2', [member.guild.id, 'messageChannel']);
 
 		if (channel.rowCount === 0) {
-			channel = member.guild.channels.find(c => c.type === 'text' && c.permissionsFor(member.guild.me).has('SEND_MESSAGES'));
+			channel = member.guild.channels.filter(c => c.type === 'text' && c.permissionsFor(member.guild.me).has('SEND_MESSAGES')).sort((a, b) => a.position - b.position).first();
 		} else {
 			channel = member.guild.channels.get(channel.rows[0].value);
 		}
