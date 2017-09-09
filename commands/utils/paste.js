@@ -7,7 +7,7 @@ module.exports = {
 	run: async function (message, args) {
 		if (args.length < 2) return this.commandHandler.invalidArguments(message);
 
-		const unlisted = args[0] === 'true';
+		const unlisted = ['true', 'yes', '1', 'y'].includes(args[0].toLowerCase());
 		const title = args[unlisted ? 1 : 0];
 		const text = args.slice(unlisted ? 2 : 1).join(' ');
 
