@@ -60,17 +60,7 @@ class Utils {
 						continue;
 					}
 
-					const match = message.guild.members.filter(member => {
-						if (member.user.tag.toLowerCase().includes(value.toLowerCase())) return true;
-						if (member.nickname && member.nickname.toLowerCase().includes(value.toLowerCase())) return true;
-						if (member.user.id === value.replace(/[^\d]/g, '')) return true;
-						return false;
-					}).sort((m1, m2) => {
-						const m1Time = m1.lastMessage && m1.lastMessage.createdTimestamp || 0;
-						const m2Time = m2.lastMessage && m2.lastMessage.createdTimestamp || 0;
-
-						return m2Time - m1Time;
-					}).first();
+					const match = this.getMemberFromString(message, value);
 
 					if (match) imageURLs.push(match.user.displayAvatarURL({
 						format: 'png',
@@ -104,6 +94,24 @@ class Utils {
 		}
 
 		return imageURLs;
+	}
+
+	getMemberFromString(message, text) {
+		if (!text) return;
+
+		const match = message.guild.members.filter(member => {
+			if (member.user.tag.toLowerCase().includes(text.toLowerCase())) return true;
+			if (member.nickname && member.nickname.toLowerCase().includes(text.toLowerCase())) return true;
+			if (member.user.id === text.replace(/[^\d]/g, '')) return true;
+			return false;
+		}).sort((m1, m2) => {
+			const m1Time = m1.lastMessage && m1.lastMessage.createdTimestamp || 0;
+			const m2Time = m2.lastMessage && m2.lastMessage.createdTimestamp || 0;
+
+			return m2Time - m1Time;
+		}).first();
+
+		return match;
 	}
 
 	isURL(value) {

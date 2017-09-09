@@ -7,20 +7,9 @@ module.exports = {
 		let user = message.author;
 
 		if (argsString) {
-			if (!message.guild) return message.channel.send('Sorry, but this command cannot be executed via DM!');
+			if (!message.guild) return message.channel.send('Sorry, but this command cannot be used with arguments via DM!');
 
-			const match = message.guild.members.filter(member => {
-				if (member.user.tag.toLowerCase().includes(argsString.toLowerCase())) return true;
-				if (member.nickname && member.nickname.toLowerCase().includes(argsString.toLowerCase())) return true;
-				if (member.user.id === argsString.replace(/[^\d]/g, '')) return true;
-				return false;
-			}).sort((m1, m2) => {
-				const m1Time = m1.lastMessage && m1.lastMessage.createdTimestamp || 0;
-				const m2Time = m2.lastMessage && m2.lastMessage.createdTimestamp || 0;
-
-				return m2Time - m1Time;
-			}).first();
-
+			const match = this.utils.getMemberFromString(message, argsString);
 			if (match) user = match.user;
 		}
 
