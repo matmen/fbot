@@ -1,4 +1,4 @@
-const eyesList = ['big', 'blood', 'blue', 'googly', 'green', 'horror', 'illuminati', 'money', 'normal', 'pink', 'red', 'small', 'spongebob', 'swastika', 'yellow', 'spinner'];
+const eyesList = ['black', 'white', 'big', 'blood', 'blue', 'googly', 'green', 'horror', 'illuminati', 'money', 'normal', 'pink', 'red', 'small', 'spongebob', 'swastika', 'yellow', 'spinner'];
 
 module.exports = {
 	description: 'Replaces the eyes on a face',
