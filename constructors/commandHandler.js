@@ -35,7 +35,7 @@ class CommandHandler {
 		if (command.alias) command = this.bot.commands.get(command.name);
 		if (command.adminOnly && !this.bot.utils.isAdmin(message.author.id)) return void message.channel.send(':x: Sorry, but you don\'t have permission to use this command');
 
-		if (!this.bot.utils.isAdmin(message.author.id) && message.author.id !== '170903342199865344') {
+		if (!this.bot.utils.isAdmin(message.author.id)) {
 			if (this.bot.commandCooldowns.has(message.author.id)) {
 
 				const cooldowns = this.bot.commandCooldowns.get(message.author.id);
