@@ -165,6 +165,73 @@ class Utils {
 		}
 	}
 
+	parseTag(content, message, args) {
+		content = content.replace(/{args}/gi, args.join(' '));
+
+		const code = (content.match(/^```js\n([\s\S]+)```$/) || [])[1];
+		if (!code) return content;
+
+		const guild = {
+			id: message.guild.id,
+			name: message.guild.name,
+			icon: message.guild.icon,
+			owner: {
+				id: message.guild.owner.user.id,
+				username: message.guild.owner.user.username,
+				discriminator: message.guild.owner.user.discriminator,
+				tag: message.guild.owner.user.tag,
+				avatar: message.guild.owner.user.avatar
+			},
+			region: message.guild.region,
+			memberCount: message.guild.memberCount,
+			channelCount: message.guild.channels.size
+		};
+
+		const channel = {
+			id: message.channel.id,
+			name: message.channel.name,
+			topic: message.channel.topic,
+			nsfw: message.channel.nsfw,
+			guild
+		};
+
+		const user = {
+			id: message.author.id,
+			username: message.author.username,
+			discriminator: message.author.discriminator,
+			tag: message.author.tag,
+			avatar: message.author.avatar
+		};
+
+		const mentions = message.mentions.users.map(u => ({
+			id: u.id,
+			username: u.username,
+			discriminator: u.discriminator,
+			tag: u.tag,
+			avatar: u.avatar
+		}));
+
+		try {
+
+			content = this.bot.vm.runInNewContext(code, {
+				args,
+				guild,
+				channel,
+				user,
+				mentions
+			}, {
+				timeout: 1000
+			});
+
+			if (typeof content === 'object') content = `\`\`\`js\n${this.bot.util.inspect(content)}\`\`\``;
+
+		} catch (err) {
+			content = err;
+		}
+
+		return content + '';
+	}
+
 	queryDB(query, args) {
 		return new Promise((resolve, reject) => {
 			this.bot.db.connect((err, cli, done) => {
