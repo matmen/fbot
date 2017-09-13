@@ -168,7 +168,7 @@ class Utils {
 	parseTag(content, message, args) {
 		content = content.replace(/{args}/gi, args.join(' '));
 
-		const code = (content.match(/^```js\n([\s\S]+)```$/) || [])[1];
+		const code = (content.match(/^\s*```js\n([\s\S]+)```$/) || [])[1];
 		if (!code) return content;
 
 		const guild = {
