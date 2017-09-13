@@ -2,16 +2,17 @@ module.exports = {
 	description: 'delet yourself',
 	category: 'Fun',
 	aliases: ['delete'],
-	args: '[@user]',
+	args: '[user]',
 	cooldown: 1000,
-	run: async function (message, args) {
-		if (args.length === 0) {
+	run: async function (message, args, argsString) {
+		if (!argsString) {
 			message.channel.send('delet yourself');
-		} else if (args.length === 1 && /^(<@!?)?\d+>?$/.test(args[0])) {
-			let id = args[0].replace(/[^\d]/g, '');
-			if (id === this.client.user.id || this.utils.isAdmin(id)) id = message.author.id;
+		} else {
+			let match = this.utils.getMemberFromString(message, argsString);
+			if (!match) return this.commandHandler.invalidArguments(message);
+			if (match.user.id === this.client.user.id || this.utils.isAdmin(match.user.id)) match = message.member;
 
-			message.channel.send(`delet yourself, <@${id}>`);
-		} else this.commandHandler.invalidArguments(message);
+			message.channel.send(`delet yourself, ${match}`);
+		}
 	}
 };

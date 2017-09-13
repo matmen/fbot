@@ -1,7 +1,7 @@
 module.exports = {
 	description: 'Replies with the user\'s avatar',
 	category: 'Utils',
-	args: '[@user]',
+	args: '[user]',
 	cooldown: 1000,
 	run: async function (message, args, argsString) {
 		let user = message.author;

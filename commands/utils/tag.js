@@ -1,7 +1,7 @@
 module.exports = {
 	description: 'Base command for tags',
 	category: 'Utils',
-	args: '(name) [args] | add (name) (content..) | edit (name) (content..) | delete (name) | raw (name) | owner (name) | list [@user]',
+	args: '(name) [args] | add (name) (content..) | edit (name) (content..) | delete (name) | raw (name) | owner (name) | list [user]',
 	aliases: ['t'],
 	cooldown: 1000,
 	run: async function (message, args) {

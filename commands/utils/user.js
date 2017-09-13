@@ -1,7 +1,7 @@
 module.exports = {
 	description: 'Replies with the user\'s stats',
 	category: 'Utils',
-	args: '[@user]',
+	args: '[user]',
 	cooldown: 5000,
 	run: async function (message, args, argsString) {
 		let userID = message.author.id;
