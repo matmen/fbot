@@ -17,7 +17,7 @@ module.exports = function () {
 
 		this.client.api.channels[this.botCfg.logChannel].messages.post({
 			data: {
-				embed: embed
+				embed
 			}
 		});
 

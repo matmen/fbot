@@ -42,7 +42,7 @@ module.exports = {
 		embed.setColor(0x3366ff);
 
 		message.channel.send({
-			embed: embed
+			embed
 		});
 	}
 };

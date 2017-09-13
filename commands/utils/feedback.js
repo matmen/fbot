@@ -31,7 +31,7 @@ module.exports = {
 
 		await this.client.api.channels[this.botCfg.logChannel].messages.post({
 			data: {
-				embed: embed
+				embed
 			}
 		});
 

@@ -1,4 +1,4 @@
-module.exports = function() {
+module.exports = function () {
 
 	this.client.on('guildDelete', (guild) => {
 		const embed = new this.api.MessageEmbed();
@@ -15,7 +15,7 @@ module.exports = function() {
 
 		this.client.api.channels[this.botCfg.logChannel].messages.post({
 			data: {
-				embed: embed
+				embed
 			}
 		});
 	});
