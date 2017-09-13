@@ -70,7 +70,7 @@ module.exports = {
 
 			const userID = tag.rows[0].userid;
 
-			message.channel.send(`:bust_in_silhouette: Tag **${name}** is owned by **${this.client.users.has(userID) ? this.client.users.get(userID).tag : 'Unknwon User#0000'}**`);
+			message.channel.send(`:bust_in_silhouette: Tag **${name}** is owned by **${this.client.users.has(userID) ? this.client.users.get(userID).tag : 'Unknown User#0000'}**`);
 
 		} else if (args[0].toLowerCase() === 'list') {
 
