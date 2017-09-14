@@ -50,6 +50,7 @@ module.exports = {
 		embed.setDescription(body);
 		embed.setFooter('fbot.menchez.me');
 		embed.setColor(0x3366ff);
+		embed.setTimestamp();
 
 		message.channel.send({
 			embed
