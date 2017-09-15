@@ -6,6 +6,13 @@ class CommandHandler {
 	async handleMessage(message) {
 		if (message.author.bot) return;
 
+		if (!this.bot.utils.isAdmin(message.author.id)) {
+			const isBlacklisted = await this.bot.utils.queryDB('SELECT * FROM blacklists WHERE (type = \'server\' AND id = $1) OR (type = \'channel\' AND id = $2) OR (type = \'user\' AND id = $3)', [message.guild ? message.guild.id : message.channel.id, message.channel.id, message.author.id]);
+			if (isBlacklisted.rowCount > 0) return;
+		}
+
+		this.handleAutoreactions(message);
+
 		const mentionRegex = new RegExp(`^<@!?${this.bot.client.user.id}>`);
 		let prefix = this.bot.botCfg.prefix;
 
@@ -25,11 +32,6 @@ class CommandHandler {
 		if (!this.bot.commands.has(commandName)) return;
 		if (message.guild && !message.channel.permissionsFor(message.guild.me).has('SEND_MESSAGES')) return message.author.send('Sorry, but I don\'t have permission to post in that channel!');
 		if (message.guild && !message.channel.permissionsFor(message.guild.me).has('ATTACH_FILES')) return message.channel.send('Sorry, but I probably need the Attach Files permission to handle this command properly!');
-
-		if (!this.bot.utils.isAdmin(message.author.id)) {
-			const isBlacklisted = await this.bot.utils.queryDB('SELECT * FROM blacklists WHERE (type = \'server\' AND id = $1) OR (type = \'channel\' AND id = $2) OR (type = \'user\' AND id = $3)', [message.guild ? message.guild.id : message.channel.id, message.channel.id, message.author.id]);
-			if (isBlacklisted.rowCount > 0) return;
-		}
 
 		let command = this.bot.commands.get(commandName);
 		if (command.alias) command = this.bot.commands.get(command.name);
@@ -72,6 +74,38 @@ class CommandHandler {
 		});
 
 		this.bot.utils.queryDB('INSERT INTO commands VALUES ($1, $2, $3, $4, $5)', [message.id, command.name, message.author.id, message.channel.id, message.guild ? message.guild.id : message.channel.id]);
+	}
+
+	async handleAutoreactions(message) {
+		if (message.guild) {
+			const disabled = await this.bot.utils.queryDB('SELECT value FROM settings WHERE server = $1 AND setting = $2 AND value = \'true\'', [message.guild.id, 'disableAutoreact']);
+			if (disabled.rowCount > 0) return;
+		}
+
+		let text = message.content.toLowerCase();
+
+		if (text === 'ok') await message.react('🆗');
+
+		if (/y\/n(\?)?$/.test(text)) {
+			await message.react('🔼');
+			await message.react('🔽');
+		}
+
+		if (text.includes('🤔')) await message.react('🤔');
+
+		if (/\blit\b/.test(text)) await message.react('🔥');
+
+		if (/\bpress f\b/.test(text)) await message.react('🇫');
+
+		if (/\bsnek\b/.test(text)) await message.react('🐍');
+
+		if (/\bmurica\b/.test(text)) await message.react('🇺🇸');
+
+		if (/\bheil\b/.test(text)) await message.react('🇩🇪');
+
+		if (/^add fbot to your( discord)? server at fbot\.menchez\.me$/.test(text)) message.channel.send(message.content);
+
+		if (text.includes('machine broke')) message.channel.send('understandable, have a nice day');
 	}
 
 	registerHandler() {
