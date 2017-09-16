@@ -18,10 +18,11 @@ module.exports = {
 		let reply = 'Song queue:\n';
 
 		let id = 0;
-		for (const song of queue) {
+		for (const song of queue.slice(0, 10)) {
 			id++;
 			reply += `**${id}**: \`${song.video.title}\` by \`${song.video.author}\` \`[${this.hd(song.video.duration, youtubeHdConfig)}]\` - Queued by \`${this.client.users.has(song.user) ? this.client.users.get(song.user).tag : 'Unknown#0000'}\`\n`;
 		}
+		if (queue.length > 10) reply += `\`+ ${queue.length - 10}\` more`;
 
 		message.channel.send(reply);
 	}
