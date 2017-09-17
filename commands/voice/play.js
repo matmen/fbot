@@ -40,7 +40,7 @@ module.exports = {
 		const pthms = videoInfo.items[0].contentDetails.duration;
 		const duration = pthmsToMs(pthms);
 
-		if (duration > 30 * 60 * 1000) return message.channel.send(':clock130: Songs can\'t be longer than 30 minutes!');
+		if (duration > 15 * 60 * 1000) return message.channel.send(':clock130: Songs can\'t be longer than 15 minutes!');
 
 		const connnection = await voiceChannel.join();
 
