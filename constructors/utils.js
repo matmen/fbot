@@ -178,26 +178,52 @@ class Utils {
 			owner: {
 				id: message.guild.owner.user.id,
 				username: message.guild.owner.user.username,
+				nickname: message.guild.owner.nickname,
 				discriminator: message.guild.owner.user.discriminator,
 				tag: message.guild.owner.user.tag,
 				avatar: message.guild.owner.user.avatar
 			},
 			region: message.guild.region,
-			memberCount: message.guild.memberCount,
-			channelCount: message.guild.channels.size
+			members: {},
+			channels: {}
 		};
+
+		for (const channel of message.guild.channels.array()) {
+			guild.channels[channel.id] = {
+				id: channel.id,
+				name: channel.name,
+				topic: channel.topic,
+				nsfw: channel.nsfw,
+				type: channel.type,
+				guild
+			};
+		}
+
+		for (const member of message.guild.members.array()) {
+			guild.members[member.id] = {
+				id: member.id,
+				username: member.username,
+				nickname: member.nickname,
+				discriminator: member.discriminator,
+				tag: member.tag,
+				avatar: member.avatar,
+				guild
+			};
+		}
 
 		const channel = {
 			id: message.channel.id,
 			name: message.channel.name,
 			topic: message.channel.topic,
 			nsfw: message.channel.nsfw,
+			type: message.channel.type,
 			guild
 		};
 
 		const user = {
 			id: message.author.id,
 			username: message.author.username,
+			nickname: message.member.nickname,
 			discriminator: message.author.discriminator,
 			tag: message.author.tag,
 			avatar: message.author.avatar
@@ -206,6 +232,7 @@ class Utils {
 		const mentions = message.mentions.users.map(u => ({
 			id: u.id,
 			username: u.username,
+			nickname: message.guild.member(u) && message.guild.member(u).nickname,
 			discriminator: u.discriminator,
 			tag: u.tag,
 			avatar: u.avatar
