@@ -1,4 +1,4 @@
-const filterArray = ['dog', 'dog2', 'bunny', 'cat', 'cat2', 'heart', 'flowers', 'flowers2', 'devil', 'glasses', 'moustache'];
+const filterArray = ['angery', 'dog', 'dog2', 'bunny', 'cat', 'cat2', 'heart', 'flowers', 'flowers2', 'devil', 'glasses', 'moustache'];
 
 module.exports = {
 	description: 'Adds a snapchat filter to an image',
