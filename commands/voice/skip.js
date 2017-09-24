@@ -37,6 +37,6 @@ module.exports = {
 		if (forVotes < againstVotes) return skipVote.edit(':x: Not enough votes to skip song');
 
 		skipVote.edit(':fast_forward: Skipping current song');
-		this.voiceStreams.get(message.guild.id).end('skip');
+		if (this.voiceStreams.has(message.guild.id)) this.voiceStreams.get(message.guild.id).end('skip');
 	}
 };
