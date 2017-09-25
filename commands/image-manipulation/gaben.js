@@ -15,7 +15,7 @@ module.exports = {
 		message.channel.send({
 			files: [{
 				attachment: image,
-				name: 'gay.png'
+				name: 'gaben.png'
 			}]
 		});
 	}
