@@ -1,3 +1,5 @@
+const variations = ['1', '2'];
+
 module.exports = {
 	description: 'Hacking in progress..',
 	args: '[variation] (text..)',
@@ -7,8 +9,8 @@ module.exports = {
 	run: async function (message, args, argsString) {
 		if (!argsString) return this.commandHandler.invalidArguments(message);
 
-		const text = /\d+/.test(args[0]) ? args.slice(1, args.length).join(' ') : argsString;
-		const variation = /\d+/.test(args[0]) ? args[0] : 1;
+		const text = variations.includes(args[0]) ? args.slice(1, args.length).join(' ') : argsString;
+		const variation = variations.includes(args[0]) ? args[0] : '1';
 
 		const image = await this.utils.fetchFromAPI('hacker', {
 			args: {
