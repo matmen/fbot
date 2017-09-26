@@ -1,7 +1,6 @@
 module.exports = {
 	description: 'Replies with the client\'s pings',
 	category: 'Utils',
-	args: '(text)',
 	cooldown: 1000,
 	run: async function (message) {
 		const startTime = Date.now();
