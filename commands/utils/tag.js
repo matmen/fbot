@@ -108,6 +108,24 @@ module.exports = {
 
 			}
 
+		} else if (args[0].toLowerCase() === 'dump') {
+
+			let user = message.author;
+
+			if (args[1]) {
+				const match = this.utils.getMemberFromString(message, args[1]);
+				if (match) user = match.user;
+			}
+
+			const tags = await this.utils.queryDB('SELECT name, content FROM tags WHERE userid = $1', [user.id]);
+
+			message.channel.send(`Tag dump for \`${user.tag}\` (\`${tags.rowCount}\` Tags):`, {
+				files: [{
+					attachment: Buffer.from(JSON.stringify(tags.rows, null, 4), 'utf-8'),
+					name: `tagdump-${user.username}-${user.discriminator}.json`
+				}]
+			});
+
 		} else {
 
 			const name = args[0].toLowerCase();
