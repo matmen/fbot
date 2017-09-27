@@ -1,7 +1,7 @@
 module.exports = {
 	description: 'Base command for tags',
 	category: 'Utils',
-	args: '(name) [args] | add (name) (content..) | edit (name) (content..) | rename (name) (newName) | delete (name) | raw (name) | owner (name) | list [user]',
+	args: '(name) [args] | add (name) (content..) | edit (name) (content..) | rename (name) (newName) | gift (name) (newOwner) | delete (name) | raw (name) | owner (name) | list [user]',
 	aliases: ['t'],
 	cooldown: 1000,
 	run: async function (message, args) {
@@ -56,7 +56,7 @@ module.exports = {
 			let user = message.author;
 
 			if (args[1]) {
-				const match = this.utils.getMemberFromString(message, args[1]);
+				const match = this.utils.getMemberFromString(message, args[2]);
 				if (match) user = match.user;
 			}
 
