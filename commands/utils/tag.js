@@ -48,6 +48,25 @@ module.exports = {
 			await this.utils.queryDB('UPDATE tags SET name = $2 WHERE name = $1', [name, newName]);
 			message.channel.send(`:pencil: Renamed tag **${name}** to **${newName}**`);
 
+		} else if (args[0].toLowerCase() === 'gift') {
+
+			if (args.length < 3) return this.commandHandler.invalidArguments(message);
+
+			const name = args[1].toLowerCase();
+			let user = message.author;
+
+			if (args[1]) {
+				const match = this.utils.getMemberFromString(message, args[1]);
+				if (match) user = match.user;
+			}
+
+			const tag = await this.utils.queryDB('SELECT userid FROM tags WHERE name = $1', [name]);
+			if (tag.rowCount < 1) return message.channel.send(`:x: Tag **${name}** not found!`);
+			if (!this.utils.isAdmin(message.author.id) && message.author.id !== tag.rows[0].userid) return message.channel.send(':x: You don\'t own that tag!');
+
+			await this.utils.queryDB('UPDATE tags SET userid = $2 WHERE name = $1', [name, user.id]);
+			message.channel.send(`:gift: Gifted tag **${name}** to **${user.tag}**`);
+
 		} else if (['delete', 'remove'].includes(args[0].toLowerCase())) {
 
 			if (args.length < 2) return this.commandHandler.invalidArguments(message);
