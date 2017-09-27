@@ -55,7 +55,7 @@ module.exports = {
 			const name = args[1].toLowerCase();
 			let user = message.author;
 
-			if (args[1]) {
+			if (args[2]) {
 				const match = this.utils.getMemberFromString(message, args[2]);
 				if (match) user = match.user;
 			}
@@ -63,6 +63,9 @@ module.exports = {
 			const tag = await this.utils.queryDB('SELECT userid FROM tags WHERE name = $1', [name]);
 			if (tag.rowCount < 1) return message.channel.send(`:x: Tag **${name}** not found!`);
 			if (!this.utils.isAdmin(message.author.id) && message.author.id !== tag.rows[0].userid) return message.channel.send(':x: You don\'t own that tag!');
+
+			if (user.id === message.author.id) return message.channel.send(':x: You cant gift tags to yourself!');
+			if (user.id === this.client.user.id) return message.channel.send(':x: You cant gift tags to me!');
 
 			await this.utils.queryDB('UPDATE tags SET userid = $2 WHERE name = $1', [name, user.id]);
 			message.channel.send(`:gift: Gifted tag **${name}** to **${user.tag}**`);
