@@ -1,7 +1,7 @@
 module.exports = {
 	description: 'Base command for tags',
 	category: 'Utils',
-	args: '(name) [args] | add (name) (content..) | edit (name) (content..) | delete (name) | raw (name) | owner (name) | list [user]',
+	args: '(name) [args] | add (name) (content..) | edit (name) (content..) | rename (name) (newName) | delete (name) | raw (name) | owner (name) | list [user]',
 	aliases: ['t'],
 	cooldown: 1000,
 	run: async function (message, args) {
@@ -32,6 +32,21 @@ module.exports = {
 
 			await this.utils.queryDB('UPDATE tags SET content = $2 WHERE name = $1', [name, content]);
 			message.channel.send(`:pencil: Updated tag **${name}**`);
+
+		} else if (args[0].toLowerCase() === 'rename') {
+
+			if (args.length < 3) return this.commandHandler.invalidArguments(message);
+
+			const name = args[1].toLowerCase();
+
+			const tag = await this.utils.queryDB('SELECT userid FROM tags WHERE name = $1', [name]);
+			if (tag.rowCount < 1) return message.channel.send(`:x: Tag **${name}** not found!`);
+			if (!this.utils.isAdmin(message.author.id) && message.author.id !== tag.rows[0].userid) return message.channel.send(':x: You don\'t own that tag!');
+
+			const newName = args[2].toLowerCase();
+
+			await this.utils.queryDB('UPDATE tags SET name = $2 WHERE name = $1', [name, newName]);
+			message.channel.send(`:pencil: Renamed tag **${name}** to **${newName}**`);
 
 		} else if (['delete', 'remove'].includes(args[0].toLowerCase())) {
 
