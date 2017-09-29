@@ -151,7 +151,7 @@ class CommandHandler {
 			if (prefixResult.rowCount > 0) prefix = prefixResult.rows[0].value;
 		}
 
-		const messageArguments = (mentionRegex.test(message.content) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).split(/ +/g);
+		const messageArguments = (mentionRegex.test(message.content) ? message.content.replace(mentionRegex, '') : message.content.replace(prefix, '')).replace(/^ +/g, '').split(/ +/g);
 		const commandName = messageArguments.shift().toLowerCase();
 		let command = this.bot.commands.get(commandName);
 		if (command.alias) command = this.bot.commands.get(command.name);
