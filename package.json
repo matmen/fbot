@@ -1,34 +1,38 @@
 {
-	"name": "fbot",
-	"version": "2.0.0",
-	"description": "A discord meme bot",
-	"main": "shardingManager.js",
-	"scripts": {
-		"test": "eslint **/*.js"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/xmatmen/fbot.git"
-	},
-	"author": "matmen",
-	"license": "AGPL-3.0",
-	"bugs": {
-		"url": "https://github.com/xmatmen/fbot/issues"
-	},
-	"homepage": "https://github.com/xmatmen/fbot",
-	"dependencies": {
-		"async-request": "^1.2.0",
-		"colors": "^1.1.2",
-		"discord.js": "github:hydrabolt/discord.js",
-		"express": "^4.15.4",
-		"figlet": "^1.2.0",
-		"gm": "^1.23.0",
-		"humanize-duration": "^3.10.1",
-		"jimp": "github:xmatmen/jimp",
-		"node-fetch": "^1.7.2",
-		"node-opus": "^0.2.6",
-		"pg": "^6.4.2",
-		"speedtest-net": "^1.3.1",
-		"ytdl-core": "^0.14.1"
-	}
+  "name": "fbot",
+  "version": "2.0.0",
+  "description": "A discord meme bot",
+  "main": "shardingManager.js",
+  "scripts": {
+    "test": "eslint **/*.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xmatmen/fbot.git"
+  },
+  "author": "matmen",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/xmatmen/fbot/issues"
+  },
+  "homepage": "https://github.com/xmatmen/fbot",
+  "dependencies": {
+    "async-request": "^1.2.0",
+    "colors": "^1.1.2",
+    "discord.js": "github:hydrabolt/discord.js",
+    "express": "^4.15.4",
+    "figlet": "^1.2.0",
+    "gm": "^1.23.0",
+    "humanize-duration": "^3.10.1",
+    "jimp": "github:xmatmen/jimp",
+    "node-fetch": "^1.7.2",
+    "node-opus": "^0.2.6",
+    "pg": "^6.4.2",
+    "speedtest-net": "^1.3.1",
+    "ytdl-core": "^0.14.1",
+    "snyk": "^1.42.3"
+  },
+  "snyk": true
 }
