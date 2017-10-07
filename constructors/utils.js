@@ -75,7 +75,8 @@ class Utils {
 			});
 
 			const messageAttachments = messages.filter(m => m.attachments.size > 0 && m.attachments.first().height && m.attachments.first().width);
-			const messageEmbeds = messages.filter(m => m.embeds.length > 0 && m.embeds[0].type === 'image');
+			const linkEmbeds = messages.filter(m => m.embeds.length > 0 && m.embeds[0].type === 'image');
+			const messageEmbeds = messages.filter(m => m.embeds.length > 0 && m.embeds[0].image);
 			let images = [];
 
 			for (const messageAttachment of messageAttachments.array()) images.push({
@@ -83,8 +84,13 @@ class Utils {
 				createdTimestamp: messageAttachment.createdTimestamp
 			});
 
+			for (const linkEmbed of linkEmbeds.array()) images.push({
+				url: linkEmbed.embeds[0].url,
+				createdTimestamp: linkEmbed.createdTimestamp
+			});
+
 			for (const messageEmbed of messageEmbeds.array()) images.push({
-				url: messageEmbed.embeds[0].url,
+				url: messageEmbed.embeds[0].image.url,
 				createdTimestamp: messageEmbed.createdTimestamp
 			});
 
