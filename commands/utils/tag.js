@@ -124,24 +124,37 @@ module.exports = {
 
 			} else {
 
-				let userID = message.author.id;
+				let user = message.author;
 
 				if (args[1]) {
 					const match = this.utils.getMemberFromString(message, args[1]);
-					if (match) userID = match.user.id;
+					if (match) user = match.user;
 				}
 
-				const tags = await this.utils.queryDB('SELECT name FROM tags WHERE userid = $1', [userID]);
+				const tags = await this.utils.queryDB('SELECT name FROM tags WHERE userid = $1', [user.id]);
 
-				const embed = new this.api.MessageEmbed();
+				const tagList = tags.rows.map(r => r.name.includes(' ') ? `"${r.name}"` : r.name).join('\n') || 'This user made no tags';
 
-				embed.setTitle(`${this.client.users.has(userID) ? this.client.users.get(userID).tag : 'Unknown User#0000'}'s Tags`);
-				embed.setDescription(tags.rows.map(r => r.name.includes(' ') ? `"${r.name}"` : r.name).join('\n') || 'This user made no tags');
-				embed.setColor(0xff3366);
+				if (tagList.length > 2048) {
 
-				message.channel.send({
-					embed
-				});
+					message.channel.send(`\`${user.tag}\`'s tags (\`${tags.rowCount}\`):`, {
+						files: [{
+							attachment: Buffer.from(tagList, 'utf-8'),
+							name: `tags-${user.username}-${user.discriminator}.txt`
+						}]
+					});
+
+				} else {
+					const embed = new this.api.MessageEmbed();
+
+					embed.setTitle(`${user.tag}'s Tags`);
+					embed.setDescription(tagList);
+					embed.setColor(0xff3366);
+
+					message.channel.send({
+						embed
+					});
+				}
 
 			}
 
