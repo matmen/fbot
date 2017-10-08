@@ -10,7 +10,8 @@ const modifyableSettings = {
 	'joinMessage': String,
 	'leaveMessage': String,
 	'messageChannel': parseMention,
-	'disableAutoreact': parseBoolean
+	'disableAutoreact': parseBoolean,
+	'levelUpMessage': String
 };
 
 module.exports = {

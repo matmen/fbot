@@ -6,4 +6,5 @@ module.exports = async function (db) {
 	await db.query('CREATE TABLE IF NOT EXISTS blacklists ("type" TEXT NOT NULL, "id" BIGINT NOT NULL)');
 	await db.query('CREATE TABLE IF NOT EXISTS songs ("id" TEXT NOT NULL, "userid" BIGINT NOT NULL)');
 	await db.query('CREATE TABLE IF NOT EXISTS tags ("name" TEXT NOT NULL, "content" TEXT NOT NULL, "userid" BIGINT NOT NULL, "guildid" BIGINT)');
+	await db.query('CREATE TABLE IF NOT EXISTS xp ("userid" BIGINT NOT NULL, "serverid" BIGINT NOT NULL, "xp" BIGINT NOT NULL, "time" BIGINT NOT NULL)');
 };

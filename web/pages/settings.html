@@ -13,9 +13,14 @@
 		<small><b>Note:</b> Using mentions here is discouraged, because Discord replaces left user's mentions with <code>@invalid-user</code></small>
 		<hr />
 
+		<h5>levelUpMessage (message)</h5>
+		<span>The message that is sent when a user levels up</span><br />
+		<small>Available placeholders: <code>{LEVEL}</code>, <code>{XP}</code>, <code>{MENTION}</code>, <code>{USERNAME}</code>, <code>{DISCRIM}</code>, <code>{TAG}</code>, <code>{SERVER}</code></small><br/>
+		<hr />
+
 		<h5>messageChannel (#channel)</h5>
 		<span>The channel that join and leave messages get sent to</span><br />
-		<small>Defaults to the server's initial <code>#general</code> channel</small>
+		<small>Defaults to the highest channel the bot has permission to send messages to</small>
 		<hr />
 
 		<h5>disableAutoreact (true/false)</h5>
