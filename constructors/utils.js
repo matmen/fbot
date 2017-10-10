@@ -105,17 +105,18 @@ class Utils {
 	getMemberFromString(message, text) {
 		if (!text) return;
 
-		const match = message.guild.members.filter(member => {
-			if (member.user.tag.toLowerCase().includes(text.toLowerCase())) return true;
-			if (member.nickname && member.nickname.toLowerCase().includes(text.toLowerCase())) return true;
-			if (member.user.id === text.replace(/[^\d]/g, '')) return true;
-			return false;
-		}).sort((m1, m2) => {
-			const m1Time = m1.lastMessage && m1.lastMessage.createdTimestamp || 0;
-			const m2Time = m2.lastMessage && m2.lastMessage.createdTimestamp || 0;
+		let mostRecentTimestamp = 0;
+		let match;
 
-			return m2Time - m1Time;
-		}).first();
+		for (const member of message.guild.members.array()) {
+			if (!(member.user.tag.toLowerCase().includes(text.toLowerCase())) &&
+				!(member.nickname && member.nickname.toLowerCase().includes(text.toLowerCase())) &&
+				!(member.user.id === text.replace(/[^\d]/g, '')) ||
+				((member.lastMessage ? member.lastMessage.createdTimestamp : 0) < mostRecentTimestamp)) continue;
+
+			mostRecentTimestamp = member.lastMessage.createdTimestamp;
+			match = member;
+		}
 
 		return match;
 	}
