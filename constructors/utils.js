@@ -114,7 +114,7 @@ class Utils {
 				!(member.user.id === text.replace(/[^\d]/g, '')) ||
 				((member.lastMessage ? member.lastMessage.createdTimestamp : 0) < mostRecentTimestamp)) continue;
 
-			mostRecentTimestamp = member.lastMessage.createdTimestamp;
+			mostRecentTimestamp = member.lastMessage ? member.lastMessage.createdTimestamp : 0;
 			match = member;
 		}
 
