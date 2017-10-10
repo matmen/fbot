@@ -84,14 +84,14 @@ class CommandHandler {
 
 		let text = message.content.toLowerCase();
 
-		if (text === 'ok') await message.react('🆗');
-
 		if (/y\/n(\?)?$/.test(text)) {
 			await message.react('🔼');
 			await message.react('🔽');
 		}
 
 		if (text.includes('🤔')) await message.react('🤔');
+
+		if (/\bok\b/.test(text)) await message.react('🆗');
 
 		if (/\blit\b/.test(text)) await message.react('🔥');
 
