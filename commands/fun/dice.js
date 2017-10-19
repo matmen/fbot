@@ -4,8 +4,6 @@ module.exports = {
 	aliases: ['rolldice', 'rolladice', '1to6', 'onetosix', '126'],
 	cooldown: 1000,
 	run: async function (message) {
-		message.channel.startTyping();
-        
 		const dice = Math.floor(Math.random() * 6);
 
 		if (dice === 0) {
@@ -26,7 +24,5 @@ module.exports = {
 		if (dice === 5) {
 		    message.channel.send('You rolled...:six:!');
 		}
-
-		message.channel.stopTyping();
 	}
 };
