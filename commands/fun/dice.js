@@ -6,23 +6,6 @@ module.exports = {
 	run: async function (message) {
 		const dice = Math.floor(Math.random() * 6);
 
-		if (dice === 0) {
-		    message.channel.send('You rolled...:one:!');
-		}
-		if (dice === 1) {
-		    message.channel.send('You rolled...:two:!');
-		}
-		if (dice === 2) {
-		    message.channel.send('You rolled...:three:!');
-		}
-		if (dice === 3) {
-		    message.channel.send('You rolled...:four:!');
-		}
-		if (dice === 4) {
-		    message.channel.send('You rolled...:five:!');
-		}
-		if (dice === 5) {
-		    message.channel.send('You rolled...:six:!');
-		}
+		message.channel.send(`You rolled...: ${['one', 'two', 'three', 'four', 'five', 'six'][dice]}:!`);
 	}
 };
