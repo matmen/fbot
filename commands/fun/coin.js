@@ -4,6 +4,6 @@ module.exports = {
 	aliases: ['flipcoin', 'flipacoin', 'headsortails'],
 	cooldown: 1000,
 	run: async function (message) {
-		  message.channel.send(`You flipped...**${Math.random() > 0.5 ? 'heads' : 'tails'}**!`);
+		message.channel.send(`You flipped... **${Math.random() > 0.5 ? 'heads' : 'tails'}**!`);
 	}
 };
