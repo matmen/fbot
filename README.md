@@ -1,3 +1,5 @@
 # fbot-rewrite
 
-add fbot to your discord server at fbot.menchez.me
+## fbot is going to be shut down on December 1st, 2017  
+Thanks for your support. For questions, [join our discord server](https://discord.gg/EgUSd5Z)  
+You can use [NotSoBot](https://mods.nyc/help) instead.
