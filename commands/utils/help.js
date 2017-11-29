@@ -13,6 +13,6 @@ module.exports = {
 			message.channel.send(`# ${this.botCfg.prefix}${commandName}\n- ${command.description}\n\n- Usage:\n- ${this.botCfg.prefix}${commandName} ${command.args || ''}`, {
 				code: 'md'
 			});
-		} else message.channel.send('You can find a list of commands here:\n<https://gist.github.com/xmatmen/8485d47f593167813cd8db67763c57c3/>');
+		} else message.channel.send('You can find a list of commands here:\n<https://gist.github.com/matmen/8485d47f593167813cd8db67763c57c3/>');
 	}
 };

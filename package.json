@@ -8,14 +8,14 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/xmatmen/fbot.git"
+		"url": "git+https://github.com/matmen/fbot.git"
 	},
 	"author": "matmen",
 	"license": "AGPL-3.0",
 	"bugs": {
-		"url": "https://github.com/xmatmen/fbot/issues"
+		"url": "https://github.com/matmen/fbot/issues"
 	},
-	"homepage": "https://github.com/xmatmen/fbot",
+	"homepage": "https://github.com/matmen/fbot",
 	"dependencies": {
 		"async-request": "^1.2.0",
 		"colors": "^1.1.2",
