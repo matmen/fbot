@@ -23,7 +23,7 @@ module.exports = {
 			size: 2048
 		}));
 
-		for (const result of results.data.slice(0, 4)) {
+		for (const result of results.results.slice(0, 4)) {
 			embed.addField(result.title, result.link);
 		}
 
