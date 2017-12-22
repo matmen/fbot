@@ -62,7 +62,6 @@ class ResourceLoader {
 				}
 			}
 		});
-		this.bot.puppeteer = require('puppeteer');
 		this.bot.childProcess = require('child_process');
 		this.bot.util = require('util');
 		this.bot.vm = require('vm');

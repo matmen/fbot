@@ -4,11 +4,6 @@ module.exports = function () {
 		if (message.author.bot || !message.guild) return;
 
 		this.utils.queryDB('INSERT INTO messages VALUES ($1, $2, $3, $4)', [message.id, message.author.id, message.channel.id, message.guild.id]);
-		this.utils.fetchFromAPI('markov/train', {
-			args: {
-				text: message.content
-			}
-		});
 
 		const xpResult = await this.utils.queryDB('SELECT count(*) FROM xp WHERE userid = $1 AND serverid = $2 AND time > $3', [message.author.id, message.guild.id, Date.now() - 5 * 60 * 1000]);
 		if (xpResult.rows[0].count > 0) return;
